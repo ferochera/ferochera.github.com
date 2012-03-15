@@ -1,0 +1,657 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="Ejemplo: Instalación en Ubuntu 7.10 1-. Descargar y extraer las fuentes de CNET (versión 2.0.10)2-. Verificar que las bibliotecas tcl y tk están &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/page/4">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/18-Instalar-y-utilizar-el-simulador-de-red-CNET.html">Instalar Y Utilizar El Simulador De Red CNET</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-01-15T16:17:26+01:00" pubdate data-updated="true">Martes, 15 de Enero de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>Ejemplo: Instalación en Ubuntu 7.10<br /></p>
+
+<blockquote><br />
+<pre>1-. Descargar y extraer las fuentes de CNET (versión 2.0.10)<br /><br />2-. Verificar que las bibliotecas tcl y tk están instaladas (y si no instalarlas) con <br />     sudo apt-get install tcl8.4 tcl8.4-dev tk8.4 tk8.4-dev<br /><br />3-. Modificar las fuentes como se indica abajo (en el procedimiento detallado)<br /><br />4-. Cambiar cnetheader.h para que los includes apunten donde toca <br />     tcl.h --&gt; tcl8.4/tcl.h; tk.h --&gt; tcl8.4/tk.h<br /><br />5-. make; make install (con los permisos adecuados)<br /><br />6-. hacer los exports</pre></blockquote>
+
+
+<br />
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/deries/archives/18-Instalar-y-utilizar-el-simulador-de-red-CNET.html">Leer m&aacute;s &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/16-Rendimiento-del-miniservidor..html">Rendimiento Del Miniservidor.</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-18T20:42:23+01:00" pubdate data-updated="true">Domingo, 18 de Noviembre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>La idea es realizar test sobre una de las webs del miniservidor para comprobar como trabaja y si podemos optimizar algo. Aunque también trataré de aplicarlo a <a href="http://llig.es/" target="_blank" title="Ler Llibreries - Llibres i Gr&agrave;cia">llig.es</a>, que actualmente sirve un PII con menor ram y cpu que el miniservidor.</p>
+
+
+<p>Como premisa inicial disponemos del servidor (del hardware ya hablamos en la primera entrada de este tema/categoría) con ubuntu 7.10, ISPconfig y una web habilitada con Joomla recien instalado y vacío. Como documentación contamos especialmente con las charlas sobre php: <a target="_blank" href="http://talks.php.net/">talks.php.net</a></p>
+
+
+<p>Para realizar las pruebas utilizamos ab (<a href="http://httpd.apache.org/docs/2.2/programs/ab.html" target="_blank" title="ab de apache">apachebench</a>, que está incluida en apache) o <a href="http://www.joedog.org/JoeDog/Siege" target="_blank" title="homepage de siege">siege</a>. Son similares pero siege puede además simular diferentes clientes. Para más datos se pueden  visitar las páginas de estas aplicaciones o de <a href="http://www.apache-es.org/index.php/2006/12/26/herramientas-de-pruebas-de-carga/" target="_blank" title="herramientas de test de rendimiento para apache">otras alternativas</a>.</p>
+
+
+<p>Lo que tratamos de hacer es mejorar la configuración sin modificar el código de joomla o el cms que sea de modo que mejoremos en todos los clientes del isp. Decir sin embargo que este equipo deberá tener uno o dos webs únicamente.</p>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/deries/archives/16-Rendimiento-del-miniservidor..html">Leer m&aacute;s &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/15-Rotar-fotos-segun-EXIF.html">Rotar Fotos Según EXIF</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-17T16:04:18+01:00" pubdate data-updated="true">S&aacute;bado, 17 de Noviembre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>La mayoría de las cámaras compactas digitales actuales, y en concreto la mía, una Canon IXUS 60, almacenan información de la orientación en su información <a href="http://es.wikipedia.org/wiki/Exif" target="_blank" title="Exif en la wikipedia">EXIF</a>.<p>Si a eso le juntamos que a muchos nos interesa subir las imágenes de una cámara a algúna galería en internet llegamos al momento de pensar como podemos automatizar el enderezado (giro de la imagen adecuado) para que todas se vean bien.</p></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/deries/archives/15-Rotar-fotos-segun-EXIF.html">Leer m&aacute;s &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/14-Continua-la-Instalacion-del-Servidor-IspConfig-y-mas.html">Continua La Instalación Del Servidor (IspConfig Y Más)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-12T19:21:13+01:00" pubdate data-updated="true">Lunes, 12 de Noviembre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>Tras instalar la versión adecuada el tema comienza a funcionar.</p>
+
+
+<p>Pretendo instalar Joomla, pero además resulta más cómodo si se utitiliza suPHP así que sigo 2 howtos más de <a target="_blank" href="http://www.howtoforge.com">howtoforge.com:</a></p>
+
+
+<ul><li>Manual para instalar suPHP en el equipo: <a title="suPHP en Ubuntu-Server" target="_blank" href="http://www.howtoforge.com/suphp_debian_etch_ispconfig">www.howtoforge.com/suphp_debian_etch_ispconfig</a> (gracias a que ubuntu está basado en debian)</li><li><a target="_blank" href="http://howtoforge.com"></a>Manual para instalar Joomla en ISPConfig: <a target="_blank" href="http://www.howtoforge.com/joomla_ispconfig">www.howtoforge.com/joomla_ispconfig</a> Aunque la parte de los permisos de los archivos nos la saltamos porque tras instalar suPHP ya podemos usar el usuario concreto y no el genérico www-data.</li></ul>
+
+
+<br /><div align="justify"><br />
+
+
+<p></div></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/13-Diff-respecto-DataGrid-4.20-II.html">Diff Respecto DataGrid 4.20 (II)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-09T19:38:52+01:00" pubdate data-updated="true">Viernes, 09 de Noviembre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Vuelvo a incluir los cambios respecto del datagrid &quot;oficial&quot;.</p>
+
+<p><strong>ChangeLog:</strong></p>
+
+<p><strong>1-.</strong> eliminar un intval en la opción linktoedit (modo view) que forzaba a que los campos que se usaban como enlaces correspondiesen a una &quot;Primary Key&quot; que fuese un entero. Esto no tiene por que ser cierto (por ejemplo, la clave primaria de la BD de Wview - <a href="http://www.castello.es/archivos/598/img/index.html">Estación Meteorológica del Planetari de Castelló</a> - es un datetime)</p>
+
+<p><strong>2-.</strong> Cuando se usa una selección múltiple, los elementos seleccionados se concatenan y se separan con &#8216;-&#8216;. Yo lo he modificado para que se concatenen con &#8216;_&#8217; pues en el caso anterior de 2 datetimes la separación entre año, mes y día era también &#8216;-&#8217; por lo que había conflictos y los campos no se identificaban correctamente.</p>
+
+<p>Para ver el código y bajarlo es necesario mostrar el artículo completo&#8230;</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/deries/archives/13-Diff-respecto-DataGrid-4.20-II.html">Leer m&aacute;s &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/12-Instalando-Ubuntu-Gutsy-desde-la-Red.html">Instalando Ubuntu Gutsy Desde La Red</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-31T20:07:27+01:00" pubdate data-updated="true">Mi&eacute;rcoles, 31 de Octubre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>Voy allá con lo que no se debería hacer sin causa justificada: Instalar desde cero. Mis razones&#8230; que el sistema de momento solo me sirve para experimentación y que tras buscar algo de información en internet no he visto nada sencillo y no me apetecía investigar más. Esto me parecía más interesante.</p>
+
+
+<p>Situación y Documentación inicial:</p>
+
+
+<ul><li><a href="http://ubuntuforums.org/showthread.php?t=316093">Instalación de Ubuntu a partir de una imagen ISO</a>, sin quemarla. En el caso que nos ocupa solo nos interesa comparar el arranque</li><li>Aprovechamos que el equipo ya tiene un GRUB activo.</li></ul>
+
+
+<p>Archivos iniciales:</p>
+
+
+<ul><li>Los archivos para instalaciones alternativas: <a href="http://archive.ubuntu.com/ubuntu/dists/gutsy/main/installer-i386/current/images">http://archive.ubuntu.com/ubuntu/dists/gutsy/main/installer-i386/current/images</a></li><li>En concreto los archivos del núcleo (linux) e initrd.gz obtenidos de la carpeta <a href="http://archive.ubuntu.com/ubuntu/dists/gutsy/main/installer-i386/current/images/netboot/386/ubuntu-installer/i386/">http://archive.ubuntu.com/ubuntu/dists/guts&#8230;images/netboot/386/ubuntu-installer/i386/</a></li></ul>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/deries/archives/12-Instalando-Ubuntu-Gutsy-desde-la-Red.html">Leer m&aacute;s &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/11-Otras-ideas-para-jugar-con-PHP.html">Otras Ideas Para Jugar Con PHP</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-30T11:31:25+01:00" pubdate data-updated="true">Martes, 30 de Octubre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>El actual manejo de la bd de isbn del ministerio de cultura es un poco &#8216;cansino&#8217;. Propongo hacer una especie de envoltorio que recoja los datos de una determinada búsqueda en una tabla temporal de mysql para mostrarlo en forma de tabla con todos los datos intereasantes en vez de tener que pinchar 1 a 1.<p>Es posible que esto no llegue a nada pero ya veremos&#8230;</p></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/10-Actualizacion-Ubuntu-Gutsy-1-yo-0.html">Actualización Ubuntu Gutsy 1 - Yo 0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-29T19:36:06+01:00" pubdate data-updated="true">Lunes, 29 de Octubre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ciertamente la instalación inicial era un poco divertida (instalé, feisty=7.04, en modo texto con el instalador por red) y luego elegí la instalación básica a la que posteriormente le iba anyadiendo los paquetes según el howto de Falco (creo) en howtoforge.com<p>Hoy he decidido actualizar a gutsy&#8230; MAAAAL!, CUANDO ALGO FUNCIONE NO LO TOQUES. Y falla la actualización de python 2.5 y otro paquete que ahora no recuerdo.</p><p>En ambos casos está relacionado con la libss y su versión, que no es la adecuada. De hecho los dos paquetes pretenden tener dos versiones diferentes y diferente de la proporcionada por la distribución.</p><p>De momento me he batido en retirada y seguiré en otro momento.</p><p>Por otro lado&#8230; Ya tengo montado el miniservidor dentro de la caja de 5.25&#8221;. De momento hace algo de ruido (demasiado para mi gusto, quiero decir) y el teclado no me ha hecho caso. Habrá que operar de nuevo. De todas formas falta la cubierta frontal (a la que hay que hacer los agujeros de los conectores) y se me ocurre que debería buscar un sistema para que la tapa superior, que va simplemente sobre un perfilillo de aluminio, no vibre. De momento se me ocurre una cutre-solución: llenar el carril de esa tapa superior con plastelina a ver que pasa <img src="/deries/images/wink.png" alt=";-)" style="display: inline; vertical-align: bottom;" class="emoticon" /></p></p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1</strong></p>
+
+<p>La fuente de alimentación de la caja de de 5.25&#8221; no ofrece suficiente corriente para poner en marcha el miniservidor <img src="/deries/images/sad.png" alt=":-(" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/9-Subdominios-y-s9y.html">Subdominios Y S9y</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-25T20:10:32+02:00" pubdate data-updated="true">Jueves, 25 de Octubre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>s9y === serendipity</h2>
+
+<p>(ver <a href="www.s9y.org">s9y.org</a> para más detalles)</p>
+
+<p>Ayer activé 2 subdominios deries.xarx.es y diretes.xarx.es con la idea de tener una redirección a xarx.es/deries y xarx.es/diretes con que jugar.</p>
+
+<p>La primera en la frente&#8230; el .htacces hay que retocarlo pues si no deries.xarx.es/ no direcciona a index.php como debería. Algunos css tienen una referencia absoluta y no aparecen de esta forma.</p>
+
+<p>En conclusión, después de jugar un poco sin conseguir un buen resultado lo dejaremos para más adelante.</p>
+
+<p><em>Curiosidad</em>: ¿Es una buena idea la de usar este tipo de subdominios? ¿cómo influye en el posicionamiento?</p>
+
+<p><em>Curiosidad 2</em>: ¿Por qué me cambia los interrogantes iniciales y la ?? Incluso en el caso de que use códigos tipo &amp;iquest; Quizá deberé intentar usar UTF-8, aunque primero deberé encontrar donde están los días del calendario (que salían mal con esta codificación)</p>
+
+<p><strong>Comentario</strong></p>
+
+<p>Durante un par de años he usado s9y pero ahora estoy migrando a algo múcho más revolucionario&#8230; ¡UNA WEB ESTÁTICA! usando <a href="http://octopress.org">OctoPress</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/8-Diff-respecto-DataGrid-4.20.html">Diff Respecto DataGrid 4.20</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-25T11:15:55+02:00" pubdate data-updated="true">Jueves, 25 de Octubre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>De momento la clase datagrid me funciona adecuadamente. Por esto almaceno aquí accesible el diff respecto del original.</p>
+
+<p>Modificaciones respecto del original&#8230;</p>
+
+<ol>
+<li>Filtros con funciones Concat(TableName_FieldName1,TableName_FieldName2) (&#8216;.&#8217;=&gt;&#8217;_&#8217;)</li>
+<li>Tipo campo edit para hash sha1</li>
+<li>Varios lang[] nuevos para algunas cadenas que no estaban traducidas. Ojo con los Charsets</li>
+<li>Forzar que los enlaces en el modo edit sean siempre texto.</li>
+</ol>
+
+
+<p>Para ver el código y bajarlo es necesario mostrar el artículo completo&#8230;</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/deries/archives/8-Diff-respecto-DataGrid-4.20.html">Leer m&aacute;s &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/deries/page/5/">&larr; <!--Older-->Anteriores</a>
+    
+    <a href="/deries/archivo"><!--Blog Archives-->Archivo</a>
+    
+    <a class="next" href="/deries/page/3/"><!--Newer-->Posteriores &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

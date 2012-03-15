@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Udev y Monit. Resolviendo problemas de wview. - Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="Wview es un software de wviewweather.com que permite obtener los datos de varios tipos de estaciones meteorológicas desde linux y genera una web &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/archives/36-Udev-y-Monit.-Resolviendo-problemas-de-wview..html">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Udev Y Monit. Resolviendo Problemas De Wview.</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-21T16:59:00+01:00" pubdate data-updated="true">Viernes, 21 de Noviembre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><br />
+
+
+<div align="left">Wview es un software de wviewweather.com que permite obtener los datos de varios tipos de estaciones meteorológicas desde linux y genera una web estática actualizada desde los datos de la estación. También puede almacenar los datos en BD y enviar informes a diferentes servicios (AWEKAS, CWOP y <br />
+          Weather Underground). Por ejemplo: <a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica.">Estación meteorológica en el Planetari de Castelló</a></div>
+
+
+<div align="left"></div>
+
+
+<div align="left"></div>
+
+
+<div align="left"></div>
+
+
+<div align="left"></div>
+
+
+<p /><div align="left">Bien pues después de utilizarlo un tiempo aparecen 2 problemas esenciales para mantenerlo online:</div><div align="left"></div><div align="left">1-. La estación está conectada a través de USB pero con un conversor cp2101. El problema es que algunas veces el sistema se reinicia pero enlazándose en /dev/ttyUSB1 en vez de /dev/ttyUSB0 que es el estándar.</div><div align="left"></div><div align="left"></div><div align="left">2-. Alguna vez muere alguno de los procesos (wviewd o htmlgend) y deja de actualizarse la web. El origen todavía no lo tengo claro. Pero parece que wvpmon, que debería monitorizar los procesos y reiniciar el que falle, no lo hace correctamente.</div><p /><div align="left"></div><div align="left"><b></b></div><div align="left"></div><div align="left"><b>Soluciones:</b></div><div align="left">1-. para evitar que haya problemas con el cambio de puerto USB podemos incluir una nueva regla UDEV. Haremos que nuestro software apunte a un puerto &quot;ficticio&quot; wviewUSB y con la regla nueva crearemos un enlace simbólico de este puerto al que esté funcionando. Además podemos ejecutar un script para hacer reiniciarse a los procesos de wview&#8230;</div><blockquote># Regla udev para que cuando la estacion cambie de ttyUSB0 a 1 o<br />#  viceversa se actualice un symlink de wviewUSB &#8211;&gt; ttyUSB? (0 o 1)<br />#  y se ejecute un script que reinicie wview. (Lo sgte todo en una linea)<br /><br />SUBSYSTEMS==&quot;tty&quot;, KERNEL==&quot;ttyUSB?&quot;, NAME=&quot;%k&quot;, SYMLINK+=&quot;wviewUSB&quot;, RUN+=&quot;/etc/init.d/wview.udev&quot;</blockquote><div align="left"></div><div align="left">2-. para reiniciar los procesos podríamos utilizar cron junto con algún script específico. Pero también podemos utilizar monit. Éste es un monitor de &quot;eventos&quot; que nos permite realizar acciones por ejemplo si el disco, la cpu o la ram están muy ocupadas o, como en este caso, si no se han generado los archivos de la estación.</div><div align="left">Para ponerlo en marcha instalamos el paquete (sudo apt-get install monit) y deberemos editar los archivos /etc/default/monit (cambiar de startup=0 a startup=1) y /etc/monit/monitrc, que es donde realmente haremos los cambios:</div><div align="left"></div><p /><blockquote># habilitar el servidor web interno de monit visible en http://localhost:2812/<br />set httpd port 2812 and<br />     use address localhost  # only accept connection from localhost. without: all<br />     allow localhost        # allow localhost to connect to the server and<br />     allow admin:monit      # require user &#8216;admin&#8217; with password &#8216;monit&#8217;<br /><br /># incluir las reglas de monitorizacion y sus efectos<br />check file Current.htm with path /usr/local/var/wview/img/Current.htm<br />   if timestamp &gt; 20  minute then exec &quot;/etc/init.d/wview.monit&quot;<br /><br />check file tempdaycomp.png with path /usr/local/var/wview/img/tempdaycomp.png<br />   if timestamp &gt; 20  minute then exec &quot;/etc/init.d/wview.monit&quot;</blockquote><p><br />
+Con esto conseguimos que se ejecute el script wview.monit si en 20 minutos no se ha actualizado una de las páginas web (Current.htm) o si no se ha actualizado uno de los gráficos. En teoría el archivo htm debería actualizarse una vez cada 5min y el gráfico una vez cada 10. Si no ocurre deberíamos hacer o bien que wview se reiniciase (wview restart) o bien que se reinicie el sistema completo. Incluso podríamos hacer que si la espera es de 20min que se reinicie wview y si pasa de 40min que se reinicie el equipo.</p><p />
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Enviado por <span class="fn">Fernando Ochera.</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-21T16:59:00+01:00" pubdate data-updated="true">Viernes, 21 de Noviembre de 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/deries/archives/35-Renombrar-muchos-archivos-desde-linea-de-comandos.html" title="Post Previo: Renombrar muchos archivos desde linea de comandos">&laquo; Renombrar muchos archivos desde linea de comandos</a>
+      
+      
+        <a class="basic-alignment right" href="/deries/archives/37-Desinstalar-nucleos-antiguos.html" title="Post Siguiente: Desinstalar nucleos antiguos">Desinstalar nucleos antiguos &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comentarios</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ferochera.github.com/deries/archives/36-Udev-y-Monit.-Resolviendo-problemas-de-wview..html';
+        var disqus_url = 'http://ferochera.github.com/deries/archives/36-Udev-y-Monit.-Resolviendo-problemas-de-wview..html';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

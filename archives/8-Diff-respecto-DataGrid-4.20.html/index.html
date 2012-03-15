@@ -1,0 +1,540 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Diff respecto DataGrid 4.20 - Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="De momento la clase datagrid me funciona adecuadamente. Por esto almaceno aquí accesible el diff respecto del original. Modificaciones respecto del &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/archives/8-Diff-respecto-DataGrid-4.20.html">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Diff Respecto DataGrid 4.20</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-25T11:15:55+02:00" pubdate data-updated="true">Jueves, 25 de Octubre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>De momento la clase datagrid me funciona adecuadamente. Por esto almaceno aquí accesible el diff respecto del original.</p>
+
+<p>Modificaciones respecto del original&#8230;</p>
+
+<ol>
+<li>Filtros con funciones Concat(TableName_FieldName1,TableName_FieldName2) (&#8216;.&#8217;=&gt;&#8217;_&#8217;)</li>
+<li>Tipo campo edit para hash sha1</li>
+<li>Varios lang[] nuevos para algunas cadenas que no estaban traducidas. Ojo con los Charsets</li>
+<li>Forzar que los enlaces en el modo edit sean siempre texto.</li>
+</ol>
+
+
+<p>Para ver el código y bajarlo es necesario mostrar el artículo completo&#8230;<!--more--></p>
+
+<figure class='code'><figcaption><span>Diferencias respecto del original (datagrid.class.diff)</span> <a href='/deries/downloads/code/datagrid.class.diff'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+</pre></td><td class='code'><pre><code class='diff'><span class='line'><span class="gd">--- home/planet/Desktop/datagrid420/datagrid.class.php  2007-09-29 04:09:50.000000000 +0200</span>
+</span><span class='line'><span class="gi">+++ var/www/pedidos/datagrid/datagrid.class.php  2007-10-25 10:27:56.000000000 +0200</span>
+</span><span class='line'><span class="gu">@@ -1359,9 +1361,13 @@ class DataGrid</span>
+</span><span class='line'>                         $filter_field_operator =  $table_field_name.&quot;_operator&quot;;
+</span><span class='line'>                         if(isset($fldValue[&#39;case_sensitive&#39;]) &amp;&amp; ($fldValue[&#39;case_sensitive&#39;] != true)){
+</span><span class='line'>                             $fldTableField = $this-&gt;getLcaseFooByDbType().&quot;(&quot;.(($fldValue[&#39;table&#39;] != &quot;&quot;) ? $fldValue[&#39;table&#39;].&quot;.&quot; : &quot;&quot; ).$fldValue[&#39;field&#39;].&quot;)&quot;;
+</span><span class='line'><span class="gi">+                            if(strpos($fldTableField,&#39;_&#39;)!==false) </span>
+</span><span class='line'><span class="gi">+                $fldTableField=str_replace(&quot;_&quot;,&quot;.&quot;,$fldTableField);</span>
+</span><span class='line'>                             $fldTableFieldName = strtolower($_REQUEST[$this-&gt;unique_prefix.&quot;_ff_&quot;.$table_field_name]);
+</span><span class='line'>                         }else{
+</span><span class='line'>                             $fldTableField = (($fldValue[&#39;table&#39;] != &quot;&quot;) ? $fldValue[&#39;table&#39;].&quot;.&quot; : &quot;&quot; ).$fldValue[&#39;field&#39;];
+</span><span class='line'><span class="gi">+                            if(strpos($fldTableField,&#39;_&#39;)!==false) </span>
+</span><span class='line'><span class="gi">+                $fldTableField=str_replace(&quot;_&quot;,&quot;.&quot;,$fldTableField);</span>
+</span><span class='line'>                             $fldTableFieldName = $_REQUEST[$this-&gt;unique_prefix.&quot;_ff_&quot;.$table_field_name];
+</span><span class='line'>                         }
+</span><span class='line'>                         if(isset($fldValue[&#39;comparison_type&#39;]) &amp;&amp; (strtolower($fldValue[&#39;comparison_type&#39;]) == &quot;numeric&quot;)){
+</span><span class='line'><span class="gu">@@ -1378,6 +1384,8 @@ class DataGrid</span>
+</span><span class='line'>                                 $this-&gt;sql_view .= &quot; $search_type_start $fldTableField &quot;.substr($_REQUEST[$this-&gt;unique_prefix.&quot;_ff_&quot;.$filter_field_operator], 0, 4).&quot; &quot;.$comparison_type.&quot; &#39;&quot;.$fldTableFieldName.&quot;%&#39;&quot;;
+</span><span class='line'>                             }else if($_REQUEST[$this-&gt;unique_prefix.&quot;_ff_&quot;.$filter_field_operator] == &quot;%like&quot;){
+</span><span class='line'>                                 $this-&gt;sql_view .= &quot; $search_type_start $fldTableField &quot;.substr($_REQUEST[$this-&gt;unique_prefix.&quot;_ff_&quot;.$filter_field_operator], 1, 4).&quot; &quot;.$comparison_type.&quot; &#39;%&quot;.$fldTableFieldName.&quot;&#39;&quot;;
+</span><span class='line'><span class="gi">+                            }else if($_REQUEST[$this-&gt;unique_prefix.&quot;_ff_&quot;.$filter_field_operator] == &quot;%like%&quot;){</span>
+</span><span class='line'><span class="gi">+                                $this-&gt;sql_view .= &quot; $search_type_start $fldTableField &quot;.substr($_REQUEST[$this-&gt;unique_prefix.&quot;_ff_&quot;.$filter_field_operator], 1, 4).&quot; &quot;.$comparison_type.&quot; &#39;%&quot;.$fldTableFieldName.&quot;%&#39;&quot;;</span>
+</span><span class='line'>                             }else{
+</span><span class='line'>                                 $this-&gt;sql_view .= &quot; $search_type_start $fldTableField &quot;.$_REQUEST[$this-&gt;unique_prefix.&quot;_ff_&quot;.$filter_field_operator].&quot; $left_geresh&quot;.$fldTableFieldName.&quot;$left_geresh &quot;;
+</span><span class='line'>                             }
+</span><span class='line'><span class="gu">@@ -1773,7 +1781,7 @@ class DataGrid</span>
+</span><span class='line'>             }
+</span><span class='line'>             fclose($fe);
+</span><span class='line'>             echo &quot;&lt;script type=&#39;text/javascript&#39;&gt;\n&lt;!--\n &quot;
+</span><span class='line'><span class="gd">-            .&quot;if(confirm(&#39;Do you want to export datagrid content into export.csv file?&#39;)){ &quot;</span>
+</span><span class='line'><span class="gi">+            .&quot;if(confirm(&#39;&quot;.$this-&gt;lang[&#39;export_to_excel_confirm&#39;].&quot;&#39;)){ &quot;</span>
+</span><span class='line'>             .&quot; document.write(&#39;&quot;.str_replace(&quot;_FILE_&quot;, &quot;export.csv&quot;, $this-&gt;lang[&#39;export_message&#39;]).&quot;&#39;); &quot;
+</span><span class='line'>             .&quot; document.location = &#39;&quot;.$this-&gt;directory.&quot;scripts/download.php?dir=&quot;.$this-&gt;directory.&quot;&amp;file=export.csv&#39;; &quot;
+</span><span class='line'>             .&quot;} else {&quot;
+</span><span class='line'><span class="gu">@@ -1824,7 +1832,7 @@ class DataGrid</span>
+</span><span class='line'>             fclose($fe);
+</span><span class='line'>
+</span><span class='line'>             echo &quot;&lt;script type=&#39;text/javascript&#39;&gt;\n&lt;!--\n &quot;
+</span><span class='line'><span class="gd">-            .&quot;if(confirm(&#39;Do you want to export datagrid content into export.xml file?&#39;)){ &quot;</span>
+</span><span class='line'><span class="gi">+            .&quot;if(confirm(&#39;&quot;.$this-&gt;lang[&#39;export_to_xml_confirm&#39;].&quot;&#39;)){ &quot;</span>
+</span><span class='line'>             .&quot; document.write(&#39;&quot;.str_replace(&quot;_FILE_&quot;, &quot;export.xml&quot;, $this-&gt;lang[&#39;export_message&#39;]).&quot;&#39;); &quot;
+</span><span class='line'>             .&quot; document.location = &#39;&quot;.$this-&gt;directory.&quot;scripts/download.php?dir=&quot;.$this-&gt;directory.&quot;&amp;file=export.xml&#39;; &quot;
+</span><span class='line'>             .&quot;} else {&quot;
+</span><span class='line'><span class="gu">@@ -1897,6 +1905,7 @@ class DataGrid</span>
+</span><span class='line'>                         echo &quot;&lt;option value=&#39;like&#39;&quot;; echo ($filter_operator == &quot;like&quot;)? &quot;selected&quot; : &quot;&quot;; echo &quot;&gt;&quot;.$this-&gt;lang[&#39;like&#39;].&quot;&lt;/option&gt;&quot;;
+</span><span class='line'>                         echo &quot;&lt;option value=&#39;like%&#39;&quot;; echo ($filter_operator == &quot;like%&quot;)? &quot;selected&quot; : &quot;&quot;; echo &quot;&gt;&quot;.$this-&gt;lang[&#39;like%&#39;].&quot;&lt;/option&gt;&quot;;
+</span><span class='line'>                         echo &quot;&lt;option value=&#39;%like&#39;&quot;; echo ($filter_operator == &quot;%like&quot;)? &quot;selected&quot; : &quot;&quot;; echo &quot;&gt;&quot;.$this-&gt;lang[&#39;%like&#39;].&quot;&lt;/option&gt;&quot;;
+</span><span class='line'><span class="gi">+                        echo &quot;&lt;option value=&#39;%like%&#39;&quot;; echo ($filter_operator == &quot;%like%&quot;)? &quot;selected&quot; : &quot;&quot;; echo &quot;&gt;&quot;.$this-&gt;lang[&#39;%like%&#39;].&quot;&lt;/option&gt;&quot;;</span>
+</span><span class='line'>                         echo &quot;&lt;option value=&#39;not like&#39;&quot;; echo ($filter_operator == &quot;not like&quot;)? &quot;selected&quot; : &quot;&quot;; echo &quot;&gt;&quot;.$this-&gt;lang[&#39;not_like&#39;].&quot;&lt;/option&gt;&quot;;
+</span><span class='line'>                         echo &quot;&lt;/select&gt;&quot;;
+</span><span class='line'>                     }else{
+</span><span class='line'><span class="gu">@@ -2104,7 +2113,7 @@ class DataGrid</span>
+</span><span class='line'>                                         if($this-&gt;isDate($field_name)){ $href_string .= &quot;desc&quot;; }
+</span><span class='line'>                                         else{ $href_string .= &quot;asc&quot;; }
+</span><span class='line'>                                     }
+</span><span class='line'><span class="gd">-                                    echo &quot;&lt;nobr&gt;&lt;b&gt;&lt;a class=&#39;&quot;.$this-&gt;unique_prefix.&quot;class_a&#39; href=&#39;$href_string&#39; title=&#39;Sort&#39; &quot;;</span>
+</span><span class='line'><span class="gi">+                                    echo &quot;&lt;nobr&gt;&lt;b&gt;&lt;a class=&#39;&quot;.$this-&gt;unique_prefix.&quot;class_a&#39; href=&#39;$href_string&#39; title=&#39;&quot;.$this-&gt;lang[&#39;sort&#39;].&quot;&#39; &quot;;</span>
+</span><span class='line'>                                     if($req_sort_field &amp;&amp; ($c == ($req_sort_field -1))){
+</span><span class='line'>                                         echo &quot;onmouseover=\&quot;if(document.getElementById(&#39;soimg&quot;.$c.&quot;&#39;)){ document.getElementById(&#39;soimg&quot;.$c.&quot;&#39;).src=&#39;&quot;.$sort_img_back.&quot;&#39;;  }\&quot; &quot;;
+</span><span class='line'>                                         echo &quot;onmouseout=\&quot;if(document.getElementById(&#39;soimg&quot;.$c.&quot;&#39;)){ document.getElementById(&#39;soimg&quot;.$c.&quot;&#39;).src=&#39;&quot;.$sort_img.&quot;&#39;;  }\&quot; &quot;;
+</span><span class='line'><span class="gu">@@ -4084,6 +4093,13 @@ class DataGrid</span>
+</span><span class='line'>                             }
+</span><span class='line'>                             echo &quot;&lt;input class=&#39;class_checkbox&#39; type=&#39;checkbox&#39; name=&#39;&quot;.$this-&gt;getFieldRequiredType($field_name).$field_name.&quot;&#39; id=&#39;&quot;.$this-&gt;getFieldRequiredType($field_name).$field_name.&quot;&#39; title=&#39;&quot;.$this-&gt;getFieldTitle($field_name).&quot;&#39; value=&#39;&quot;.trim($field_value).&quot;&#39; &quot;.$checked.&quot; &quot;.$readonly.&quot; &quot;.$on_js_event.&quot;&gt;&quot;.$this-&gt;nbsp;
+</span><span class='line'>                             break;
+</span><span class='line'><span class="gi">+                        //FERNANDO incluyo tipo sha1...FALTA ACABAR</span>
+</span><span class='line'><span class="gi">+                        case &quot;passwdhash&quot;:</span>
+</span><span class='line'><span class="gi">+                            $ret_hash =$this-&gt;nbsp.&quot;&lt;input class=&#39;class_textbox&#39; &quot;.$field_width.&quot; type=&#39;text&#39; title=&#39;&quot;.$this-&gt;getFieldTitle($field_name).&quot;&#39; name=&#39;&quot;.$this-&gt;getFieldRequiredType($field_name).$field_name.&quot;&#39; value=&#39;&quot;.trim($field_value).&quot;&#39; $field_maxlength &quot;.$on_js_event.&quot;&gt;&quot;;</span>
+</span><span class='line'><span class="gi">+                            //if(!$readonly) $ret_hash .= &quot;&lt;a class=&#39;&quot;.$this-&gt;unique_prefix.&quot;class_a2&#39; title=&#39;&quot;.$this-&gt;getFieldTitle($field_name).&quot;&#39; href=\&quot;#\&quot; onclick=\&quot;javascript:alert(&quot;.$this-&gt;unique_prefix.&quot;computaHash(&#39;hola&#39;));\&quot; &gt;&lt;img src=&#39;&quot;.$this-&gt;directory.&quot;images/&quot;.$this-&gt;css_class.&quot;/llave.png&#39; border=&#39;0&#39; alt=&#39;&quot;.$this-&gt;lang[&#39;set_hash_pswd&#39;].&quot;&#39; title=&#39;&quot;.$this-&gt;lang[&#39;set_hash_pswd&#39;].&quot;&#39; align=&#39;top&#39; style=&#39;margin:3px;margin-left:6px;margin-right:6px;&#39; /&gt;&lt;/a&gt;&quot;.$this-&gt;nbsp;</span>
+</span><span class='line'><span class="gi">+                            if(!$readonly) $ret_hash .= &quot;&lt;a class=&#39;&quot;.$this-&gt;unique_prefix.&quot;class_a2&#39; title=&#39;&quot;.$this-&gt;getFieldTitle($field_name).&quot;&#39; href=\&quot;javascript:;\&quot; onclick=&#39;document.&quot;.$this-&gt;unique_prefix.&quot;frmEditRow.&quot;.$this-&gt;getFieldRequiredType($field_name).$field_name.&quot;.value=&quot;.$this-&gt;unique_prefix.&quot;computaHash(document.&quot;.$this-&gt;unique_prefix.&quot;frmEditRow.&quot;.$this-&gt;getFieldRequiredType($field_name).$field_name.&quot;.value);&#39;&gt;&lt;img src=&#39;&quot;.$this-&gt;directory.&quot;images/&quot;.$this-&gt;css_class.&quot;/llave.png&#39; border=&#39;0&#39; alt=&#39;&quot;.$this-&gt;lang[&#39;set_hash_pswd&#39;].&quot;&#39; title=&#39;&quot;.$this-&gt;lang[&#39;set_hash_pswd&#39;].&quot;&#39; align=&#39;top&#39; style=&#39;margin:3px;margin-left:6px;margin-right:6px;&#39; /&gt;&lt;/a&gt;&quot;.$this-&gt;nbsp;</span>
+</span><span class='line'><span class="gi">+                            return $ret_hash;</span>
+</span><span class='line'><span class="gi">+                            break;</span>
+</span><span class='line'>                         case &quot;date&quot;:
+</span><span class='line'>                             $ret_date  = $this-&gt;nbsp.&quot;&lt;input class=&#39;class_textbox&#39; &quot;.$field_width.&quot; readonly type=&#39;text&#39; title=&#39;&quot;.$this-&gt;getFieldTitle($field_name).&quot;&#39; name=&#39;&quot;.$this-&gt;getFieldRequiredType($field_name).$field_name.&quot;&#39; value=&#39;&quot;.trim($field_value).&quot;&#39; $field_maxlength &quot;.$on_js_event.&quot;&gt;&quot;;
+</span><span class='line'>                             if(!$readonly) $ret_date .= &quot;&lt;a class=&#39;&quot;.$this-&gt;unique_prefix.&quot;class_a2&#39; title=&#39;&quot;.$this-&gt;getFieldTitle($field_name).&quot;&#39; href=\&quot;javascript: &quot;.$this-&gt;unique_prefix.&quot;openCalendar(&#39;&#39;, &#39;&quot;.$this-&gt;unique_prefix.&quot;frmEditRow&#39;, &#39;$field_req_type&#39;, &#39;&quot;.$field_name.&quot;&#39;, &#39;$field_type&#39;)\&quot;&gt;&lt;img src=&#39;&quot;.$this-&gt;directory.&quot;images/&quot;.$this-&gt;css_class.&quot;/cal.gif&#39; border=&#39;0&#39; alt=&#39;&quot;.$this-&gt;lang[&#39;set_date&#39;].&quot;&#39; title=&#39;&quot;.$this-&gt;lang[&#39;set_date&#39;].&quot;&#39; align=&#39;top&#39; style=&#39;margin:3px;margin-left:6px;margin-right:6px;&#39; /&gt;&lt;/a&gt;&quot;.$this-&gt;nbsp;
+</span><span class='line'><span class="gu">@@ -4630,6 +4646,8 @@ class DataGrid</span>
+</span><span class='line'>         $req_print = $this-&gt;getVariable(&#39;print&#39;);
+</span><span class='line'>         if($type == &quot;&quot;){
+</span><span class='line'>             $mode_type = (isset($this-&gt;modes[$mode][&#39;type&#39;])) ? $this-&gt;modes[$mode][&#39;type&#39;] : &quot;&quot;;
+</span><span class='line'><span class="gi">+            //FERNANDO. HACIENDO QUE EL MODO EDIT SIEMPRE SEAN LINKS</span>
+</span><span class='line'><span class="gi">+            if (($this-&gt;layout_type == &quot;edit&quot;)&amp;&amp;($this-&gt;mode==&quot;edit&quot;)) $mode_type=&quot;link&quot;;</span>
+</span><span class='line'>         }else{
+</span><span class='line'>             $mode_type = $type;
+</span><span class='line'>         }
+</span><span class='line'><span class="gu">@@ -4716,6 +4734,12 @@ class DataGrid</span>
+</span><span class='line'>                 echo &quot;\n&lt;script type=&#39;text/javascript&#39; src=&#39;&quot;.$this-&gt;directory.&quot;scripts/resize.js&#39;&gt;&lt;/script&gt;&quot;;
+</span><span class='line'>             }
+</span><span class='line'>         }
+</span><span class='line'><span class="gi">+        // FERNANDO FUNCIONES DE HASH SHA1</span>
+</span><span class='line'><span class="gi">+        if (!file_exists($this-&gt;directory.&#39;scripts/hash.js&#39;)) {            </span>
+</span><span class='line'><span class="gi">+            echo &quot;&lt;label class=&#39;class_error_message no_print&#39;&gt;Cannot find file: &lt;b&gt;&quot;.$this-&gt;directory.&quot;scripts/hash.js&lt;/b&gt;. Check if this file exists and you use a correct path!&lt;/label&gt;&lt;br /&gt;&lt;br /&gt;&quot;;</span>
+</span><span class='line'><span class="gi">+        }else{</span>
+</span><span class='line'><span class="gi">+            echo &quot;\n&lt;script type=&#39;text/javascript&#39; src=&#39;&quot;.$this-&gt;directory.&quot;scripts/hash.js&#39;&gt;&lt;/script&gt;&quot;;</span>
+</span><span class='line'><span class="gi">+        }</span>
+</span><span class='line'>
+</span><span class='line'>         // set WYSIWYG
+</span><span class='line'>         echo &quot;\n&lt;script type=&#39;text/javascript&#39;&gt;\n&quot;;
+</span><span class='line'><span class="gu">@@ -4747,6 +4771,21 @@ class DataGrid</span>
+</span><span class='line'>         }&quot;;
+</span><span class='line'>         echo &quot;\n//--&gt;\n&quot;;
+</span><span class='line'>         echo &quot;&lt;/script&gt;&quot;;
+</span><span class='line'><span class="gi">+        </span>
+</span><span class='line'><span class="gi">+        // FERNANDO </span>
+</span><span class='line'><span class="gi">+        echo &quot;&lt;script type=&#39;text/javascript&#39;&gt;\n&quot;;</span>
+</span><span class='line'><span class="gi">+        echo &quot;&lt;!--\n&quot;;</span>
+</span><span class='line'><span class="gi">+        echo &quot;function &quot;.$this-&gt;unique_prefix.&quot;computaHash(valorprevio) {&quot;</span>
+</span><span class='line'><span class="gi">+            .$this-&gt;unique_prefix.&quot;respuesta= prompt(\&quot;&quot;.$this-&gt;lang[&#39;intro_text_tohash&#39;].&quot;\&quot;,\&quot;\&quot;);</span>
+</span><span class='line'><span class="gi">+            if(&quot;.$this-&gt;unique_prefix.&quot;respuesta!=\&quot;\&quot;) </span>
+</span><span class='line'><span class="gi">+                &quot;.$this-&gt;unique_prefix.&quot;respuesta=hex_sha1(&quot;.$this-&gt;unique_prefix.&quot;respuesta); </span>
+</span><span class='line'><span class="gi">+            else  </span>
+</span><span class='line'><span class="gi">+                &quot;.$this-&gt;unique_prefix.&quot;respuesta=valorprevio;</span>
+</span><span class='line'><span class="gi">+            return &quot;.$this-&gt;unique_prefix.&quot;respuesta;</span>
+</span><span class='line'><span class="gi">+        }&quot;;</span>
+</span><span class='line'><span class="gi">+        echo &quot;\n//--&gt;\n&quot;;</span>
+</span><span class='line'><span class="gi">+        echo &quot;&lt;/script&gt;&quot;;                </span>
+</span><span class='line'><span class="gi">+</span>
+</span><span class='line'>     }
+</span><span class='line'>
+</span><span class='line'>     function setCommonJavaScriptEnd(){
+</span><span class='line'><span class="gu">@@ -5067,6 +5106,7 @@ class DataGrid</span>
+</span><span class='line'>             $this-&gt;lang[&#39;like&#39;] = &quot;like&quot;;
+</span><span class='line'>             $this-&gt;lang[&#39;like%&#39;] = &quot;like%&quot;;  // &quot;begins with&quot;;
+</span><span class='line'>             $this-&gt;lang[&#39;%like&#39;] = &quot;%like&quot;;  // &quot;ends with&quot;;
+</span><span class='line'><span class="gi">+            $this-&gt;lang[&#39;%like%&#39;] = &quot;%like%&quot;;  // &quot;middle with&quot;;</span>
+</span><span class='line'>             $this-&gt;lang[&#39;loading_data&#39;] = &quot;loading data...&quot;;
+</span><span class='line'>             $this-&gt;lang[&#39;max&#39;] = &quot;max&quot;;
+</span><span class='line'>             $this-&gt;lang[&#39;next&#39;] = &quot;next&quot;;
+</span><span class='line'><span class="gu">@@ -5110,6 +5150,11 @@ class DataGrid</span>
+</span><span class='line'>             $this-&gt;lang[&#39;wrong_field_name&#39;] = &quot;Wrong field name&quot;;
+</span><span class='line'>             $this-&gt;lang[&#39;wrong_parameter_error&#39;] = &quot;Wrong parameter in &lt;b&gt;_FIELD_&lt;/b&gt;: _VALUE_&quot;;
+</span><span class='line'>             $this-&gt;lang[&#39;yes&#39;] = &quot;Yes&quot;;
+</span><span class='line'><span class="gi">+            $this-&gt;lang[&#39;export_to_excel_confirm&#39;] = &quot;Do you want to export datagrid content into export.cvs file?&quot;;</span>
+</span><span class='line'><span class="gi">+            $this-&gt;lang[&#39;export_to_xml_confirm&#39;] = &quot;Do you want to export datagrid content into export.xml file?&quot;;</span>
+</span><span class='line'><span class="gi">+            $this-&gt;lang[&#39;set_hash_pswd&#39;] = &quot;Set password to hash&quot;;</span>
+</span><span class='line'><span class="gi">+            $this-&gt;lang[&#39;intro_text_tohash&#39;] = &quot;Enter text to hash:&quot;;</span>
+</span><span class='line'><span class="gi">+            $this-&gt;lang[&#39;sort&#39;] = &quot;Sort this column&quot;;</span>
+</span><span class='line'>         }
+</span><span class='line'>     }
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Enviado por <span class="fn">Fernando Ochera.</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-25T11:15:55+02:00" pubdate data-updated="true">Jueves, 25 de Octubre de 2007</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/deries/categorias/cuaderno-laboratorio/'>Cuaderno-Laboratorio</a>, <a class='category' href='/deries/categorias/pedidos-php/'>Pedidos PHP</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/deries/archives/7-Varios-CMS.html" title="Post Previo: Varios CMS">&laquo; Varios CMS</a>
+      
+      
+        <a class="basic-alignment right" href="/deries/archives/9-Subdominios-y-s9y.html" title="Post Siguiente: Subdominios y s9y">Subdominios y s9y &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comentarios</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ferochera.github.com/deries/archives/8-Diff-respecto-DataGrid-4.20.html';
+        var disqus_url = 'http://ferochera.github.com/deries/archives/8-Diff-respecto-DataGrid-4.20.html';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

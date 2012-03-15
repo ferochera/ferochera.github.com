@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Instalando Ubuntu Gutsy desde la Red - Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="Voy allá con lo que no se debería hacer sin causa justificada: Instalar desde cero. Mis razones&#8230; que el sistema de momento solo me sirve para &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/archives/12-Instalando-Ubuntu-Gutsy-desde-la-Red.html">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Instalando Ubuntu Gutsy Desde La Red</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-31T20:07:27+01:00" pubdate data-updated="true">Mi&eacute;rcoles, 31 de Octubre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><br />
+
+
+<p>Voy allá con lo que no se debería hacer sin causa justificada: Instalar desde cero. Mis razones&#8230; que el sistema de momento solo me sirve para experimentación y que tras buscar algo de información en internet no he visto nada sencillo y no me apetecía investigar más. Esto me parecía más interesante.</p>
+
+
+<p>Situación y Documentación inicial:</p>
+
+
+<ul><li><a href="http://ubuntuforums.org/showthread.php?t=316093">Instalación de Ubuntu a partir de una imagen ISO</a>, sin quemarla. En el caso que nos ocupa solo nos interesa comparar el arranque</li><li>Aprovechamos que el equipo ya tiene un GRUB activo.</li></ul>
+
+
+<p>Archivos iniciales:</p>
+
+
+<ul><li>Los archivos para instalaciones alternativas: <a href="http://archive.ubuntu.com/ubuntu/dists/gutsy/main/installer-i386/current/images">http://archive.ubuntu.com/ubuntu/dists/gutsy/main/installer-i386/current/images</a></li><li>En concreto los archivos del núcleo (linux) e initrd.gz obtenidos de la carpeta <a href="http://archive.ubuntu.com/ubuntu/dists/gutsy/main/installer-i386/current/images/netboot/386/ubuntu-installer/i386/">http://archive.ubuntu.com/ubuntu/dists/guts&#8230;images/netboot/386/ubuntu-installer/i386/</a></li></ul>
+
+
+
+
+<!--more-->
+
+
+<p>Procedemos&#8230;</p>
+
+<p><strong>1-.</strong> Bajamos linux e initrd.gz al equipo a instalar. Utilizo una partición de fat32 (hda5) que gasto de almacen (Grub sabe como manejarlo) y dejo los archivos en la carpeta raíz.</p>
+
+<p><strong>2-.</strong> Arrancamos y en el menú de GRUB entramos a modo texto y, según los datos anteriores, tecleamos:</p>
+
+<pre><code>&gt; root (hd0,4)
+&gt; kernel /linux ramdisk_size=16386 root=/dev/ram0 rw --
+&gt; initrd /initrd.gz
+&gt; boot
+</code></pre>
+
+<p><strong>3-.</strong> A partir de este momento seguimos la instalación de un servidor ubuntu 7.10 &#8216;perfecto&#8217;. Realmente no es exactamente lo mismo que hacer la instalación desde un CD de instalación de ubuntu-server pero las diferencias son mínimas. Por cierto que además del nombre del equipo y usuario y la NO selección de ningún paquete además de la instalación base uso el particionado manual para elegir las particiones habituales pero en un espacio más reducido pues voy a mantener la lógica de fat32 (hd5) a la que solo le asigno el punto de montaje y elijo que no sea formateada. Y como el que mucho corre pronto para, realmente debía haber habilitado la instalación del servidor de ssh:</p>
+
+<pre><code>$ sudo aptitude install openssh-server
+</code></pre>
+
+<p>Y también otras cosillas como screen, porque me resulta cómodo dejar sesiones abiertas aunque no esté ligada a un terminal&#8230; y como aparecía un error con el paquete tzdata ejecuto:</p>
+
+<pre><code>$ sudo tzselect
+$ sudo aptitude reinstall tzdata
+</code></pre>
+
+<p>Además como no me hace ninguna ilusión habilitar el usuario &#8216;root&#8217; utilizo <em>sudo -s</em> en su lugar para obtener una consola de root y evitar el incluir sudo delante de cada comando para realizar las instalaciones.</p>
+
+<p>Otros comentarios:</p>
+
+<pre><code>Si estamos trabajando a través de ssh al reconfigurar la interfaz de red probablemente nos tocará borrar la entrada previa en .ssh/known_hosts pues en caso contrario no nos dejará conectarnos.
+Las fuentes de sources.list ya estarán adecuadas con el país. Y dado que la instalación se hace por red actualizadas.
+</code></pre>
+
+<p><strong>4-.</strong> A continuación pasamos a la instalación de ISPConfig. Además del &#8216;servidor perfecto&#8217; deberemos hacer previamente alguna cosilla más:</p>
+
+<pre><code>en /etc/debian_version cambiar 'lenny/sid.0' por '4.0' para que ISPConfig se deje instalar.
+instalar además el paquete libxml2-dev (_aptitude install libxml2-dev_)
+</code></pre>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1</strong></p>
+
+<p>Atención, atención:</p>
+
+<p>Al bajar ispconfig asegurense de pinchar el enlace adecuado, no como yo, que me bajé la versión de desarrollo y no me funcionaba php.</p>
+
+<p>Veremos si después de borrar, bajar, recompilar,&#8230; funciona ;-)</p>
+
+<p><strong>Comentario 2</strong></p>
+
+<p>Funciona!</p>
+
+<p><strong>Comentario 3</strong></p>
+
+<p>Segunda Instalación: Siguiendo este sistema, pero a partir de la iso (kubuntu altenate), he instalado gutsy en un portatil (Acer aspire 1400 del 2002) al que le falla el lector de DVD/CD (de hecho he tenido que deshabilitar el canal IDE1 para que no detectara el error repetidamente. Algún día lo sustituiré o quizá no :-( ).</p>
+
+<p>Previamente había intentado la actualización pero no acabó de funcionar pues los paquetes del núcleo no se actualizaban así que decidí instalar desde cero (conservando los archivos personales, claro).</p>
+
+<p>Dado que contaba con grub instalado y una partición que pueda leer grub (diferente de donde quiero instalar) baje el vmlinuz y el initrd.gz de la versión actual para <a href="http://es.archive.ubuntu.com/ubuntu/dists/gutsy/main/installer-i386/current/images/hd-media/">arranque desde &#8216;hdmedia&#8217;</a>. Después basta con ir a la línea de comandos de grub y seguir las instrucciones del documento del artículo:</p>
+
+<pre><code>&gt;root (hd0,4)
+&gt;kernel ...
+&gt;initrd ...
+&gt;boot
+</code></pre>
+
+<p>Si la iso está en la carpeta raíz de la misma partición lo habitual es que el programa de instalación encuentre la iso.</p>
+
+<p>El resto es seguir la instalación habitual&#8230;</p>
+
+<p><strong> Comentario 4</strong></p>
+
+<p><em>kubuntu jaunty</em>:
+Probando la <a href="http://archive.ubuntu.com/ubuntu/dists/jaunty/main/installer-i386/current/images/hd-media/gtk/">versión gráfica del instalador</a>:</p>
+
+<p>Para ello pongo algo más de disco, por si acaso, y las opciones gráficas&#8230;</p>
+
+<pre><code>&gt; root (hd0,4)
+&gt; kernel /vmlinuz video=vesa:ywrap,mtrr vga=789 ramdisk_size=32768 root=/dev/ram0 rw --
+&gt; initrd /initrd.gz
+&gt; boot
+</code></pre>
+
+<ul>
+<li>las opciones de video extraidas de internet (ej http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=blob;f=Documentation/fb/vesafb.txt)</li>
+<li>el modo de vga se puede obtener poniendo vga=ask, elegirlo y a la hora de volver a introducirlo ponerl en decimal en vez de hexadecimal (ej 0x315 (800x600x24)&#8211;> vga=789)</li>
+</ul>
+
+
+<p><strong>Comentario 5</strong></p>
+
+<p><em>repositorios es</em>: En mi corta experiencia ubuntera he visto que habitualmente funciona mejor <em>archive.ubuntu.com</em> que <em>es.archive.ubuntu.com</em></p>
+
+<p>Quizá esto cambie algún día.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Enviado por <span class="fn">Fernando Ochera.</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-31T20:07:27+01:00" pubdate data-updated="true">Mi&eacute;rcoles, 31 de Octubre de 2007</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/deries/categorias/cuaderno-laboratorio/'>Cuaderno-Laboratorio</a>, <a class='category' href='/deries/categorias/mini-servidor/'>mini-servidor</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/deries/archives/11-Otras-ideas-para-jugar-con-PHP.html" title="Post Previo: Otras ideas para jugar con PHP">&laquo; Otras ideas para jugar con PHP</a>
+      
+      
+        <a class="basic-alignment right" href="/deries/archives/13-Diff-respecto-DataGrid-4.20-II.html" title="Post Siguiente: Diff respecto DataGrid 4.20 (II)">Diff respecto DataGrid 4.20 (II) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comentarios</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ferochera.github.com/deries/archives/12-Instalando-Ubuntu-Gutsy-desde-la-Red.html';
+        var disqus_url = 'http://ferochera.github.com/deries/archives/12-Instalando-Ubuntu-Gutsy-desde-la-Red.html';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

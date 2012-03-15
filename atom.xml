@@ -1,0 +1,1854 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Xarx.es]]></title>
+  <link href="http://ferochera.github.com/deries/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/deries/"/>
+  <updated>2012-03-15T23:14:47+01:00</updated>
+  <id>http://ferochera.github.com/deries/</id>
+  <author>
+    <name><![CDATA[Fernando Ochera.]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Crear un pendrive multiboot a mano]]></title>
+    <link href="http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/"/>
+    <updated>2012-03-13T15:31:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano</id>
+    <content type="html"><![CDATA[<p>Aunque hay un montón de automatizaciones o semi-automatizaciones para crear pendrives con diferentes <em>livecd</em>&#8217;s decidí hacerlo a mano para aprender un poco más de <strong>syslinux/isolinux</strong> como gestor de arranque y porque, creo recordar, ninguno incluía <em>Hiren&#8217;s Boot CD</em>.</p>
+
+<p>Los livecds/utilidades que incluí son:</p>
+
+<ul>
+<li>Hiren&#8217;s Boot CD 14.1</li>
+<li>HDD Regenerator 2011</li>
+<li>Hardware Detection Tool 0.5.0</li>
+<li>KNOPPIX 6.7.1</li>
+<li>WIFIWAY 2.0.3</li>
+<li>CLONEZILLA 1.2.10</li>
+<li>GPARTED 0.9.1</li>
+<li>SYSTEM RESCUE CD</li>
+<li>GHOST RECOVERY CD</li>
+</ul>
+
+
+<!--more-->
+
+
+<p>La base del proceso fue el artículo <a href="http://www.taringa.net/posts/info/10670342/USB-Multiboot-sin-formatear_-paso-a-paso-_01_11_11_.html">http://www.taringa.net/posts/info/10670342/USB-Multiboot-sin-formatear<em>-paso-a-paso-</em>01_11_11_.html</a>.</p>
+
+<p>De él obtuve el archivo <a href="http://ferochera.github.com/deries/downloads/MultibootLFM.7z">MultibootLFM</a> que me sirvió de base. En él se incluía opciones para arrancar el Hiren&#8217;s boot cd y también para lanzar la instalación de windows desde USB. Se trata de ir modificando la configuración de syslinux para adaptarla a las opciones que deseamos.</p>
+
+<p>Lo que hice es adaptar las configuraciones de cada live en las que el arranque era a través de isolinux para lanzarlas desde la pantalla de entrada principal.</p>
+
+<p>La configuración principal de syslinux me quedó&#8230;</p>
+
+<figure class='code'><figcaption><span> (syslinux.cfg)</span> <a href='http://ferochera.github.com/deries/downloads/code/syslinux.cfg'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+</pre></td><td class='code'><pre><code class='cfg'><span class='line'><span class="c">#Actualizaciones de GRUB4DOS en http://code.google.com/p/grub4dos-chenall/downloads/list</span>
+</span><span class='line'><span class="c">#GRUB4DOS actual 0.4.5b 2011-05-28</span>
+</span><span class='line'><span class="c">#Actualizaciones de SYSLINUX en http://syslinux.zytor.com/wiki/index.php/The_Syslinux_Project</span>
+</span><span class='line'><span class="c">#SYSLINUX actual 4.04</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">TITLE</span> <span class="err">ELIJA</span> <span class="err">COMO</span> <span class="err">DESEA</span> <span class="err">INICIAR</span> <span class="err">EL</span> <span class="err">USB</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">AUTOBOOT</span> <span class="err">Continuar</span> <span class="err">con</span> <span class="err">el</span> <span class="err">inicio</span> <span class="err">en</span> <span class="c"># segundo{,s}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">TIMEOUT</span> <span class="err">100</span>
+</span><span class='line'><span class="err">TOTALTIMEOUT</span> <span class="err">900</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">INCLUDE</span> <span class="err">/boot/syslinux/tema_base.cfg</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">CONTINUAR</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">*</span> <span class="err">INICIO</span> <span class="err">NORMAL</span> <span class="err">del</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/grub.exe</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">find</span> <span class="err">--set-root</span> <span class="err">--ignore-floppies</span> <span class="err">--ignore-cd</span> <span class="err">/bootmgr</span> <span class="err">||</span> <span class="err">find</span> <span class="err">--set-root</span> <span class="err">--ignore-floppies</span> <span class="err">--ignore-cd</span> <span class="err">/ntldr</span> <span class="err">||</span> <span class="err">rootnoverify</span> <span class="err">(hd0)</span> <span class="err">&amp;&amp;</span> <span class="err">chainloader</span> <span class="err">+1</span> <span class="err">&amp;&amp;</span> <span class="err">boot</span><span class="c">;map () (hd0) &amp;&amp; map (hd0) () &amp;&amp; map --rehook;find --set-root --ignore-floppies --ignore-cd /bootmgr || find --set-root --ignore-floppies --ignore-cd /ntldr;chainloader /bootmgr || chainloader /ntldr</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Prosigue</span> <span class="err">con</span> <span class="err">el</span> <span class="err">inicio</span> <span class="err">normal</span> <span class="err">del</span> <span class="err">sistema.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">REINICIAR</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">*</span> <span class="err">REINICIAR</span> <span class="err">el</span> <span class="err">equipo</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">Reboot.c32</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Reinicia</span> <span class="err">el</span> <span class="err">equipo.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">SEPARATOR</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">HIRENS</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">HIRENS</span> <span class="err">Boot</span> <span class="err">CD</span> <span class="err">14.1</span>
+</span><span class='line'>  <span class="err">kernel</span> <span class="err">/boot/syslinux/grub.exe</span>
+</span><span class='line'>  <span class="na">APPEND --config-file</span><span class="o">=</span><span class="s">&quot;/HBCD/menu.lst</span>
+</span><span class='line'><span class="s">  TEXT HELP</span>
+</span><span class='line'><span class="s">  Inicia el CD de Utilidades Hiren&#39;s Boot CD</span>
+</span><span class='line'><span class="s">  ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">HDDREG</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">HDD</span> <span class="err">Regenerator</span> <span class="err">2011</span>
+</span><span class='line'><span class="c"># MENU INDENT 1</span>
+</span><span class='line'>  <span class="err">LINUX</span> <span class="err">/boot/syslinux/grub.exe</span>
+</span><span class='line'>  <span class="na">APPEND --config-file</span><span class="o">=</span><span class="s">&quot;ls /boot/HDDREG.iso || find --set-root /boot/HDDREG.iso;map --heads=0 --sectors-per-track=0 /boot/HDDREG.iso (0xff) || map --heads=0 --sectors-per-track=0 --mem /boot/HDDREG.iso (0xff);map --hook;chainloader (0xff)&quot;</span>
+</span><span class='line'><span class="s">  TEXT HELP</span>
+</span><span class='line'><span class="s">  Inicia el CD de HDD Regenerator 2011. Utilidad </span>
+</span><span class='line'><span class="s">  de lectura de sectores defectuosos de disco.</span>
+</span><span class='line'><span class="s">  ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">HDT</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">Hardware</span> <span class="err">Detection</span> <span class="err">Tool</span> <span class="err">0.5.0</span>
+</span><span class='line'>  <span class="err">COM32</span> <span class="err">/boot/syslinux/hdt.c32</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">Hardware</span> <span class="err">Detection</span> <span class="err">Tool</span> <span class="err">0.5.0.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">KNOPPIX</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">KNOPPIX</span> <span class="err">6.7.1</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">/boot/syslinux/knoppix.cfg</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">Knoppix</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">WIFIWAY</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">WIFIWAY</span> <span class="err">2.0.3</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">/boot/syslinux/wifiway.cfg</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">WifiWay</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">CLONEZILLA</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">CLONEZILLA</span> <span class="err">1.2.10</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">/boot/syslinux/clonezilla.cfg</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">Clonezilla.</span> <span class="err">Utilidad</span>
+</span><span class='line'>  <span class="err">para</span> <span class="err">crear/restaurar</span> <span class="err">imagenes</span> <span class="err">de</span> <span class="err">disco.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">GPARTED</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">GPARTED</span> <span class="err">0.9.1</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">/boot/syslinux/gparted.cfg</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">GParted.</span> <span class="err">Utilidad</span>
+</span><span class='line'>  <span class="err">para</span> <span class="err">crear/modificar</span> <span class="err">particiones</span> <span class="err">de</span> <span class="err">disco.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">SYSRESCD</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">SYSTEM</span> <span class="err">RESCUE</span> <span class="err">CD</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">/boot/syslinux/sysrescd.cfg</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">System</span> <span class="err">Rescue</span> <span class="err">CD.</span>
+</span><span class='line'>  <span class="err">Utiles</span> <span class="err">para</span> <span class="err">rescatar</span> <span class="err">un</span> <span class="err">sistema.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">SEPARATOR</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">NGRCD</span>
+</span><span class='line'>  <span class="na">MENU LABEL</span> <span class="o">=</span><span class="s">&gt; GHOST RECOVERY CD</span>
+</span><span class='line'><span class="s">  COM32 /boot/syslinux/chain.c32</span>
+</span><span class='line'><span class="s">  APPEND fs ntldr=/bootmgr</span>
+</span><span class='line'><span class="s">  TEXT HELP</span>
+</span><span class='line'><span class="s">  Inicia el Norton Ghost Recovery CD. </span>
+</span><span class='line'><span class="s">  Para recuperar Windows XP en mi Portatil.</span>
+</span><span class='line'><span class="s">  ENDTEXT</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cada una de las configuraciones parciales había que revisarlas para añadirles una entrada de volver al principal y revisar el <em>path</em> de los archivos añadidos al pendrive.</p>
+
+<p>El contenido del pendrive. Creo que basta con 8GB pero yo usé uno de 16GB.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>drwx------        8192 nov 10 09:51 autorun
+</span><span class='line'>drwx------        8192 nov 10 11:36 boot
+</span><span class='line'>drwx------        8192 ene 31  2011 bootdisk
+</span><span class='line'>-r--r--r--      438840 dic 17  2007 bootmgr
+</span><span class='line'>drwx------        8192 nov  9 11:32 boot_wifiway
+</span><span class='line'>-rw-r--r--         135 nov  8 20:31 Clonezilla-Live-Version
+</span><span class='line'>-rw-r--r--        1236 nov 10 10:54 contenido.txt
+</span><span class='line'>drwx------        8192 ene 20  2008 docs
+</span><span class='line'>drwx------        8192 ene 20  2008 driver validation
+</span><span class='line'>drwx------        8192 nov 10 10:39 EFI
+</span><span class='line'>-rw-r--r--         525 nov  9 14:18 GParted-Live-Version
+</span><span class='line'>drwx------        8192 ago 22  2011 HBCD
+</span><span class='line'>drwx------        8192 nov  8 20:31 home
+</span><span class='line'>drwx------        8192 sep 14 18:28 KNOPPIX
+</span><span class='line'>-r--r--r--       32256 feb 29 18:05 ldlinux.sys
+</span><span class='line'>drwx------        8192 nov  8 20:31 liveclz1210
+</span><span class='line'>drwx------        8192 nov  9 14:18 livegptd010
+</span><span class='line'>drwx------        8192 mar  2  2010 ntpasswd
+</span><span class='line'>drwx------        8192 ene 20  2008 sources
+</span><span class='line'>-r--r--r--      663206 ene 20  2008 symdriverinfo.xml
+</span><span class='line'>-r--r--r--         147 ene 20  2008 syminfo.xml
+</span><span class='line'>-rw-r--r--   302059520 ago 23  2011 sysrcd.dat
+</span><span class='line'>drwx------        8192 ene 20  2008 updatelocator
+</span><span class='line'>drwx------        8192 sep 15 19:19 wifiway</span></code></pre></td></tr></table></div></figure>
+
+
+<p>El contenido de /boot/syslinux es:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-rw-r--r--   193094 nov 10 15:06 base.png
+</span><span class='line'>-rw-r--r--     2048 sep 14 18:29 boot.cat
+</span><span class='line'>-rw-r--r--      360 jun  6  2011 boothdd.lst
+</span><span class='line'>-rw-r--r--    20192 abr 18  2011 chain.c32
+</span><span class='line'>-rw-r--r--     6138 nov  9 13:42 clonezilla.cfg
+</span><span class='line'>-rw-r--r--     4748 abr 18  2011 config.c32
+</span><span class='line'>-rw-r--r--    43283 sep 20 06:34 drblwp.png
+</span><span class='line'>-rw-r--r--     4011 nov  9 14:23 gparted.cfg
+</span><span class='line'>-rwxr-xr-x   285260 jun  7  2011 grub.exe
+</span><span class='line'>-rw-r--r--   642444 nov  9 14:18 Gsplash.png
+</span><span class='line'>-rw-r--r--   350388 may 17  2011 hdt.c32
+</span><span class='line'>-rw-r--r--    24576 abr 18  2011 isolinux.bin
+</span><span class='line'>-rw-r--r--     4516 dic 28  2010 kbdmap.c32
+</span><span class='line'>-rw-r--r--  1474560 feb  7  2009 knoppix_balder.img
+</span><span class='line'>-rw-r--r--       93 sep 14 15:00 knoppix_boot.msg
+</span><span class='line'>-rw-r--r--     3181 nov  4 20:52 knoppix.cfg
+</span><span class='line'>-rw-r--r--     1335 sep 14 18:28 knoppix_f2
+</span><span class='line'>-rw-r--r--     1324 sep 14 18:28 knoppix_f3
+</span><span class='line'>-rw-r--r--  3688752 sep  9  2011 knoppix_linux
+</span><span class='line'>-rw-r--r--  3955456 sep  9  2011 knoppix_linux64
+</span><span class='line'>-rw-r--r--    20052 feb  7  2009 knoppix_memdisk
+</span><span class='line'>-rw-r--r--   124648 mar  9  2011 knoppix_memtest
+</span><span class='line'>-rw-r--r--   951242 sep 13 05:01 knoppix_minirt.gz
+</span><span class='line'>-rw-r--r--    32768 may 17  2011 ldlinux.sys
+</span><span class='line'>-rw-r--r--    18186 jun 23  2011 logo.16
+</span><span class='line'>drwx------     8192 sep 26  2010 maps
+</span><span class='line'>-rw-r--r--    26140 may 30  2011 memdisk
+</span><span class='line'>-rw-r--r--    56164 abr 18  2011 menu.c32
+</span><span class='line'>-rw-r--r--     5150 jul 24  2007 novafont.psf
+</span><span class='line'>-rw-r--r--    46464 sep 20 06:34 ocswp.png
+</span><span class='line'>-rw-r--r--   709349 may 31  2011 pci.ids
+</span><span class='line'>-rw-r--r--      800 abr 18  2011 reboot.c32
+</span><span class='line'>-rw-r--r--  9767104 ago 22  2011 syrcd_altker32
+</span><span class='line'>-rw-r--r--  9898672 ago 22  2011 syrcd_altker64
+</span><span class='line'>-rw-r--r--  8743112 ago 23  2011 syrcd_initram.igz
+</span><span class='line'>-rw-r--r--    25340 dic 28  2010 syrcd_memdisk
+</span><span class='line'>-rw-r--r--  9804944 ago 13  2011 syrcd_rescue64
+</span><span class='line'>-rw-r--r--  9477120 ago 23  2011 syrcd_rescuecd
+</span><span class='line'>-rw-r--r--     3209 nov 10 14:47 syslinux.cfg
+</span><span class='line'>-rw-r--r--    23017 nov  9 15:16 sysrescd.cfg
+</span><span class='line'>-rw-r--r--     1461 ago 23  2011 sysrf1boot.msg
+</span><span class='line'>-rw-r--r--     1329 sep 26  2010 sysrf2images.msg
+</span><span class='line'>-rw-r--r--     1768 sep 26  2010 sysrf3params.msg
+</span><span class='line'>-rw-r--r--     1564 sep 26  2010 sysrf4arun.msg
+</span><span class='line'>-rw-r--r--     1667 sep 26  2010 sysrf5troubl.msg
+</span><span class='line'>-rw-r--r--     1282 sep 26  2010 sysrf6pxe.msg
+</span><span class='line'>-rw-r--r--     1364 sep 26  2010 sysrf7net.msg
+</span><span class='line'>-rw-r--r--      723 may 17  2011 tema_base.cfg
+</span><span class='line'>-rw-r--r--   155792 abr 18  2011 vesamenu.c32
+</span><span class='line'>-rw-r--r--     6414 nov  9 11:34 wifiway.cfg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>y los archivos de configuración utilizados son bajables pinchando <a href="http://ferochera.github.com/deries/downloads/syslinux_cfgs.7z">en este enlace</a>.</p>
+
+<p>El resto del procedimiento consiste en mezclar los distintos archivos de cada liveCD. Como puede verse en los listados se ha copiado el contenido importante de los livecds pero algunos nombres de carpeta se han adaptado para que los contenidos no se machaquen.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[¿Qué has hecho en mi equipo?]]></title>
+    <link href="http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo/"/>
+    <updated>2012-03-13T15:03:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo</id>
+    <content type="html"><![CDATA[<p>Hace ya un tiempo llegué a un artículo del 2007 llamado <a href="http://consumerist.com/2007/07/how-to-make-your-computer-catch-people-stealing-your-porn.html">&#8220;How To Make Your Computer Catch People Stealing Your Porn&#8221;</a>. Se trata de un test sobre la privacidad de nuestros datos cuando llevamos el ordenador al servicio técnico. Los autores habían preparado un equipo con algunas imágenes golosas (chicas ligeras de ropa) y pedían a diferentes servicios técnicos que hicieran una intervención simple. Generaban vídeos del proceso y así cogieron a algunos técnicos que no actuaban profesionalmente&#8230;</p>
+
+<p>Realmente me interesaba el método para conocer que se ha hecho en mi equipo. En este artículo se cuenta como usar un vnc para generar un vídeo.</p>
+
+<p>Hace muy poco necesitaba buscar otra vez el artículo original y me costó volver a encontrarlo así que una vez hallado voy a preparar el resumen.</p>
+
+<!--more-->
+
+
+<p>Las herramientas que se utilizan son <strong>TightVNC</strong> y <strong>pyvnc2swf</strong>.</p>
+
+<ul>
+<li><p>TightVNC opera como el grabador. Provee una interfaz de salida para el escritorio del ordenador.</p></li>
+<li><p>Pyvnc2swf captura el resultado de esas imágenes y las almacena en un archivo para poder visualizarlos a posteriori. En un equipo con una memoria o CPU limitadas se puede optar por volcados crudos (<em>raw</em>) a un archivo VNC. En un equipo mejor dotado se puede volcar directamente a un archivo SWF comprimido</p></li>
+</ul>
+
+
+<h2>Configuración de TightVNC</h2>
+
+<p><img class="center" src="http://ferochera.github.com/deries/images/tightvncsetup.jpg" title="TightVNC setup" alt="Configurando TightVNC"></p>
+
+<p>Tras instalar TightVNC, se utiliza la aplicación de control para configurar el VNC incluyendo la contraseña y se debe habilitar las conexiones locales (de lookback). Una vez utilizada esa aplicación de control hay que desabilitarla del arranque. Esto es porque no nos interesa que aparezcan en la barra de tareas o de notificación para que no se vea que estamos grabando.</p>
+
+<h2>Pyvnc2swf</h2>
+
+<p>El trabajo real lo realiza pyvnc2swf. Éste lo lanzaremos con un archivo <em>batch</em>. Usar un archivo <em>batch</em> proporciona una forma fácil de aleatorizar los archivos resultantes y además puede ser lanzado desde un servicio que configuremos al efecto.</p>
+
+<p>La utilidad <em>srvany.exe</em> es un programa que permite ejecutar como un servicio del sistema operativo una aplicación normal de Ms Windows (Xp, es el del ejemplo, pero se supone que en otros Ms Windows habrá algo similar).</p>
+
+<p>Una vez tenemos el archivo <em>batch</em> preparado podemos utilizar este sistema para lanzarlo en el arranque. Como parte del proceso de definición del servicio elegiremos un nombre que suene <em>&#8220;Microsoft-iano&#8221;</em>, como &#8220;Windows Image Capture Service&#8221;. Esto es para que nuestro sistema de captura no sea detectado a primera vista.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo off
+</span><span class='line'>"C:\Archivos de Programa\hoyle\wddm.exe" -n -o "C:\Archivos de Programa\hoyle\"%RANDOM%.vnc -P "C:\Archivos de Programa\hoyle\password.txt" localhost</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Tal como puede verse en el código anterior se configura la contraseña en un archivo de texto (el nombre se puede &#8220;mejorar&#8221;) para poder acceder al VNC. En el archivo basta con que esté la contraseña en su propia línea. El parámetro <em>%RANDOM%</em> garantiza que pyvnc2swf no sobreescriba sus propios archivos al arrancar diferentes veces. Otra opción sería añadir <em>%TIME%</em> u otra similar.</p>
+
+<p>Tras configurar lo anterior habrá que verificar que nuestro servicio personalizado está configurado como &#8220;Automático&#8221;. Tras esto, si todo está configurado correctamente, en cada reinicio del computador éste comenzará a grabar los contenidos del escritorio en la carpeta que previamente hayamos definido.</p>
+
+<p>Posteriormente se puede utilizar la herramienta <em>&#8220;edit&#8221;</em> de pyvnc2swf para convertir los archivos según nuestras necesidades.</p>
+
+<p>En cuanto a la configuración restante faltaría, por ejemplo, regular con que frecuencia se captura la imagen del escritorio (probablemente con 1 o 2 imágenes por segundo bastará).</p>
+
+<h2>Captura de Teclado.</h2>
+
+<p>Complementando la captura del escritorio en vídeo podemos instalar un keylogger que nos capture también las teclas.</p>
+
+<p>Para esto nos basamos en el artículo <a href="http://voices.yahoo.com/how-home-keylogger-monitor-kids-2303677.html">How to Use Home Keylogger to Monitor Your Kids - Jimmy Vidzem</a>. Seguro que hay opciones más elaboradas en cuanto a captura y ocultación pero para lo que queremos debería ser suficiente&#8230;</p>
+
+<p>Los <em>keyloggers</em> son aplicaciones diseñadas para capturar las pulsaciones del teclado. En este caso utilizaremos <a href="http://www.spyarsenal.com/keylogger">Home Keylogger</a>. Este keylogger en particular es <em>freeware</em>. Y comenzaremos bajándolo e instalándolo.</p>
+
+<p>Tras instalarlo aparece una ventana donde podemos comprobar que funciona correctamente. En el área de notificación hay un icono negro. Haciendo clic en él y seleccionando &#8220;->View Log&#8221; deberíamos ver lo que habíamos tecleado previamente.</p>
+
+<p>Podemos hacer que se inicie con cada reinicio haciendo clic en el icono de nuevo y seleccionando &#8220;Autorun&#8221;. Para ocultar el keylogger habrá que hacer clic de nuevo y seleccionar &#8220;Hide icon&#8221;. Aparecerá un pop-up diciendo &#8220;To show press CTRL+ALT+SHIFT+M&#8221; y tan pronto como le demos a OK desaparecerá el icono del área de notificación. Para volver a hacerlo aparecer tendremos que volver a pulsar la misma combinación de teclas (CTRL+ALT+SHIFT+M)</p>
+
+<p>Tal vez se podría iniciar utilizando el mismo <em>batch</em> comentado arriba&#8230; Y no estaría de más revisar si hay opciones para lanzarlo oculto directamente.</p>
+
+<h2>Observaciones</h2>
+
+<ol>
+<li><p>Estos mecanismos no funcionarán si el equipo arranca en Modo Seguro (safe mode) ya que en ese caso no se inician los servicios y programas que no sean críticos en el sistema.</p></li>
+<li><p>Los servicios son diferenciables ya que los que nosotros ponemos no son de &#8220;sistema&#8221; sino de &#8220;usuario&#8221;.</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Instalar Ubuntu remotamente usando grub]]></title>
+    <link href="http://ferochera.github.com/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/"/>
+    <updated>2012-03-10T15:24:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub</id>
+    <content type="html"><![CDATA[<p>Primero habrá que bajar el kernel y initrd adecuados para instalar desde imagen iso (vmlinuz_hdmedia, initrd_hdmedia) o desde red (vmlinuz_netboot, initrd_netboot), donde los &#8220;_hdmedia&#8221; o &#8220;_netboot&#8221; los añadí para diferenciarlas.</p>
+
+<p>Después añadiremos las siguientes entradas (una o las dos) en la configuración de grub. Es necesario adecuar la partición donde estén los kernels de arranque. Para hdmedia resultaba interesante poner la imagen <em>iso</em>(ubuntu alternate, creo recordar) de instalación en la raíz de una partición vfat.</p>
+
+<p>Fragmento de /etc/grub.d/40_custom:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>menuentry "Instalacion Ubuntu (ssh-netconsole, hdmedia)" {
+</span><span class='line'>      set root=(hd0,5)
+</span><span class='line'>      linux /vmlinuz_hdmedia vga=normal ramdisk_size=16386 root=/dev/ram0 locale=en_US console-setup/ask_detect=false console-setup/layoutcode=us netcfg/choose_interface=auto netcfg/disable_dhcp=true netcfg/get_nameservers=132.1.6.55 netcfg/get_ipaddress=132.26.0.9 netcfg/get_netmask=255.255.0.0 netcfg/get_gateway=132.26.0.240 netcfg/confirm_static=true netcfg/get_hostname=halley netcfg/get_domain=aytocastellon.loc netcfg/wireless_wep= hw-detect/load_firmware=true anna/choose_modules=network-console network-console/password=r00tme network-console/password-again=r00tme rw --
+</span><span class='line'>      initrd /initrd_hdmedia.gz
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>menuentry "Instalacion Ubuntu (ssh-netconsole, netinstall)" {
+</span><span class='line'>      set root=(hd0,5)
+</span><span class='line'>      linux /linux_netboot vga=normal ramdisk_size=16386 root=/dev/ram0 locale=en_US console-setup/ask_detect=false console-setup/layoutcode=us netcfg/choose_interface=auto netcfg/disable_dhcp=true netcfg/get_nameservers=132.1.6.55 netcfg/get_ipaddress=132.26.0.9 netcfg/get_netmask=255.255.0.0 netcfg/get_gateway=132.26.0.240 netcfg/confirm_static=true netcfg/get_hostname=halley netcfg/get_domain=aytocastellon.loc netcfg/wireless_wep= hw-detect/load_firmware=true anna/choose_modules=network-console network-console/password=r00tme network-console/password-again=r00tme rw --
+</span><span class='line'>      initrd /initrd_netboot.gz
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Finalmente actualizaremos la configuración de grub con</p>
+
+<pre><code>$ sudo update-grub2
+</code></pre>
+
+<p>Para instalar bastará con reiniciar y seleccionar esa entrada. Para hacerlo remotamente también tendremos que cambiar la configuración de grub para que sea esa opción la arranque automáticamente.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Migrando el blog de s9y a Octopress]]></title>
+    <link href="http://ferochera.github.com/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/"/>
+    <updated>2012-03-07T23:36:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress</id>
+    <content type="html"><![CDATA[<p>Después de constatar que realmente utilizar un sistema dinámico no me depara beneficios visibles y revisar otros sistemas de creación estática como <a href="http://nanoc.stoneship.org">nanoc</a> finalmente, y tras conocer <a href="http://octopress.org">octopres</a> a través del <a href="http://www3.uji.es/~vrubert">blog de David Rubert</a>, decidí mudar mi blog que estaba creado con <a href="http://www.s9y.org">Serendipity-sy9</a></p>
+
+<p>Las etapas de este proceso han sido 3:</p>
+
+<ol>
+<li><p>Poner en marcha el sistema de desarrollo.</p></li>
+<li><p>Importar los posts previos.</p></li>
+<li><p>Adaptar octopress.</p></li>
+</ol>
+
+
+<!--more-->
+
+
+<p>Vamos a ver éstas etapas con más detalle:</p>
+
+<h2>Preparar el sistema de desarrollo</h2>
+
+<p>Procedimiento funcionando en ubuntu 10.04.4</p>
+
+<p><strong>1.</strong> Instalar rvm y ruby</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ bash -s stable &lt; &lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
+</span><span class='line'>$ rvm notes
+</span><span class='line'>$ rvm requirements
+</span><span class='line'>$ sudo aptitude install "los requirements"
+</span><span class='line'>$ rvm pkg install zlib
+</span><span class='line'>$ export C_INCLUDE_PATH=$HOME/.rvm/usr/include
+</span><span class='line'>$ rvm pkg install openssl</span></code></pre></td></tr></table></div></figure>
+
+
+<p>adecuar .bash_profile y/o .bashrc para shells con y sin login</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rvm install 1.9.3 --with-zlib-dir=$rvm_path/usr --with-openssl-dir=$rvm_path/usr</span></code></pre></td></tr></table></div></figure>
+
+
+<p>También instalé en lmde. Al repetir los pasos anteriores me aparecía un error respecto a zlib al usar gem y se solucionó siguiendo las instrucciones de rvm notes (no tengo muy claro si en el puesto en ubuntu ocurrió lo mismo o no)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rvm get head && rvm 1.9.3
+</span><span class='line'>$ rvm use 1.9.3 --default
+</span><span class='line'>$ gem install bundler (.gemrc con proxy si toca)</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>2.</strong> Preparar Octopress</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'>$ cd octopress         # si la versión de ruby no es adecuada se quejará
+</span><span class='line'>$ rvm use default      # usará la 1.9.3 según lo de arriba
+</span><span class='line'>$ bundle install       # instala las dependencias
+</span><span class='line'>$ rake install         # instala el tema por defecto</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Si alguna vez da problemas de versiones de las gemas será necesario hacer “<em>bundle exec rake comando</em>” en vez de solo “<em>rake comando</em>”. Para ver los comandos disponibles se usa &#8221;<em>rake -T</em>&#8221;</p>
+
+<h2>Importar los posts previos</h2>
+
+<p><a href="https://github.com/mojombo/jekyll/pull/399">El importador desde s9y</a> es una aportación de <a href="https://github.com/joschi">&#8220;joshi&#8221;</a> a <a href="https://github.com/mojombo/jekyll">jeckyll</a> que a su vez es la base de <a href="http://octopress.org">Octopress</a></p>
+
+<p>Solo usa la biblioteca estándar de Ruby, sin acceso a base de datos. Las entradas se exportan desde el blog original a través del rss. Con un enlace del tipo</p>
+
+<pre><code>http://blog.example.com/rss.php?version=2.0&amp;all=1
+</code></pre>
+
+<ol>
+<li><p>Lo bajé del enlace anterior y lo dejé en la carpeta de plugins.</p></li>
+<li><p>Ejecuté</p>
+
+<pre><code> ruby -r './s9y_rss.rb' -e 'Jekyll::S9Y.process("http://blog.example.com/rss.php?version=2.0&amp;all=1")'
+</code></pre></li>
+<li><p>Moví la carpeta _posts que se había creado al lugar adecuado.</p></li>
+<li><p>Revisé los posts para completarlos con los comentarios interesantes y con el resto del contenido si no estaban completos.</p></li>
+</ol>
+
+
+<h2>Adaptar</h2>
+
+<ul>
+<li>Adaptar los paths</li>
+</ul>
+
+
+<p>En <em>_config.yaml</em> cambié lo que hacía falta para que el path comenzara en <em>/deries</em> en vez de en <em>/</em></p>
+
+<ul>
+<li>Traducir algunos elementos (incluir algunos en _config.yaml)</li>
+</ul>
+
+
+<p>Me gustaría hacer un blog multilingüe pero eso parece algo alejado. Lo que si que he hecho es añadir algunos campos más en <em>_config.yaml</em> y colocarlos donde toca. También he cambiado algunos otros paths, como quitar <em>/blog/</em> o cambiar <em>/archives</em> por <em>/archivo</em></p>
+
+<pre><code>(...)
+date_format: "%A, %d de %B de %Y"
+
+\# Castellano
+excerpt_link: "Leer m&amp;aacute;s &amp;rarr;" 
+search_text: "Buscar"
+blog_nav_text: "Bitácora"
+archives_nav_text: "Archivo"
+recent_posts_aside_title: "Entradas recientes"
+github_aside_title: "Repositorios GitHub"
+older_text: "Anteriores"
+newer_text: "Posteriores"
+(...)
+</code></pre>
+
+<p>También modifiqué <em>/plugins/date.rb</em> para hacer que la fecha aparezca en castellano. Esto lo hice siguiendo una sugerencia de un turco llamado <a href="https://github.com/vigo/octopress/blob/master/plugins/date.rb"><em>Vigo</em></a>.</p>
+
+<pre><code>(...)
+MONTHNAMES_TR = [nil,
+  "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+]
+ABBR_MONTHNAMES_TR = [nil,
+  "Ene", "Feb", "Mar", "Abr", "May", "Jun",
+  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"
+]
+DAYNAMES_TR = [
+  "Domingo", "Lunes", "Martes", "Mi&amp;eacute;rcoles", 
+  "Jueves", "Viernes", "S&amp;aacute;bado"
+]
+ABBR_DAYNAMES_TR = [
+  "Dom", Lun", "Mar", "Mi&amp;eacute;",
+   "Jue", "Vie", "S&amp;aacute;b"
+]
+
+(...)
+
+  else
+    format.gsub!(/%a/, ABBR_DAYNAMES_TR[date.wday])
+    format.gsub!(/%A/, DAYNAMES_TR[date.wday])
+    format.gsub!(/%b/, ABBR_MONTHNAMES_TR[date.mon])
+    format.gsub!(/%B/, MONTHNAMES_TR[date.mon])
+    date_formatted = date.strftime(format)
+    #date_formatted = date.strftime(format)
+    #date_formatted.gsub!(/%o/, ordinal(date.strftime('%e').to_i))
+
+(...)
+</code></pre>
+
+<ul>
+<li>adaptar algunos estilos y otras cosas</li>
+</ul>
+
+
+<p>Por jugar más que otra cosa&#8230;</p>
+
+<p>Me pareció que los carácteres eran de un tamaño de fuente pequeño en el caso de los code_snippets y grande en las citas. Intenté mejorarlo aunque no juraría haberlo conseguido.</p>
+
+<p>También intenté poner un gráfico tipo el pulpo de octopress pero de momento lo que obtuve no fue de mi agrado así que lo retiré.</p>
+
+<p>Todos estos cambios pueden verse en el repositorio de github que los contiene: <a href="https://github.com/ferochera/deries">https://github.com/ferochera/deries</a></p>
+
+<p>Finalmente he añadido un <em>&#8220;aside&#8221;</em> con una nube de etiquetas y también una página de entrada a las categorías que las lista poniendo el número de artículos en cada una.</p>
+
+<p>Ambos elementos vienen del código de nube de tags de <a href="https://github.com/tokkonopapa/octopress-tagcloud"><em>tokkonopapa</em></a>. Eso si ha sido necesario hacer una pequeña modificación en el código ya que los paths no eran correctos.</p>
+
+<h2>Actualización..</h2>
+
+<p>La traducción de las fechas no está funcionando correctamente&#8230; es como si la función gsub! no hiciese lo que toca ¿? así que he decicido poner el formato a mano mientras averiguo que es lo que ocurre.</p>
+
+<pre><code>format = DAYNAMES_TR[date.wday] +", %d de " + MONTHNAMES_TR[date.mon] + " de %Y"
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Usar gmail-google apps desde una aplicación que no soporte SSL]]></title>
+    <link href="http://ferochera.github.com/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html"/>
+    <updated>2009-05-19T18:00:47+02:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p><b>Planteamiento inicial:</b></p>
+
+
+<p>Suponemos que usamos gmail o google apps para nuestro correo electrónico y resulta que queremos utilizarlo desde una aplicación que aunque sea capaz de usar pop3-smtp no soporte conexiones encriptadas como las que necesita la cuenta de google.</p>
+
+
+<p><b>Como configurar pop3-smtp en el cliente segun google:</b></p>
+
+
+<br />
+
+
+<p>(<a title="Instrucciones de configuración para clientes pop en google" href="http://mail.google.com/support/bin/answer.py?answer=13287">instrucciones de configuración generales</a>)</p>
+
+
+<br />
+
+
+<ol><li><a href="http://mail.google.com/support/bin/answer.py?answer=13273">Habilita el acceso POP en tu cuenta de Gmail</a>. No olvides hacer clic en <b>Guardar cambios</b> una vez finalizado el proceso.</li><li>Configura tu cliente para que cumpla la siguiente configuración:</li><ul><li><font size="-1"><strong>El servidor de correo entrante (POP3) requiere SSL:</strong></font><font face="Courier New, Courier, mono" size="-1"> pop.gmail.com</font><font size="-1">, <strong>Usar SSL</strong>: Sí, <strong>Puerto</strong>: 995 </font></li><li><font size="-1"></font><font size="-1"><strong>El servidor de correo saliente (SMTP) requiere TLS:</strong></font> <font face="Courier New, Courier, mono" size="-1">smtp.gmail.com</font><font size="-1"> (usar autenticación) , <strong>Usar autenticación</strong>: Sí, <strong>Usar STARTTLS</strong>: Sí (en algunos clientes se denomina SSL), <strong>Puerto</strong>: 465 o 587<br />
+</font></li><li><font size="-1"><strong>Nombre de cuenta:  </strong></font><font size="-1">tu nombre de usuario de Gmail (incluido <font face="Courier New, Courier, mono">@gmail.com</font> o midominio.es).</font></li><li><font size="-1"><strong>Dirección de correo electrónico: </strong></font><font size="-1">tu dirección de correo electrónico completa de Gmail (<font face="Courier New, Courier, mono">nombredeusuario@gmail.com</font>) </font></li><li><font size="-1"> </font><font size="-1"><strong>Contraseña: </strong></font><font size="-1">tu contraseña de Gmail/google apps</font> <font size="-1"></font></li></ul></ol>
+
+
+<ol><p><br />
+Si no estás usando el <a href="http://mail.google.com/support/bin/answer.py?answer=47948">modo reciente</a> para descargar el correo a varios clientes, asegúrate de que hayas optado por no dejar los mensajes en el servidor. La <a href="http://mail.google.com/support/bin/answer.py?answer=13273">Configuración de Gmail</a><br />
+determina si tus mensajes permanecen o no en el servidor de modo que<br />
+esta configuración en tu cliente no afectará la manera en que Gmail<br />
+controle tu correo.<br />
+</p><p>Ten en cuenta que si tu cliente no admite la autenticación<br />
+SMTP, no podrás enviar mensajes a través del cliente con tu dirección<br />
+de Gmail.</p></ol>
+
+
+<p></p>
+
+<h2>Solución:</h2>
+
+<p>Utilizar stunnel para que se encargue de la parte de comunicación encriptada. Stunnel se define en su web como</p>
+
+<blockquote><p>&#8220;Stunnel is a program that allows you to encrypt arbitrary TCP connections inside SSL (Secure Sockets Layer) available on both Unix and Windows.
+Stunnel can allow you to secure non-SSL aware daemons and protocols (like POP, IMAP, LDAP, etc) by having Stunnel provide the encryption, requiring no changes to the daemon&#8217;s code.&#8221;</p></blockquote>
+
+<!--more-->
+
+
+<p>En este texto voy a utilizarlo en un equipo con el S.O. Microsoft Windows XP profesional por lo que a la hora de bajar e instalar habrá que buscar los ejecutables correspondientes. El objetivo es instalar un servicio &#8220;stunnel&#8221; que se inicie al arrancar el sistema y que provea una especie de servidor smtp en el puerto local 25 y otro pop3 en el 110 que resulten los extremos del tunel con ya comunicación desencriptada.</p>
+
+<ol>
+<li><p>Bajar el ejecutable de la sección de downloads de la web de stunnel. En el momento de escribir este texto la versión más moderna es la 4.27</p></li>
+<li><p>Instalar stunnel-XX-installer.exe. Este pone el ejecutable, la documentación, las dll y la configuración en la carpeta que le indicamos. Además instala unos accesos directos para arrancar el programa, instalarlo/desinstalarlo como servicio, etc.</p></li>
+<li><p>Antes de instalar el servicio debemos preparar la configuración&#8230; Un ejemplo de archivo stunnel.conf es el siguiente:</p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cert = stunnel.pem
+</span><span class='line'>socket = l:TCP_NODELAY=1
+</span><span class='line'>socket = r:TCP_NODELAY=1
+</span><span class='line'>debug = 7
+</span><span class='line'>output = stunnel.log
+</span><span class='line'>client = yes
+</span><span class='line'>[pop3s]
+</span><span class='line'>accept  = 127.0.0.1:110
+</span><span class='line'>connect = pop.gmail.com:995
+</span><span class='line'>[smtps]
+</span><span class='line'>accept  = 127.0.0.1:25
+</span><span class='line'>connect = smtp.gmail.com:465</span></code></pre></td></tr></table></div></figure>
+
+
+<p>El certificado es uno de ejemplo que viene con la instalación. Para más información revisar la documentación y en concreto este enlace.</p>
+
+<p>Configurar el cliente (ej. thunderbird):</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Servidor pop3: 127.0.0.1, puerto 110
+</span><span class='line'>Servidor smtp: 127.0.0.1, puerto 25
+</span><span class='line'>Usuario: el usuario completo de gmail/google apps
+</span><span class='line'>Password: la de gmail/google apps</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Es necesario asegurarse de que el cliente se autentifica también cuando trata de enviar (smtp)</p>
+
+<p>Para hacer una prueba podemos utilizar un programa como por ejemplo thunderbird u otro que tengamos ya instalado y probar a enviar y recibir emails.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Archivos híbridos pdf-odt]]></title>
+    <link href="http://ferochera.github.com/deries/archives/41-Archivos-hibridos-pdf-odt.html"/>
+    <updated>2009-05-19T17:50:22+02:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Archivos-hibridos-pdf-odt</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p>Intersantísimo fragmento del texto de <a href="http://www.kriptopolis.org/interoperabilidad-3" title="Interoperabilidad. Fernando Acero. Kriptopolis">Fernando Acero para Kriptópolis.org</a></p>
+
+
+<blockquote><p><i>Por ejemplo, si instalamos <a href="http://extensions.services.openoffice.org/project/pdfimport">Sun PDF Import Extension [Beta]</a>, podremos modificar los archivos de OpenOffice.org almacenados en formato PDF, aunque no dispongamos de los archivos originales. Cuando tenemos esta extensión, los archivos PDF son importados en Draw e Impress, para conservar su estructura y para permitir una edición básica de los mismos. Esta es una solución muy interesante para hacer pequeñas correcciones, o cambios en el documento PDF, como fechas, cifras, o partes del texto mínimas. Desgraciadamente, no se pueden importar en este momento los documentos PDF nativos, es decir, los que no han sido creados con OpenOffice.org. Hay versiones de esta extensión para las distintas plataformas para las que está disponible OpenOffice.org en su versión 3.X, por lo que también la podemos usar desde Windows. También está previsto que en siguientes versiones de este añadido se mejoren las capacidades de  edición de los documentos PDF. </i></p><p><i>Esta extensión también permite algo muy curioso e interesante cara a la interoperabilidad y el almacenamiento de la información a largo plazo, como es la exportación de un PDF híbrido, es decir, un PDF con el archivo fuente, en formato ODF, embebido en él. De esta forma, el PDF híbrido se puede abrir desde OpenOffice.org como si fuera un ODF normal, sin perder el formato original del documento y con todas las posibilidades de edición que permite el programa. Sin embargo, los usuarios que no dispongan de OpenOffice.org podrán seguir abriendo la parte PDF de ese archivo híbrido sin problemas, por lo que seguirá siendo interoperable con los lectores PDF tradicionales. En este momento es una de las opciones que más utilizo con OpenOffice.org cuando genero mis documentos y deseo garantizar su interoperabilidad a largo plazo, pero sin renunciar a las posibilidades de edición cuando los abro en mi sistema. Es más, usando <a href="http://www.kriptopolis.org/sinadura-1-linux">Sinadura</a> o <a href="http://www.kriptopolis.org/portablesigner-2">PortableSigner</a>, puedo añadir una firma digital a estos archivos PDF, lo que también es interesante, ya que firmar el documento, no me impide editarlo posteriormente aunque, como es lógico, con ello se pierde la validez de la firma. Hay que señalar que OpenOffice.org también me permite firmar digitalmente y verificar la firma digital de documentos almacenados en formato ODF.</i></p><p><i>Para crear un archivo híbrido, una vez instalada la extensión Sun PDF Import, seleccionaremos la secuencia de mandatos Archivo | Exportar en formato PDF y en el recuadro de diálogo que nos aparece en pantalla, seleccionaremos las opciones PDF/A-1, que es una opción para almacenamiento a largo plazo de documentos PDF (encapsula todos tipos de letra que se utilizaron durante la edición y las etiquetas PDF) y la opción Crear archivo híbrido, seguido de la pulsación del botón Exportar. Bastará con seleccionar un nombre y trayectoria para nuestro archivo PDF en el siguiente recuadro de diálogo y volver a pulsar el botón Exportar, para finalizar el procedimiento.</i></p><p><i>También hay disponible un <a href="https://addons.mozilla.org/es-ES/firefox/addon/1888">visualizador de archivos en formato ODF para Firefox</a>. Este visualizador ODF también permite exportar el documento a PDF con solamente pulsar un botón en la interfaz de usuario del &quot;plugin&quot;.</i></p><p><i>&quot;Copyleft 2009 Fernando Acero Martín. Verbatim copying, translation and distribution of this entire article is permitted in any digital medium, provided this notice is preserved&quot;</i></p></blockquote>
+
+
+<br />
+
+
+<br />
+
+
+<br />
+
+
+<p>El resumen es que se trata (la extensión de SUN) de una gran idea. Por lo menos podemos mini-editar los pdfs generados exportando desde openoffice.</p>
+
+
+<p>En cuanto a los archivos híbridos también parecen muy útiles. Obviamente el tamaño de uno híbrido es la suma de los tamaños del archivo pdf normal más el del odf.</p>
+
+
+<p>Es, por tanto, una extensión imprescindible.</p>
+
+
+<br />
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Crear imagen de firmware de Ubiquiti con quagga]]></title>
+    <link href="http://ferochera.github.com/deries/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga/"/>
+    <updated>2009-05-15T00:20:00+02:00</updated>
+    <id>http://ferochera.github.com/deries/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga</id>
+    <content type="html"><![CDATA[<p>El objetivo es crear un archivo bin con el firmware de ubiquiti para nano5 o wispstation5 modificado de modo que incluya quagga como implementación de enrutamiento dinámico (usando ospf). Dado que el toolchain no ha cambiado desde la versión de inveneo en vez de aplicar sus cambios y compilar lo que haremos es abrir el firmware de inveneo extraer los scripts, librerias y ejecutables y añadirselos a la última versión (actualmente la 3.3.2).</p>
+
+<p>Este procedimiento está basado en la información compartida en las webs <a href="http://dren.dk/ubi.html">http://dren.dk/ubi.html</a> y <a href="http://rotobator.es">http://rotobator.es</a> y a ellos corresponde lo esencial del mérito.</p>
+
+<!--more-->
+
+
+<p>Procedimiento seguido:</p>
+
+<p>0- Bajar los firmwares: versión 3.3.2 de ubiquiti (http://www.ubnt.com/downloads/XS-fw/v3.3.2/XS5.ar2313.v3.3.2.4257.090214&#8230;) y versión 3.2 con quagga de inveneo.org (http://community.inveneo.org/downloads/ubnt/XS5/XS5.latest.bin)</p>
+
+<p>1- Bajar la toolchain de la web de Ubiquiti (<a href="http://www.ubnt.com/downloads/sdk/toolchain-mips-ls_0.1-1.deb">http://www.ubnt.com/downloads/sdk/toolchain-mips-ls_0.1-1.deb</a>), instalarla (sudo dpkg -i toolchain-mips-ls_0.1-1.deb)</p>
+
+<p>2- Bajar el SDK de la versión a utilizar (<a href="http://www.ubnt.com/downloads/XS-fw/v3.3.2/SDK.UBNT.v3.3.2.4257.tar.bz2">http://www.ubnt.com/downloads/XS-fw/v3.3.2/SDK.UBNT.v3.3.2.4257.tar.bz2</a>), descomprimirlo.</p>
+
+<p>3- Instalar las herramientas recomendadas (<a href="http://wiki.ubnt.com/wiki/index.php/AirOS-SDK">http://wiki.ubnt.com/wiki/index.php/AirOS-SDK</a>) para poder compilar, incluida sharutils.</p>
+
+<p>4- Bajar el patch para compilar en las últimas versiones de ubuntu (wget <a href="http://dren.dk/dl/SDK.UBNT.v3.3.2.4257-compilefixes.diff">http://dren.dk/dl/SDK.UBNT.v3.3.2.4257-compilefixes.diff</a>) y aplicarlo al código del SDK:</p>
+
+<pre><code>patch -p0 &lt; SDK.UBNT.v3.3.2.4257-compilefixes.diff
+</code></pre>
+
+<p>5- Compilar el firmware &#8220;make xs5&#8221;. No vamos a usar ese firmware sino que los que nos interesa es que se compilen las utilidades para abrir el firmware (mkfwimage,&#8230;) situadas en SDK&#8230;/tools/bin</p>
+
+<p>6- Copiar las utilidades de dren.dk (diff-dir, patch-fw, unwrap-fw) a la carpeta de utilidades del sdk (SDK&#8230;/tools/bin)</p>
+
+<p>7- Se podría realizar el resto del procedimiento de un modo automático utilizando el script patch-fw de dren.dk pero voy a hacerlo manual para saber realmente que se está haciendo (rarito que es uno ;-)). Basandome en ese scritp y en el de rotobator.es (http://rotobator.es/arxius/imagen_fs.sh) realizo las siguientes acciones:</p>
+
+<p>7.1- desde SDK&#8230;/tools/bin ejecuto lo sgte para montar las imágenes</p>
+
+<pre><code>./unwrap-fw ../../../XS5.ar2313.v3.2.SDK.090218.1511.bin ../../../XS5-3.2-quagga
+./unwrap-fw ../../../XS5.ar2313.v3.3.2.4257.090214.1458.bin ../../../XS5-3.3.2
+</code></pre>
+
+<p>para que quede, dentro de carpetas al mismo nivel que el SDK los firmwares abiertos de ambas versiones</p>
+
+<p>7.2- Copiar y revisar los siguientes archivos desde las versión abierta de la versión 3.2-quagga a la 3.3.2. La lista está ordenada teniendo en cuenta la carpeta del archivo</p>
+
+<pre><code>'bin/ospfd',
+'bin/quaggad-restart.sh',
+'bin/ripd',
+'bin/saveconfig',
+'bin/watchquagga',
+'bin/zebra',
+'lib/libospf.la',
+'lib/libospf.so.0.0.0',
+'lib/libzebra.la',
+'lib/libzebra.so.0.0.0',
+</code></pre>
+
+<p>y los enlaces</p>
+
+<pre><code>'lib/libospf.so',
+'lib/libospf.so.0',
+'lib/libzebra.so',
+'lib/libzebra.so.0',
+</code></pre>
+
+<p>además de los archivos de configuración:</p>
+
+<pre><code>'usr/etc/ospfd.conf',
+'usr/etc/poststart.d',
+'usr/etc/poststart.d/quagga.sh',
+'usr/etc/ripd.conf',
+'usr/etc/zebra.conf',
+'usr/etc/rc.poststart',
+'usr/etc/rc.poststop',
+'usr/etc/rc.prestart',
+'usr/etc/rc.prestop',
+</code></pre>
+
+<p>Comparamos entre las 2 versiones para ver si hay diferencias&#8230;</p>
+
+<pre><code>'usr/etc/rc.d/rc', --&gt; si que hay diferencias
+'usr/etc/system.cfg', --&gt; faltaría copiarlo o adecuarlo con las lineas de org.inveneo...
+</code></pre>
+
+<p>Y finalmente:</p>
+
+<pre><code>'usr/lib/inveneo',
+'usr/lib/inveneo/inveneo-utils.sh'
+</code></pre>
+
+<p>7.3- Una vez copiados y tras comparar acabo añadiendo lo siguiente en el urs/etc/system.cfg. También quito el telnetd. Para más datos sobre la configuración sería bueno visitar la wiki de inveneo.</p>
+
+<pre><code>org.inveneo.rip=disabled
+org.inveneo.rip.config.manual=disabled
+org.inveneo.rip.export.kernel-routes=disabled
+org.inveneo.ospf=enabled
+org.inveneo.ospf.config.manual=enabled
+org.inveneo.strip.default-route=disabled
+
+sshd.status=enabled
+sshd.port=22
+</code></pre>
+
+<p>7.4- Revisemos las diferencias en el script rc</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ diff XS5-3.3.2/fs/usr/etc/rc.d/rc XS5-3.2-quagga/fs/usr/etc/rc.d/rc
+</span><span class='line'>10,11c10,11
+</span><span class='line'>&lt; if [ -f /etc/persistent/rc.prestop ]; then
+</span><span class='line'>&lt; . /etc/persistent/rc.prestop
+</span><span class='line'>---
+</span><span class='line'>&gt; if [ -f /usr/etc/rc.prestop ]; then
+</span><span class='line'>&gt; . /usr/etc/rc.prestop
+</span><span class='line'>19,20c19,20
+</span><span class='line'>&lt; if [ -f /etc/persistent/rc.prestart ]; then
+</span><span class='line'>&lt; . /etc/persistent/rc.prestart
+</span><span class='line'>---
+</span><span class='line'>&gt; if [ -f /usr/etc/rc.prestart ]; then
+</span><span class='line'>&gt; . /usr/etc/rc.prestart
+</span><span class='line'>43,44c43,44
+</span><span class='line'>&lt; if [ -f /etc/persistent/rc.poststop ]; then
+</span><span class='line'>&lt; . /etc/persistent/rc.poststop
+</span><span class='line'>---
+</span><span class='line'>&gt; if [ -f /usr/etc/rc.poststop ]; then
+</span><span class='line'>&gt; . /usr/etc/rc.poststop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Acabo copiando el rc de inveneo también. Ojo esto hace que el único script que se coge de /etc/persistent sea el rc.poststart, que debería ser justamente el que arranque quagga tras el inicio del sistema.</p>
+
+<p>En teoría ya están hechas todas las modificaciones. Ahora habrá que volver a empaquetar el firmware en un archivo bin&#8230; Para ello de nuevo nos fijamos en los scripts de <a href="http://rotobator.es">rotobator.es</a> y <a href="http://dren.dk/ubi.html">dren.dk</a></p>
+
+<p>8- Crear el nuevo firmware (siguiendo script de rotovator y comparándolo con dren.dk)</p>
+
+<p>8.1- Cambiar la versión. Cambiar /usr/lib/version (XS5.ar2313.v3.3.2.4257.090214.1458) por la nueva (XS5.ar2313.v3.3.2.4257.090214.1458.quagga)</p>
+
+<pre><code>$ find fs -type f -exec sed -i s/XS5.ar2313.v3.3.2.4257.090214.1458/XS5.ar2313.v3.3.2.4257.090214.1458.quagga/g {} \;
+</code></pre>
+
+<p>8.2- Crear el enlace correspondiente en la carpeta /usr/www</p>
+
+<pre><code>$ (cd fs/usr/www &amp;&amp; ln -sf . XS5.ar2313.v3.3.2.4257.090214.1458.quagga)
+</code></pre>
+
+<p>y borrar el enlace previo</p>
+
+<pre><code>$ rm XS5.ar2313.v3.3.2.4257.090214.1458
+</code></pre>
+
+<p>8.3- Para el empaquetado volvemos al script de dren.dk (porque era el que hemos usado para el desempaquetado). Renombramos el cramfs: fw.cramfs &#8211;> fw.cramfs.viejo a modo de backup por si acaso y, a continuación, creamos el nuevo</p>
+
+<pre><code>cd airos (donde estén las carpetas SDK.., XS5-3.3.2, XS5-3.2...)
+$ fakeroot SDK.UBNT.v3.3.2.4257/tools/bin/mksquashfs XS5-3.3.2/fs XS5-3.3.2/fw.cramfs -be -all-root -noappend
+</code></pre>
+
+<p>8.4- Cambio también el archivo versión que hay en la carpeta de fw para que corresponda con la actual. Esto creo que es superfluo y que es simplemente información que se había creado al desempaquetar pero por si acaso estoy equivocado lo cambio.</p>
+
+<p>8.5- Reconstruir el firmware a partir de los archivos fw.* y version. Se usa la herramienta mkfwimage conla información contenida en fw.txt (que indica los tamaños y posiciones de cada parte en él)</p>
+
+<pre><code>cd a la carpeta donde está el fw.cramfs, en mi caso XS5-3.3.2/
+$../SDK.UBNT.v3.3.2.4257/tools/bin/mkfwimage -v XS5.ar2313.v3.3.2.4257.090214.1458.quagga -i fw.txt -o ../XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin
+</code></pre>
+
+<p>Atención: existe una diferencia de tamaño de 327680bytes (320kB) que viene a ser el tamaño de las aplicaciones o sea que debería ser correcto. Para ello también nos ha de sobrar espacio según el fw.txt (realmente cuando generamos la imagen nos dice que todavía nos sobra tamaño respecto del reservado).</p>
+
+<p><strong>9.</strong> Probar el firmware&#8230;</p>
+
+<p>Lo primero que hice fue cargar ese firmware (XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin). Lo que se observa es que no carga la configuración que le hemos puesto en el firmware.</p>
+
+<p>Mi conclusión momentanea es que dado que ya existe configuración en la partición dedicada a ello esa prevalece y no se genera una nueva a partir del firmware. Suponiendo que eso sea cierto ¿cómo podemos forzar esa regeneración de la configuración? Podríamos intentar cargar en el firmware una partición de configuración vacía que machaque la que haya (jugamos con fuengo ¿no?)</p>
+
+<p>Para ver si podemos hacerlo todo de una vez voy a recrear un firm igual que el anterior pero con la partición de configuración con todos los bytes a 0 para que se regenere el system.cfg (almenos) desde el del firmware&#8230; (ver <a href="http://ubnt.com/forum/viewtopic.php?t=2184">http://ubnt.com/forum/viewtopic.php?t=2184</a>)</p>
+
+<p>9.1-. Creo el archivo fw.cfgfix lleno de 0</p>
+
+<pre><code>$ dd if=/dev/zero of=fw.cfgfix bs=64k count=2
+</code></pre>
+
+<p>9.2- modifico fw.txt &#8211;> fw2.txt añadiendo la linea:</p>
+
+<pre><code>cfg 0x03 0xBFFC0000 0x00020000 0x00000000 0x00000000 fw.cfgfix
+</code></pre>
+
+<p>Donde las separaciones deben ser tabuladores (\t, para los amigos) en vez de espacios.</p>
+
+<p>9.3- Regeneramos el archivo bin con el firmware usando de nuevo mkfwimage:</p>
+
+<pre><code>$ ../SDK.UBNT.v3.3.2.4257/tools/bin/mkfwimage -v XS5.ar2313.v3.3.2.4257.090214.1458.quagga -i fw2.txt -o ../XS5.ar2313.v3.3.2.4257.090214.1458.quagga-cfgfix.bin
+$ ../SDK.UBNT.v3.3.2.4257/tools/bin/mkfwimage -v XS5.ar2313.v3.3.2.4257.090214.1458.quagga-cfgfix -i fw2.txt -o ../XS5.ar2313.v3.3.2.4257.090214.1458.quagga-cfgfix.bin
+</code></pre>
+
+<p>Esto genera la salida:</p>
+
+<pre><code>Firmware version: 'XS5.ar2313.v3.3.2.4257.090214.1458.quagga'
+Output file: '../XS5.ar2313.v3.3.2.4257.090214.1458.quagga-cfgfix.bin'
+Part count: 4
+RedBoot: 181960 bytes (free: 14648)
+kernel: 497774 bytes (free: 354194)
+cramfs: 2662400 bytes (free: 221184)
+cfg: 131072 bytes (free: 0)
+</code></pre>
+
+<p>En esta salida vemos que todavía nos cabría en el sistema de archivos (cramfs) aplicaciones hasta unos 200kB</p>
+
+<p>9.4 Y a probar de nuevo con el nuevo firmware (XS5.ar2313.v3.3.2.4257.090214.1458.quagga-cfgfix.bin). Es posible que me toque recuperar con tftp pero ya veremos. Por si acaso sería muy importante (si nos interesa la configuración previa) hacer una copia de seguridad.</p>
+
+<p>Por si hay por esos mundos algún otro &#8220;descerebrao&#8221; que quiera probar este firmware lo adjunto ;-) Falta regenerarlo de nuevo ya que me dice &#8220;Bad Firmware update image&#8221; al intentar subirlo con la interfaz web. Supongo que tiene que ver con el la versión tal como está arriba o debo ponerle la versión en todo (¿?). O quizá simplemente no soporta que suba esa partición.</p>
+
+<p>Otra opción recomendada es subir con tftp pero para ello debo desmontar la MaxStation así que de momento lo dejo aquí.</p>
+
+<p><strong>Seguimiento:</strong></p>
+
+<h2>APENDICE 1.</h2>
+
+<p>Vamos a ver que significa el mensaje del &#8220;mal firmware&#8221;.</p>
+
+<p>Revisando upgrade.cgi se ve que se llama a la función fw_validate que está en www/lib/system.inc&#8230; Para ver que ocurre se puede subir el archivo a mano (scp) y lo renombramos a /tmp/fwupdate.bin para seguidamente ejecutar &#8220;/sbin/fwupdate -c&#8221; con lo que obtenemos:</p>
+
+<pre><code>FW image partition "cfg" (4) has a base address, 0xBFFC0000 outside the flash memory map. Valid range is 0xBE000000-0xBE400000.
+</code></pre>
+
+<p>Dado que doy por hecho que la configuración no ha cambiado respecto de la versión 3.0 a la que se hace referencia en el hilo del forum <a href="http://ubnt.com/forum/viewtopic.php?t=2184">http://ubnt.com/forum/viewtopic.php?t=2184</a> esto me hace suponer que los desarrolladores de ubiquiti han introducido limitaciones en las últimas versiones de fwupdate. Esto me deja con la última opción de intentarlo vía tftp.</p>
+
+<p>Como opinión personal de este momento comentar que sería más fácil entrar vía ssh/scp y modificar/copiar la configuración para adaptarla en vez de tratar de regenerarla.</p>
+
+<h2>APENDICE 2.</h2>
+
+<p>La instalación via tftp funciona:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>_Reset con el botón de unos 10s_
+</span><span class='line'>$ tftp 192.168.1.20
+</span><span class='line'>tftp&gt; bin
+</span><span class='line'>tftp&gt; put flash_update (en los últimos firmwares no hace falta renombrar a este nombre)
+</span><span class='line'>tftp&gt; quit
+</span><span class='line'>_esperar unos 10min_</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Como ya he comentado se instala y se reconstruye la configuración incluyendo los valores adecuados (los de org.inveneo&#8230; y el servidor de ssh).</p>
+
+<p>¿Por qué no arranca quagga(zebra+ospfd)? Mi impresión es que /etc/rc.d/rc también debía ser cambiado de un modo similar al punto 7.4 en lo que corresponde al poststart</p>
+
+<h2>APENDICE 3.</h2>
+
+<p>Los firmwares finales son los que se presentan a continuación. Para usarlos se deberán descomprimir (el zip es para que me deje subir el adjunto) y aunque no debe ser necesario se puede quitar la última extensión para dejarlo como *.bin.</p>
+
+<p><a href="http://ferochera.github.com/deries/downloads/XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin.sincfgfix-rcmodif.zip">&#8220;XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin(.sincfgfix-rcmodif)&#8221;</a>: Versión sin el cfgfix y tras modificar el script rc. He comprobado que ahora arranca automáticamente quagga</p>
+
+<p><a href="http://ferochera.github.com/deries/downloads/XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin.cfgfix-rcmodif.zip">&#8220;XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin(.cfgfix-rcmodif)&#8221;</a>: Versión CON el cfgfix y tras modificar el script rc. Solo se puede actualizar a través de tftp con el procedimiento de recuperación. Esto supone tener acceso al botón de reset, cosa que no siempre es cierta sin desmontar.</p>
+
+<p>En cualquier caso hará falta revisar que la configuración es la adecuada (ospf activado y con la configuración manual habilitada). También hará falta añadir los archivos de configuración adecuados (zebra.conf y ospfd.conf en /etc/persistent/) y asegurarse que todo se almacena ejecutando</p>
+
+<pre><code>saveconfig
+</code></pre>
+
+<p>o lo que es lo mismo</p>
+
+<pre><code>cfgmtd -w -p /etc/
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ejecutar aplicaciones X como root en un display de usuario]]></title>
+    <link href="http://ferochera.github.com/deries/archives/38-Ejecutar-aplicaciones-X-como-root-en-un-display-de-usuario.html"/>
+    <updated>2009-04-30T19:52:30+02:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Ejecutar-aplicaciones-X-como-root-en-un-display-de-usuario</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p>( Basado en <a href="http://www.bulma.net/body.phtml?nIdNoticia=1038" title="Ejecutar aplicaciones X como root en un display de usuario">http://www.bulma.net/body.phtml?nIdNoticia=1038</a> )<p>Ejemplo de inicio de una aplicación gráfica (xterm) desde la linea de comandos de root. En principio serviría igual con cualquier otro usuario.</p></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ xhost LOCAL:
+</span><span class='line'>$ sudo su -
+</span><span class='line'> Password: **********
+</span><span class='line'># export DISPLAY=:0.0
+</span><span class='line'># xterm &amp;</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cable de red: rígido vs flexible]]></title>
+    <link href="http://ferochera.github.com/deries/2009/02/26/cable-red-rigido-vs-flexible/"/>
+    <updated>2009-02-26T23:33:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/2009/02/26/cable-red-rigido-vs-flexible</id>
+    <content type="html"><![CDATA[<p>He extraido un par de comentarios que pueden ser útiles a la hora de elegir cable de red. La idea es ver que ventajas e inconvenientes tiene el uso de cable rígido y/o cable flexible.</p>
+
+<p>Aunque los fragmentos están en inglés al final he añadido unas conclusiones simples&#8230;</p>
+
+<h2>Comentario 1:</h2>
+
+<blockquote><p>Category 5e and Category 6 network cable comes in a solid conductor format, and in stranded conductor formats. People often ask which is appropriate for their application. We&#8217;ll detail the difference between two types of cable, and help you decide which application is suits which cable.</p><p>Solid conductor uses 1 solid wire per conductor, so in a standard Cat-5e or Cat-6 4 pair (8 conductor) roll, there would be a total of 8 solid wires. Stranded conductor uses multiple wires wrapped around each other in each conductor, so in a 4 pair (8 conductor) 7 strand roll (typical configucation), there would be a total of 56 wires.</p><p>Solid conductor cable is most useful for structured wiring within a building. It is easily punched down onto wall jacks and patch panels since it is a single conductor. The wire seats properly into insulation displacement connector. Solid is less useful when you are terminating with standard RJ45 connectors, as used when making patch cables. Most RJ45 connectors use 2 prongs which penetrate the conductor itself. This is not desirable, since solid cable has the tendency to break when penetrated by the prong. Using a 3 prong style RJ45 connectors creates a much better connection as it doesn&#8217;t break the conductor - the 3 prongs style connection wraps around the conductor instead of penetrating it. All being said, it is recommended that stranded network cable be used for patch cables - they make better quality RJ45 termination connections than even using 3 prong connectors. Stranded cable is much less useful for punching down on wall jacks because the strands do not keep their perfect round shape when thrust into a insulation displacement connector. For best results, use solid for wall jacks and stranded for crimp connectors.</p><p>Stranded cable is typicalled used to create patch cables. The cable itself is more flexible, and rolls up well. The RJ45 terminators have a better, and more flexible and complete connection to stranded wires than solid wire.</p><footer><strong>msc_data</strong> <cite><a href='http://reviews.ebay.com/Solid-vs-Stranded-Network-Cabling-Which-to-choose_W0QQugidZ10000000002065324'>Solid vs. Stranded Network Cabling - Which to Choose? : eBay Guides</a></cite></footer></blockquote>
+
+
+<h2>Comentario 2:</h2>
+
+<blockquote><p>UTP stands for Unshielded Twisted Pair. It is a cable type with pairs of twisted insulated copper conductors contained in a single sheath. UTP cables are the most common type of cabling used in desktop communications applications.</p><p>Stranded cable has several small gauge wires in each separate insulation sleeve. Stranded cable is more flexible, making it more suitable for shorter distances, such as patch cords.</p><p>Solid has one larger gauge wire in each sleeve. Solid cable has better electrical performance than stranded cable and is traditionally used for inside walls and through ceilings - any type of longer run of cable.</p><p>Patch Cables are made of stranded copper conductors for flexibility. This construction is great for the flexing and the frequent changes that occur at the wall outlet or patch panel. The stranded conductors do not transmit data signals as far as solid cable. The TIA/EIA 568A which is the governing standard regarding commercial cabling systems limits the length of patch cables to 10 meters in total length. Does that mean you can&#8217;t use stranded cable for longer runs? Not at all, we&#8217;ve seen installations running stranded cable over 100 feet with no problems - it&#8217;s just not recommended. This is why we don&#8217;t sell patch cables over 30 feet in length.</p><footer><strong>Syscon Cables</strong> <cite><a href='http://www.connectworld.net/syscon/support.htm'>CAT-5, CAT-5e, CAT-6, CAT-7 Patch Cables</a></cite></footer></blockquote>
+
+
+<h2>Conclusiones:</h2>
+
+<ul>
+<li> El cable sólido se recomienda para instalaciones alejadas (largas tiradas de cable) y fijas (cableado de edificio, por ejemplo) mientras que el flexible se recomienda para latiguillos.</li>
+<li> El cable rígido es recomendable cuando está finalizado en rosetas. Cuando debe acabar en un conector rj45 macho debe buscarse uno que no seccione el cable, sino que lo rodee. Este problema no se presenta con el cable flexible.</li>
+<li> Para cableado en exteriores debería usarse FTP en vez de UTP por su mayor resistencia al medio ambiente.</li>
+</ul>
+
+
+<p><img src="http://ferochera.github.com/deries/images/rj45amp.gif" alt="Esquema conectores rj45 dependiendo del tipo de cable" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[guifi.net a Castelló: La llavor]]></title>
+    <link href="http://ferochera.github.com/deries/2009/02/05/guifi-net-a-castello-la-llavor/"/>
+    <updated>2009-02-05T23:33:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/2009/02/05/guifi-net-a-castello-la-llavor</id>
+    <content type="html"><![CDATA[<p>Els vídeos de la jornada dedicada a ruralnet i a guifi.net el dia 15 de desembre de 2008.</p>
+
+<ul>
+<li> <a href="http://www.svideo.uji.es/peli.php?codi=310&amp;lg=">Jornada sobre Free Wi-fi. RURALNET, por Jorge Hortelano</a></li>
+<li> <a href="http://www.svideo.uji.es/peli.php?codi=309&amp;lg=">Jornada sobre Free Wi-fi. GUIFI.NET, por Lluís Dalmau</a></li>
+</ul>
+
+
+<p>Aquesta reunió va ser l&#8217;inici de la xarxa guifi.net a Castelló. A partir d&#8217;aquest moment es va començar a montar els primers nodes.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Desinstalar nucleos antiguos]]></title>
+    <link href="http://ferochera.github.com/deries/archives/37-Desinstalar-nucleos-antiguos.html"/>
+    <updated>2008-12-03T18:06:47+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Desinstalar-nucleos-antiguos</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p>1-. listar los nucleos que tenemos instalados:</p>
+
+
+<blockquote><pre><font size="3">sudo dpkg --get-selections | grep linux-image</font></pre></blockquote>
+
+
+<p>2-. eliminar los que no queramos conservar con apt-get o con aptitude:</p>
+
+
+<blockquote><pre><font size="3">sudo apt-get remove --purge linux-image-2.6.20-14-generic</font></pre></blockquote>
+
+
+<p>con la opción siguiente también se eliminarán los que aunque sin estar instalados no hayamos quitado sus archivos de configuración y que en la lista de dpkg aparecen como &quot;deinstall&quot;:</p>
+
+
+<blockquote><pre><font size="3">sudo aptitude purge linux-image-2.6.22-14-generic</font></pre></blockquote>
+
+
+<p>En principio con un par de nucleos funcionantes debería ser suficiente.</p>
+
+
+<br />
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Udev y Monit. Resolviendo problemas de wview.]]></title>
+    <link href="http://ferochera.github.com/deries/archives/36-Udev-y-Monit.-Resolviendo-problemas-de-wview..html"/>
+    <updated>2008-11-21T16:59:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Udev-y-Monit.-Resolviendo-problemas-de-wview.</id>
+    <content type="html"><![CDATA[<br />
+
+
+<div align="left">Wview es un software de wviewweather.com que permite obtener los datos de varios tipos de estaciones meteorológicas desde linux y genera una web estática actualizada desde los datos de la estación. También puede almacenar los datos en BD y enviar informes a diferentes servicios (AWEKAS, CWOP y <br />
+          Weather Underground). Por ejemplo: <a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica.">Estación meteorológica en el Planetari de Castelló</a></div>
+
+
+<div align="left"></div>
+
+
+<div align="left"></div>
+
+
+<div align="left"></div>
+
+
+<div align="left"></div>
+
+
+<p /><div align="left">Bien pues después de utilizarlo un tiempo aparecen 2 problemas esenciales para mantenerlo online:</div><div align="left"></div><div align="left">1-. La estación está conectada a través de USB pero con un conversor cp2101. El problema es que algunas veces el sistema se reinicia pero enlazándose en /dev/ttyUSB1 en vez de /dev/ttyUSB0 que es el estándar.</div><div align="left"></div><div align="left"></div><div align="left">2-. Alguna vez muere alguno de los procesos (wviewd o htmlgend) y deja de actualizarse la web. El origen todavía no lo tengo claro. Pero parece que wvpmon, que debería monitorizar los procesos y reiniciar el que falle, no lo hace correctamente.</div><p /><div align="left"></div><div align="left"><b></b></div><div align="left"></div><div align="left"><b>Soluciones:</b></div><div align="left">1-. para evitar que haya problemas con el cambio de puerto USB podemos incluir una nueva regla UDEV. Haremos que nuestro software apunte a un puerto &quot;ficticio&quot; wviewUSB y con la regla nueva crearemos un enlace simbólico de este puerto al que esté funcionando. Además podemos ejecutar un script para hacer reiniciarse a los procesos de wview&#8230;</div><blockquote># Regla udev para que cuando la estacion cambie de ttyUSB0 a 1 o<br />#  viceversa se actualice un symlink de wviewUSB &#8211;&gt; ttyUSB? (0 o 1)<br />#  y se ejecute un script que reinicie wview. (Lo sgte todo en una linea)<br /><br />SUBSYSTEMS==&quot;tty&quot;, KERNEL==&quot;ttyUSB?&quot;, NAME=&quot;%k&quot;, SYMLINK+=&quot;wviewUSB&quot;, RUN+=&quot;/etc/init.d/wview.udev&quot;</blockquote><div align="left"></div><div align="left">2-. para reiniciar los procesos podríamos utilizar cron junto con algún script específico. Pero también podemos utilizar monit. Éste es un monitor de &quot;eventos&quot; que nos permite realizar acciones por ejemplo si el disco, la cpu o la ram están muy ocupadas o, como en este caso, si no se han generado los archivos de la estación.</div><div align="left">Para ponerlo en marcha instalamos el paquete (sudo apt-get install monit) y deberemos editar los archivos /etc/default/monit (cambiar de startup=0 a startup=1) y /etc/monit/monitrc, que es donde realmente haremos los cambios:</div><div align="left"></div><p /><blockquote># habilitar el servidor web interno de monit visible en http://localhost:2812/<br />set httpd port 2812 and<br />     use address localhost  # only accept connection from localhost. without: all<br />     allow localhost        # allow localhost to connect to the server and<br />     allow admin:monit      # require user &#8216;admin&#8217; with password &#8216;monit&#8217;<br /><br /># incluir las reglas de monitorizacion y sus efectos<br />check file Current.htm with path /usr/local/var/wview/img/Current.htm<br />   if timestamp &gt; 20  minute then exec &quot;/etc/init.d/wview.monit&quot;<br /><br />check file tempdaycomp.png with path /usr/local/var/wview/img/tempdaycomp.png<br />   if timestamp &gt; 20  minute then exec &quot;/etc/init.d/wview.monit&quot;</blockquote><p><br />
+Con esto conseguimos que se ejecute el script wview.monit si en 20 minutos no se ha actualizado una de las páginas web (Current.htm) o si no se ha actualizado uno de los gráficos. En teoría el archivo htm debería actualizarse una vez cada 5min y el gráfico una vez cada 10. Si no ocurre deberíamos hacer o bien que wview se reiniciase (wview restart) o bien que se reinicie el sistema completo. Incluso podríamos hacer que si la espera es de 20min que se reinicie wview y si pasa de 40min que se reinicie el equipo.</p><p />
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Renombrar muchos archivos desde linea de comandos]]></title>
+    <link href="http://ferochera.github.com/deries/archives/35-Renombrar-muchos-archivos-desde-linea-de-comandos.html"/>
+    <updated>2008-10-31T13:35:31+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Renombrar-muchos-archivos-desde-linea-de-comandos</id>
+    <content type="html"><![CDATA[<p>La sintaxis de rename:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rename [ -v ] [ -n ] [ -f ] perlexpr [ files ]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>donde -v indica modo &#8216;verboso&#8217;, -n indica no-action (no se ejecuta el renombramiento), y -f indica forzar el cambio.</p>
+
+<p>En la expresión de perl lo habitual es &#8216;s/viejo/nuevo&#8217; que indica que hay que sustituir (s) el texto &#8216;viejo&#8217;  por el texto &#8216;nuevo&#8217;.</p>
+
+<p><strong>Ejemplos:</strong></p>
+
+<ul>
+<li>Cambiar parte del nombre:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rename -v 's/IMG_/\foto_/' *;.jpg</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Cambiar la extensión:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rename -v 's/\.htm$/\.html/' *.htm</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cambiará los archivos con extensión htm y les pondrá html.</p>
+
+<p>Dado que &#8216;.&#8217; significa cualquier carácter en una expresión normal habrá que &quot;escaparlo&quot; para ello usamos &#8216;.&#8217; ya que queremos que coincida con el punto de la extensión. El símbolo &#8216;$&#8217; indica fin de nombre/cadena. Esto hará que se cambie el nombre para archivos &#42;.htm pero no para otros que tengan algo más detras de la &#8216;m&#8217;, por ejemplo &#42;.htms</p>
+
+<ul>
+<li>Incluir texto:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rename -v 's/\.jpg$/_mini\.jpg/' *.jpg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Si queremos hacer explicito que se trata de miniaturas (thumbnails) podemos añadir a cada una el texto _mini justo delante de la extensión.</p>
+
+<p><strong>Más información:</strong></p>
+
+<ul>
+<li>man rename</li>
+<li><a href="http://jupabeans.blogspot.com/2007/04/renombrar-archivos-con-rename-linux.html">Renombrar archivos con rename (Linux)</a></li>
+<li><a href="http://tips.webdesign10.com/how-to-bulk-rename-files-in-linux-in-the-terminal">How to Bulk Rename Files in Linux (Terminal or GUI)</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[UBUNTU - DEBIAN: Evitar actualización de un paquete]]></title>
+    <link href="http://ferochera.github.com/deries/archives/34-UBUNTU-DEBIAN-Evitar-actualizacion-de-un-paquete.html"/>
+    <updated>2008-10-30T13:38:40+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/UBUNTU-DEBIAN-Evitar-actualizacion-de-un-paquete</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p>La cuestión es garantizar que la distribución no actualice un paquete determinado (quizá si que lo haga en el caso de una actualización de versión. Aunque la idea es ir de versión LTS a LTS (Ubuntu) con lo que por lo menos habrá una temporada sin cambios.</p>
+
+
+<p>Para el ejemplo se usa el paquete tnftp, que es un cliente de ftp procendente de BSD que se utiliza para actualizaciones a través de ftp con <a href="http://www.wviewweather.com/" title="Software para uso con estaciones meteorológicas">wview</a>.</p>
+
+
+<h3>Retención con aptitude:</h3>
+
+
+<br />
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo aptitude hold tnftp</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Verificación:</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ aptitude search tnftp
+</span><span class='line'>ih  tnftp  - The enhanced ftp client</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<p>donde la &#8216;i&#8217; indica instalado y la &#8216;h&#8217; indica que está retenido (hold).</p>
+
+
+<p><b>Problema:</b> la retención con aptitude no implica la retención con apt-get o dpkg<br />
+</p>
+
+
+<p><b>Solución:</b> retener también con dpkg. Esto tiene efecto también con apt-get<br />
+<br />
+</p>
+
+
+<h3>Retención con dpkg:<br />
+</h3>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo 'tnftp hold' | sudo dpkg --set-selections</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<p><b>Verificación:</b><br />
+</p>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dpkg --get-selections | grep tnftp
+</span><span class='line'>tnftp  hold</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Concatenar pdf o ps con gs]]></title>
+    <link href="http://ferochera.github.com/deries/archives/33-Concatenar-pdf-o-ps-con-gs.html"/>
+    <updated>2008-10-28T12:41:33+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Concatenar-pdf-o-ps-con-gs</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p>Si tenemos ghostscript instalado, cosa bastante habitual, podemos concatenar <b>ps</b> o <b>pdf</b> facilmente y sin herramientas añadidas&#8230;</p>
+
+
+<p>Concatenando 3 pdf en resultado.pdf:</p>
+
+
+<pre>gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=resultado.pdf 1er.pdf 2o.pdf 3r.pdf</pre>
+
+
+<p>Concatenando 3 ps en resultado.ps:</p>
+
+
+<br />
+
+
+<pre>gs -q -dNOPAUSE -dBATCH -sDEVICE=pswrite -sOutputFile=resultado.ps 1er.ps 2o.ps 3r.ps</pre>
+
+
+<p /><p>Información obtenida de: <a href="http://www.linuca.org/body.phtml?nIdNoticia=343">http://www.linuca.org/body.phtml?nIdNoticia=343</a></p><p />
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[BackTrack 3. Instalación en pendrive]]></title>
+    <link href="http://ferochera.github.com/deries/archives/32-BackTrack-3.-Instalacion-en-pendrive.html"/>
+    <updated>2008-10-15T08:51:55+02:00</updated>
+    <id>http://ferochera.github.com/deries/archives/BackTrack-3.-Instalacion-en-pendrive</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p>Si no conoces Backtrack quizá deberías visitar la web de <a href="http://www.remote-exploit.org/backtrack.html" title="Backtrack en remote-exploit.org"><b>remote-exploit.</b></a></p>
+
+
+<br />
+
+
+<p>Vamos a instalarla en un pendrive (de 1GB o mayor para que quepa). Los pasos son los siguientes:</p>
+
+
+<p>1-. Bajamos el iso (<a href="http://www.remote-exploit.org/cgi-bin/fileget?version=bt3-usb">bt3final_usb.iso</a>)</p>
+
+
+<p>2-. Copiamos el contenido al disco usb (damos por hecho que previamente el disco está vacío y particionado con una partición fat (o fat32). Para copiarlo podemos abrir el iso con, por ejemplo, winrar si lo hacemos en Ms Windows, o podemos montarlo en modo loop en gnu/linux (mount -o loop bt3final_usb.iso bt3/). Una vez tenemos el contenido disponible lo copiamos al disco usb.</p>
+
+
+<p>3-. Hacer el pendrive arrancable. Para ello ejecutamos un script (bootinst.bat en Windows o bootinst.sh en gnu/linux). Es posible que necesitemos disponer de permisos de administrador. En principio no debería haber problemas pero se impone leer con atención los mensajes que muestra el script.</p>
+
+
+<p>Para más detalles visita el <a href="http://wiki.remote-exploit.org/" title="Wiki de Remote-Exploit.org">wiki de remote-exploit.org</a></p>
+
+
+<p>Información extraida de <a href="http://lucas-coudures.blogspot.com/2008/07/instalar-backtrack-3-final.html">http://lucas-coudures.blogspot.com/2008/07/instalar-backtrack-3-final.html</a></p>
+
+
+<br />
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Restaurar imagen de WinXp en otro hardware.]]></title>
+    <link href="http://ferochera.github.com/deries/archives/31-Restaurar-imagen-de-WinXp-en-otro-hardware..html"/>
+    <updated>2008-10-03T11:06:54+02:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Restaurar-imagen-de-WinXp-en-otro-hardware.</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p align="justify">No dudes que el camino bueno es el que indican las ayudas de los programas de imágenes. Es decir&#8230; &quot;preparar&quot; la instalación para realizar la imagen con la utilidad <a title="Sysprep en Wikipedia (inglés)" href="http://en.wikipedia.org/wiki/Sysprep"> sysprep</a> de Microsoft y posteriormente realizar la imagen. Así cuando restauremos y arranquemos haremos como una finalización de instalación del S.O.</p>
+
+
+<p align="justify">Podemos encontrar información de le herramienta en <a title="Cómo utilizar la herramienta Sysprep.exe para automatizar la correcta implementación de Windows XP" href="http://support.microsoft.com/kb/302577/es">support de Microsoft</a> o <a title="Manual de SYSPREP para clonar un Windows XP en distintos PC(pdf)" href="http://download-linkat.xtec.cat/d83/sysprep.pdf">aquí</a>.</p>
+
+
+<p align="justify">Pero ¿qué pasa si se te ha fastidiado el hardware y quieres restaurar una imagen reciente en tu hardware nuevo? </p>
+
+
+<p align="justify">Puedes seguir el tutorial &quot;<b>Cómo cambiar una placa sin reinstalar Windows</b>&quot; (<a title="Cómo cambiar una placa sin reinstalar Windows" href="http://www.noticias3d.com/articulo.asp?idarticulo=903">web1</a> o <a title="Cómo cambiar una placa sin reinstalar Windows" href="http://www.comunicopy.com/foros/viewtopic.php?t=79">web2</a>)</p>
+
+
+<p align="justify">En mi caso, tras un fallo multiorgánico del equipo, tuve que recurrir a un hardware algo más antiguo con lo que tras la restauración de la imagen no había manera de que arrancara&#8230;</p>
+
+
+<p><strong>¿Qué podemos hacer?</strong></p>
+
+<p>Se puede hacer una instalación encima cambiando la HAL (presionar F5 mientras dice algo así como &#8220;si tienes drivers para controlador específico pulsa F6&#8221; al principio de la instalación; elegir el hal adecuado para tu máquina) y proceder con la instalación diciendole al instalador que mantenga el S.O. que previo (eso si, después hay que volver a aplicar los service packs y actualizaciones, cosa que hace que el tema sea muy lento). Como dice <a href="http://www.vicente-navarro.com/blog/">Vicente Navarro</a>&#8230; Lo hice y lo entendí, aunque yo lo hice y lo sufrí.</p>
+
+<p>La segunda opción es más rápida. Supongamos, como era mi caso, que la imagen está restaurada pero no arranca. Podemos seguir el tutorial anterior en la parte que hace referencia a la sustitución de la hal. Para ello extraemos los archivos de kernel y hal adecuados para nuestra máquina del service pack (ej c:\WINDOWS\Driver Cache\i386\sp2.cab) correspondiente (o de c:\WINDOWS\Driver Cache\i386\driver.cab) desde otra máquina (o arrancando con un livecd y extrayendolo del disco restaurado si no tenemos otra a mano). Les cambiamos el nombre y los colocamos en c:\WINDOWS\system32 de nuestro equipo siguiendo las recomendaciones del tutorial (krnl.exe, krnlpa.exe y halnew.dll). Posteriormente alteramos el boot.ini (archivo oculto y de solo lectura situado en la raíz c:\ que contiene las opciones de arranque).</p>
+
+<p>Lo que hacemos es introducir una nueva opción:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[boot loader]
+</span><span class='line'>timeout=10
+</span><span class='line'>default=multi(0)disk(0)rdisk(0)partition(1)\WINDOW S
+</span><span class='line'>
+</span><span class='line'>[operating systems]
+</span><span class='line'>multi(0)disk(0)rdisk(0)partition(1)\WINDOWS="Microsoft Windows XP ..." /fastdetect /NoExecute=OptIn
+</span><span class='line'>multi(0)disk(0)rdisk(0)partition(1)\WINDOWS="Windows XP cambio hal" /noexecute=alwaysoff /fastdetect /sos /kernel=krnl.exe /hal=halnew.dll</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Arrancaremos seleccionando esta nueva entrada. Detectará la hal diferente y copiara los archivos sobre los ntoskrnl.exe, ntkrnlpa.exe y hal.dll. Tras eso podemos reiniciar y arrancar con la opcion normal. Después borraremos del boot.ini la opción que nos ha servido para restaurar la hal adecuada.</p>
+
+<p>Solo nos faltará reactivar el windows.</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1</strong></p>
+
+<p>[Windows xp setup ACPI key, F10 F2 F6 F5 y otras teclas de función]
+(http://miguesmart.blogspot.com/2008/08/windows-xp-setup-acpi-key-f10-f2-f6-f5.html)</p>
+
+<p>Durante la instalación puede usar varias teclas de función para activar ciertas características y comandos. En la lista siguiente se detallan las teclas de función, lo que hacen y cómo se pueden usar.</p>
+
+<p>Se pueden usar tres teclas cuando se carga el programa de instalación y cuando se le pide que presione la tecla de función F6 para instalar la interfaz estándar de equipos pequeños (SCSI, Small Computer System Interface) de terceros y los controladores de las controladoras de host:</p>
+
+<blockquote><ul>
+<li>F5: para la selección de la capa de abstracción de hardware (HAL) o del tipo de equipo</li>
+<li>F6: para instalar controladores de controladoras de host y SCSI de terceros</li>
+<li>F7: para ejecutar el programa de instalación sin Interfaz avanzada de configuración y energía (ACPI)</li>
+</ul>
+</blockquote>
+
+<p>Cuando aparece la pantalla de bienvenida, se pueden usar las teclas de función siguientes:</p>
+
+<blockquote><ul>
+<li>F2: para iniciar automáticamente el proceso de Recuperación automática del sistema (ASR).</li>
+<li>F10: para omitir las pantallas de menú y cargar la Consola de recuperación</li>
+</ul>
+</blockquote>
+
+<p>Durante la instalación en modo de interfaz gráfica de usuario (GUI), se pueden usar las siguientes teclas de función:</p>
+
+<blockquote><ul>
+<li>MAYÚS+F10: para habilitar el acceso a un símbolo del sistema durante la instalación en modo GUI</li>
+<li>MAYÚS+F11: para mostrar los asistentes al &#8220;estilo antiguo&#8221; que ofrecen más detalles</li>
+</ul>
+</blockquote>
+
+<p><strong>Comentario 2 (el loco)</strong></p>
+
+<p>Hola, como estan?, tengo un problema con respecto al siguiente tema: Hice una imagen de un windows xp con todos los parches de seguridad y todo instalado y testeado, lo instale todo en una maquina rapida, (solo utilice el disco rigido) y no instale ningun driver ni nada (ya que no eran de la maquina en la que finalmente funcionarian), y luego cuando lleve ese disco a una maquina mas antigua el xp no arranca&#8230; se queda en la pantalla negra con el cursor titilando, no llega a mostrar la pantalla del windows cargando&#8230; y se que hay una solucion en el arranque, pero no se donde&#8230; (ya probe con los sectores de arranque y demas del disco pero no hay forma&#8230;) queria saber si tienen alguna solucion? sin tener que reinstalar nada.. Gracias.</p>
+
+<p><strong>Respuesta</strong></p>
+
+<p>Lee la documentación enlazada (las webs) y trata de averiguar que &#8216;hal&#8217; le corresponde a tu equipo.</p>
+
+<p>Luego puedes seguir el procedimiento que te cuento de poner los archivos a mano para que los cargue en el siguiente arranque.</p>
+
+<p>Saludos.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Clonezilla - SysRescueCD]]></title>
+    <link href="http://ferochera.github.com/deries/archives/30-Clonezilla-SysRescueCD.html"/>
+    <updated>2008-09-23T12:50:07+02:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Clonezilla-SysRescueCD</id>
+    <content type="html"><![CDATA[<div align="left"><p>Tanto Clonezilla (que incluye ntfsclone) como SysRescCD son dos compilaciones de utilidades muy interesantes y desde este <a href="http://clonezilla-sysresccd.hellug.gr/" title="clonezilla-sysresccd"><b>sitio griego</b></a> podemos tenerlas juntas en el mismo cd. El siguiente texto está extraido de esta web&#8230;<u><b></b></u></p><blockquote><p><u><b>What is it all about?</b></u></p><p><b>Clonezilla-SysRescCD</b> is a Linux multi boot backup/restore and rescue CD, combining <a target="_blank" href="http://www.clonezilla.org/">Clonezilla Live</a> and <a target="_blank" href="http://www.sysresccd.org/Main_Page">System Rescue CD</a> in one CD.<br />  It is released under the <b>GNU General Public License (GPL)</b>.</p><p><a name="enhanced"></a><u><b>Enhanced features</b></u></p><p>Enhancements to <b>Clonezilla Live</b></p><ul><li><a href="http://clonezilla-sysresccd.hellug.gr/restore.html#auto" class="void">Automated restore DVDs</a><br />
+can be easily created, so that anybody can perform a system restore<br />
+operation (even people with minimum technical knowledge). All the<br />
+necessary files for the creation of the DVD are included in <b>Clonezilla-SysRescCD</b>.</li><li>A script called <a href="http://clonezilla-sysresccd.hellug.gr/reloc-img.html" class="void">reloc-img</a> makes it possible to restore an image file to a location (disk or partition) different than the one originally backed up.</li></ul><p>Enhancements to <b>System Rescue CD</b></p><ul><li>A script called <a href="http://clonezilla-sysresccd.hellug.gr/own-scripts.html#scripts-startx" class="void">startx-tft-ati</a> will help you get into the graphical environment on a TFT - ATI graphics card based PC.</li></ul><p>Other enhancements</p><ul><li>Part of <b>Clonezilla-SysRescCD&#8217;s</b> web site is included <a href="http://clonezilla-sysresccd.hellug.gr/help.html" class="void">in the CD</a>, so that help is always available.</li></ul></blockquote>               </div>
+
+
+<div align="center"><br />
+</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apagar Linux desde Windows]]></title>
+    <link href="http://ferochera.github.com/deries/archives/29-Apagar-Linux-desde-Windows.html"/>
+    <updated>2008-09-03T11:57:10+02:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Apagar-Linux-desde-Windows</id>
+    <content type="html"><![CDATA[<br />
+
+
+<div align="justify">Por cuestiones que no vienen al caso necesito permitir que un usuario apague el servidor de un modo simple y sin requerirle mayor información.</div>
+
+
+<div align="justify"></div>
+
+
+<div align="justify"></div>
+
+
+<br /><div align="justify"></div><div align="justify">Para prepararlo crearé un usuario que permita apagar el equipo via ssh con par de claves publica-privada y prepararé un mini-script que muestre un dialogo de confirmación&#8230;</div><div align="justify"></div><div align="justify"></div><div align="justify"></div><br /><div align="justify">Para el funcionamiento se requiere que PuTTY esté instalado (realmente solo necesitamos puttygen para la creación de las claves pública y privada y plink para ejecución del comando <i>shutdown</i>)</div><div align="justify"></div><div align="justify"></div><div align="justify"></div> <br />
+
+
+
+
+<!--more-->
+
+
+<p>1-. Crear el usuario en el equipo a apagar. Suponemos que se trata de un Ubuntu (en otros sabores habrá que retirar el sudo y ejecutar los comandos como root). Preparamos el usuario para que pueda ejecutar el shutdown sin password.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo groupadd apagador
+</span><span class='line'>$ sudo useradd -d /home/apagador -g users -G apagador -m -s /bin/bash apagador
+</span><span class='line'>$ sudo passwd apagador
+</span><span class='line'>New UNIX password: &lt;password&gt;
+</span><span class='line'>Retype new UNIX password: &lt;password&gt;
+</span><span class='line'>passwd: password updated successfully
+</span><span class='line'>$ sudo visudo
+</span><span class='line'>
+</span><span class='line'># Incluimos permiso para que 'apagador' pueda ejecutar shutdown sin password ALL
+</span><span class='line'>apagador ALL = NOPASSWD: /sbin/shutdown</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2-. Creamos las claves. Para ello hacemos uso de PuTTYGen. En él seleccionamos una clave de 1024 bits del tipo SSH-2 DSA. Tras esto pulsamos el botón de generarla (&#8220;Generate&#8221;).</p>
+
+<p><img class="center" src="http://ferochera.github.com/deries/images/puttygen01.jpg" title="PuTTYGen" alt="Generando las claves con PuTTYGen"></p>
+
+<p>Mientras se crea debemos mover el puntero del ratón sobre la zona vacía del programa para aumentar la aleatoriedad de la clave. Tras esto tendremos el par de claves, publica y privada, creadas. Debemos copiar la clave pública al portapapeles desde la ventana donde nos aparece ya preparada para incluirla en el archivo de &#8220;authorized_keys&#8221; del usuario.</p>
+
+<p><img class="center" src="http://ferochera.github.com/deries/images/puttygen03.jpg" title="Clave pública" alt="Clave pública para copiar y pegar"></p>
+
+<p>Una vez hecho esto guardaremos las claves pública y la privada en ficheros, uno para cada una, de modo que plink pueda usar la clave privada (y el cliente la pública a través de su authorized_keys). Para que no nos pida el password de acceso a la clave privada debemos dejar el campo vacío al guardarla.</p>
+
+<p><img class="center" src="http://ferochera.github.com/deries/images/puttygen04.jpg" title="Passwords" alt="(No) Asignar contraseñas a las claves con PuTTYGen"></p>
+
+<p>Guardamos las dos claves en un lugar acesible en el equipo windows utilizando los botones &#8220;Save public key&#8221; y &#8220;Save private key&#8221;. Para la privada se sugiere la extensión ppk</p>
+
+<p><img class="center" src="http://ferochera.github.com/deries/images/puttygen05.jpg" title="PuTTYGen" alt="Almacenar las claves en archivo"></p>
+
+<p>3-. Incluir la clave pública generada en el authorized_keys del usuario apagador. Para ello podemos usar PuTTY desde el equipo windows. Vamos a editar /home/apagador/.ssh/authorized_keys. Debemos incluir lo que hemos copiado en el apartado 2, tras la creación de la clave. Incluimos como opción que el comando a ejecutar es shutdown y opcionalmente la ip del equipo windows. En la misma linea pegamos la clave pública (&#8220;ssh-dss AAAAB3&#8230;&#8221;)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;login como apagador&gt;
+</span><span class='line'>$ cd .ssh (&lt;-- si no existe crearlo con "mkdir .ssh")
+</span><span class='line'>$ nano authorized_keys
+</span><span class='line'>from=”10.0.3.2″,command=”sudo /sbin/shutdown -h -P now” ssh-dss AAAAB3...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4-. Ejecutando</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>plink -T apagador@equipolinux_o_ip -i claveprivada.ppk sudo /sbin/shutdown -h -P now</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ya debería funcionar (quizá faltara solo las rutas absolutas a plink y claveprivada.ppk). Pero para completar el tema vamos a utilizar un
+script vbs que antes de ejecutar el comando mostrará un msgbox de confirmación:</p>
+
+<figure class='code'><figcaption><span>Script de Apagado Remoto (apagarEquipoLinux.vbs)</span> <a href='http://ferochera.github.com/deries/downloads/code/apagarEquipoLinux.vbs'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='vbnet'><span class='line'>    <span class="c">&#39;script que muestra un msgbox para confirmar que se quiere apagar </span>
+</span><span class='line'>    <span class="c">&#39; el equipo linux remoto (llamado equipolinux y usando el usuario</span>
+</span><span class='line'>    <span class="c">&#39; apagador) a traves de plink.</span>
+</span><span class='line'>    <span class="c">&#39; Si la respuesta es afirmativa (OK) se envía la petición (apagar)</span>
+</span><span class='line'>    <span class="c">&#39; El usuario apagador ya está configurado en el equipo de destino</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">&#39; 4401 --&gt; msgbox modal, defaultbutton = 2o. (cancel), icono-peligro, botones OK-cancel</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">Option</span> <span class="n">Explicit</span>
+</span><span class='line'>    <span class="k">Dim</span> <span class="n">ws</span><span class="p">,</span> <span class="n">VarApplication</span>
+</span><span class='line'>    <span class="k">Dim</span> <span class="n">strMbox</span>
+</span><span class='line'>    <span class="c">&#39;On Error Resume Next</span>
+</span><span class='line'>    <span class="n">strMbox</span> <span class="o">=</span> <span class="s">&quot;.&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">strMbox</span> <span class="o">=</span> <span class="n">MsgBox</span><span class="p">(</span><span class="s">&quot;Vas a apagar el equipo.linux ¿Quieres continuar?&quot;</span><span class="p">,</span><span class="mi">4401</span><span class="p">,</span><span class="s">&quot;Apagando EquipoLinux...&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">If</span> <span class="n">strMbox</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">Then</span>
+</span><span class='line'>    <span class="k">Set</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">CreateObject</span><span class="p">(</span><span class="s">&quot;WScript.Shell&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">Set</span> <span class="n">VarApplication</span> <span class="o">=</span> <span class="n">ws</span><span class="p">.</span><span class="n">Exec</span><span class="p">(</span><span class="s">&quot;&quot;&quot;C:\Archivos de programa\PuTTY\plink.exe&quot;&quot; &quot;</span> <span class="o">&amp;</span> <span class="n">_</span>
+</span><span class='line'>  <span class="s">&quot;-T apagador@equipolinux &quot;</span> <span class="o">&amp;</span> <span class="n">_</span>
+</span><span class='line'>  <span class="s">&quot;-i &quot;&quot;C:\Documents and Settings\localusr\apagador\apagador_privkey.ppk&quot;&quot; &quot;</span> <span class="o">&amp;</span><span class="n">_</span>
+</span><span class='line'>  <span class="s">&quot;sudo /sbin/shutdown -h -P now&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">Wscript</span><span class="p">.</span><span class="n">Sleep</span> <span class="mi">1000</span>
+</span><span class='line'>    <span class="n">ws</span><span class="p">.</span><span class="n">AppActivate</span> <span class="s">&quot;Apagando EquipoLinux&quot;</span>
+</span><span class='line'>    <span class="k">End</span> <span class="k">If</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">WScript</span><span class="p">.</span><span class="n">Quit</span>
+</span><span class='line'>    <span class="c">&#39; End of example VBScript</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Solo faltará guardarlo en un archivo de extension vbs (ej apagarEquipoLinux.vbs) y podemos crear un acceso directo a él y colocarlo donde más convenga, el escritorio por ejemplo.</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1 (Fabio Rojas)</strong></p>
+
+<p>Muy bien; excelente.</p>
+
+<p>Lo malo es que cuando yo ejecuto el script desde cualquier máquina: primero, no me genera el mensaje de:</p>
+
+<blockquote><p>The server&#8217;s host key is not cached in the registry. You have no guarantee that the server is the computer you think it is.</p>
+
+<p>The server&#8217;s rsa2 key fingerprint is:</p>
+
+<p>ssh-rsa 2048 76:09:c0:c2:fe:4b:52:30:04:e4:91:47:2f:d3:16:8a</p>
+
+<p>If you trust this host, enter &#8220;y&#8221; to add the key to PuTTY&#8217;s cache and carry on connecting.</p>
+
+<p>If you want to carry on connecting just once, without adding the key to the cache, enter &#8220;n&#8221;.</p>
+
+<p>If you do not trust this host, press Return to abandon the connection.</p>
+
+<p>Store key in cache? (y/n)</p></blockquote>
+
+<p>Y por supuesto, no puede proseguir y menos ejecutar el comando en el lado del servidor Linux.</p>
+
+<p>Segundo; el ssh key password less, tengo entendido que es para conexión host to host. Yo lo necesito para que funcione desde cualquier máquina Windows.</p>
+
+<p>¿Hay solución para lo primero; por ejemplo mediante algún parámetro u opción de plink que envíe el &#8220;yes&#8221; o &#8220;y&#8221; para aceptar la llave ssh-rsa del servidor Linux e ingresarla a la caché de putty en el computador Windows?</p>
+
+<p>Y en lo segundo, ¿es posible dejar la llave pública para conectarse desde cualquier host o PC Windows?</p>
+
+<p>Un abrazo y de antemano gracias por su respuesta.</p>
+
+<p><strong>Respuesta</strong></p>
+
+<p>Tienes razón, también habrá que hacer que putty reconozca al servidor como aceptable. Esto deberías hacerlo la primera vez que te conectas a ese servidor.</p>
+
+<p>En cuanto a lo de usar un par de claves (pública+privada) para la identificación de más máquinas no podré serte de mucha ayuda pero me da la impresión (sin documentarme más) que dado que las claves autorizadas están ligadas a una ip supongo que es posible que te diera problemas (lo mejor sería experimentar probándolo).</p>
+
+<p>Si te funciona quizá lo peor es que en el authorized_keys de tu equipo a apagar debería haber una línea por cada uno de los equipos desde los que quieres apagar.</p>
+
+<p>Es probable que existan soluciones mejores. Pero a mi no se me ocurren.</p>
+
+<p>Saludos</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cron en NSLU2 con UNSLUNG]]></title>
+    <link href="http://ferochera.github.com/deries/archives/28-Cron-en-NSLU2-con-UNSLUNG.html"/>
+    <updated>2008-06-09T18:36:07+02:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Cron-en-NSLU2-con-UNSLUNG</id>
+    <content type="html"><![CDATA[<p>Inicialmente existe un servicio de temporización derivado de la funcionalidad inicial de Linksys. El ejecutable está en <i>/usr/sbin/crond.</i></p>
+
+
+<p>En los foros dedicados al tema (ver www.nslu2-linux.org) se recomienda instalar un segundo cron para otros funcionamientos.</p>
+
+
+<p>Dado que me interesaba tener actualizado una dirección de dyndns instalé este segundo. Queda situado dentro de opt (<i>/opt/sbin/cron</i>)<br /> </p>
+
+
+<p>Dada esta situación y con los 2 en marcha si utilizamos crontab modificamos el primero. Para utilizar el nuevo debemos incluir un nuevo archivo en /opt/etc/cron.d/ con la configuración. Es importante incluir el usuario que ha de ejecutar el comando temporizado&#8230; en el ejemplo se trata de root.</p>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bash-3.2# cat dyndnsupd
+</span><span class='line'># Set the interval of the next IP check using a crontab entry.
+</span><span class='line'># Once every 15 minutes is good for a home server.
+</span><span class='line'>*/15 * * * * root /opt/bin/dyndnsupdate.sh &&gt;/dev/null</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<p>Enlaces interantes:</p>
+
+
+<ul><li><a href="http://www.nslu2-linux.org/" title="NSLU2-LINUX">NSLU2-LINUX</a><i></i></li></ul>
+
+]]></content>
+  </entry>
+  
+</feed>

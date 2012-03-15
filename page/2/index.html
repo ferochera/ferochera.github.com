@@ -1,0 +1,889 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="1-. listar los nucleos que tenemos instalados: sudo dpkg --get-selections | grep linux-image 2-. eliminar los que no queramos conservar con apt-get &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/page/2">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/37-Desinstalar-nucleos-antiguos.html">Desinstalar Nucleos Antiguos</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-03T18:06:47+01:00" pubdate data-updated="true">Mi&eacute;rcoles, 03 de Diciembre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>1-. listar los nucleos que tenemos instalados:</p>
+
+
+<blockquote><pre><font size="3">sudo dpkg --get-selections | grep linux-image</font></pre></blockquote>
+
+
+<p>2-. eliminar los que no queramos conservar con apt-get o con aptitude:</p>
+
+
+<blockquote><pre><font size="3">sudo apt-get remove --purge linux-image-2.6.20-14-generic</font></pre></blockquote>
+
+
+<p>con la opción siguiente también se eliminarán los que aunque sin estar instalados no hayamos quitado sus archivos de configuración y que en la lista de dpkg aparecen como &quot;deinstall&quot;:</p>
+
+
+<blockquote><pre><font size="3">sudo aptitude purge linux-image-2.6.22-14-generic</font></pre></blockquote>
+
+
+<p>En principio con un par de nucleos funcionantes debería ser suficiente.</p>
+
+
+<br />
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/36-Udev-y-Monit.-Resolviendo-problemas-de-wview..html">Udev Y Monit. Resolviendo Problemas De Wview.</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-21T16:59:00+01:00" pubdate data-updated="true">Viernes, 21 de Noviembre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<div align="left">Wview es un software de wviewweather.com que permite obtener los datos de varios tipos de estaciones meteorológicas desde linux y genera una web estática actualizada desde los datos de la estación. También puede almacenar los datos en BD y enviar informes a diferentes servicios (AWEKAS, CWOP y <br />
+          Weather Underground). Por ejemplo: <a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica.">Estación meteorológica en el Planetari de Castelló</a></div>
+
+
+<div align="left"></div>
+
+
+<div align="left"></div>
+
+
+<div align="left"></div>
+
+
+<div align="left"></div>
+
+
+<p /><div align="left">Bien pues después de utilizarlo un tiempo aparecen 2 problemas esenciales para mantenerlo online:</div><div align="left"></div><div align="left">1-. La estación está conectada a través de USB pero con un conversor cp2101. El problema es que algunas veces el sistema se reinicia pero enlazándose en /dev/ttyUSB1 en vez de /dev/ttyUSB0 que es el estándar.</div><div align="left"></div><div align="left"></div><div align="left">2-. Alguna vez muere alguno de los procesos (wviewd o htmlgend) y deja de actualizarse la web. El origen todavía no lo tengo claro. Pero parece que wvpmon, que debería monitorizar los procesos y reiniciar el que falle, no lo hace correctamente.</div><p /><div align="left"></div><div align="left"><b></b></div><div align="left"></div><div align="left"><b>Soluciones:</b></div><div align="left">1-. para evitar que haya problemas con el cambio de puerto USB podemos incluir una nueva regla UDEV. Haremos que nuestro software apunte a un puerto &quot;ficticio&quot; wviewUSB y con la regla nueva crearemos un enlace simbólico de este puerto al que esté funcionando. Además podemos ejecutar un script para hacer reiniciarse a los procesos de wview&#8230;</div><blockquote># Regla udev para que cuando la estacion cambie de ttyUSB0 a 1 o<br />#  viceversa se actualice un symlink de wviewUSB &#8211;&gt; ttyUSB? (0 o 1)<br />#  y se ejecute un script que reinicie wview. (Lo sgte todo en una linea)<br /><br />SUBSYSTEMS==&quot;tty&quot;, KERNEL==&quot;ttyUSB?&quot;, NAME=&quot;%k&quot;, SYMLINK+=&quot;wviewUSB&quot;, RUN+=&quot;/etc/init.d/wview.udev&quot;</blockquote><div align="left"></div><div align="left">2-. para reiniciar los procesos podríamos utilizar cron junto con algún script específico. Pero también podemos utilizar monit. Éste es un monitor de &quot;eventos&quot; que nos permite realizar acciones por ejemplo si el disco, la cpu o la ram están muy ocupadas o, como en este caso, si no se han generado los archivos de la estación.</div><div align="left">Para ponerlo en marcha instalamos el paquete (sudo apt-get install monit) y deberemos editar los archivos /etc/default/monit (cambiar de startup=0 a startup=1) y /etc/monit/monitrc, que es donde realmente haremos los cambios:</div><div align="left"></div><p /><blockquote># habilitar el servidor web interno de monit visible en http://localhost:2812/<br />set httpd port 2812 and<br />     use address localhost  # only accept connection from localhost. without: all<br />     allow localhost        # allow localhost to connect to the server and<br />     allow admin:monit      # require user &#8216;admin&#8217; with password &#8216;monit&#8217;<br /><br /># incluir las reglas de monitorizacion y sus efectos<br />check file Current.htm with path /usr/local/var/wview/img/Current.htm<br />   if timestamp &gt; 20  minute then exec &quot;/etc/init.d/wview.monit&quot;<br /><br />check file tempdaycomp.png with path /usr/local/var/wview/img/tempdaycomp.png<br />   if timestamp &gt; 20  minute then exec &quot;/etc/init.d/wview.monit&quot;</blockquote><p><br />
+Con esto conseguimos que se ejecute el script wview.monit si en 20 minutos no se ha actualizado una de las páginas web (Current.htm) o si no se ha actualizado uno de los gráficos. En teoría el archivo htm debería actualizarse una vez cada 5min y el gráfico una vez cada 10. Si no ocurre deberíamos hacer o bien que wview se reiniciase (wview restart) o bien que se reinicie el sistema completo. Incluso podríamos hacer que si la espera es de 20min que se reinicie wview y si pasa de 40min que se reinicie el equipo.</p><p />
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/35-Renombrar-muchos-archivos-desde-linea-de-comandos.html">Renombrar Muchos Archivos Desde Linea De Comandos</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-31T13:35:31+01:00" pubdate data-updated="true">Viernes, 31 de Octubre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>La sintaxis de rename:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rename [ -v ] [ -n ] [ -f ] perlexpr [ files ]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>donde -v indica modo &#8216;verboso&#8217;, -n indica no-action (no se ejecuta el renombramiento), y -f indica forzar el cambio.</p>
+
+<p>En la expresión de perl lo habitual es &#8216;s/viejo/nuevo&#8217; que indica que hay que sustituir (s) el texto &#8216;viejo&#8217;  por el texto &#8216;nuevo&#8217;.</p>
+
+<p><strong>Ejemplos:</strong></p>
+
+<ul>
+<li>Cambiar parte del nombre:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rename -v 's/IMG_/\foto_/' *;.jpg</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Cambiar la extensión:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rename -v 's/\.htm$/\.html/' *.htm</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cambiará los archivos con extensión htm y les pondrá html.</p>
+
+<p>Dado que &#8216;.&#8217; significa cualquier carácter en una expresión normal habrá que &quot;escaparlo&quot; para ello usamos &#8216;.&#8217; ya que queremos que coincida con el punto de la extensión. El símbolo &#8216;$&#8217; indica fin de nombre/cadena. Esto hará que se cambie el nombre para archivos &#42;.htm pero no para otros que tengan algo más detras de la &#8216;m&#8217;, por ejemplo &#42;.htms</p>
+
+<ul>
+<li>Incluir texto:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rename -v 's/\.jpg$/_mini\.jpg/' *.jpg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Si queremos hacer explicito que se trata de miniaturas (thumbnails) podemos añadir a cada una el texto _mini justo delante de la extensión.</p>
+
+<p><strong>Más información:</strong></p>
+
+<ul>
+<li>man rename</li>
+<li><a href="http://jupabeans.blogspot.com/2007/04/renombrar-archivos-con-rename-linux.html">Renombrar archivos con rename (Linux)</a></li>
+<li><a href="http://tips.webdesign10.com/how-to-bulk-rename-files-in-linux-in-the-terminal">How to Bulk Rename Files in Linux (Terminal or GUI)</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/34-UBUNTU-DEBIAN-Evitar-actualizacion-de-un-paquete.html">UBUNTU - DEBIAN: Evitar Actualización De Un Paquete</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-30T13:38:40+01:00" pubdate data-updated="true">Jueves, 30 de Octubre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>La cuestión es garantizar que la distribución no actualice un paquete determinado (quizá si que lo haga en el caso de una actualización de versión. Aunque la idea es ir de versión LTS a LTS (Ubuntu) con lo que por lo menos habrá una temporada sin cambios.</p>
+
+
+<p>Para el ejemplo se usa el paquete tnftp, que es un cliente de ftp procendente de BSD que se utiliza para actualizaciones a través de ftp con <a href="http://www.wviewweather.com/" title="Software para uso con estaciones meteorológicas">wview</a>.</p>
+
+
+<h3>Retención con aptitude:</h3>
+
+
+<br />
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo aptitude hold tnftp</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Verificación:</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ aptitude search tnftp
+</span><span class='line'>ih  tnftp  - The enhanced ftp client</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<p>donde la &#8216;i&#8217; indica instalado y la &#8216;h&#8217; indica que está retenido (hold).</p>
+
+
+<p><b>Problema:</b> la retención con aptitude no implica la retención con apt-get o dpkg<br />
+</p>
+
+
+<p><b>Solución:</b> retener también con dpkg. Esto tiene efecto también con apt-get<br />
+<br />
+</p>
+
+
+<h3>Retención con dpkg:<br />
+</h3>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo 'tnftp hold' | sudo dpkg --set-selections</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<p><b>Verificación:</b><br />
+</p>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dpkg --get-selections | grep tnftp
+</span><span class='line'>tnftp  hold</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/33-Concatenar-pdf-o-ps-con-gs.html">Concatenar Pdf O Ps Con Gs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-28T12:41:33+01:00" pubdate data-updated="true">Martes, 28 de Octubre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>Si tenemos ghostscript instalado, cosa bastante habitual, podemos concatenar <b>ps</b> o <b>pdf</b> facilmente y sin herramientas añadidas&#8230;</p>
+
+
+<p>Concatenando 3 pdf en resultado.pdf:</p>
+
+
+<pre>gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=resultado.pdf 1er.pdf 2o.pdf 3r.pdf</pre>
+
+
+<p>Concatenando 3 ps en resultado.ps:</p>
+
+
+<br />
+
+
+<pre>gs -q -dNOPAUSE -dBATCH -sDEVICE=pswrite -sOutputFile=resultado.ps 1er.ps 2o.ps 3r.ps</pre>
+
+
+<p /><p>Información obtenida de: <a href="http://www.linuca.org/body.phtml?nIdNoticia=343">http://www.linuca.org/body.phtml?nIdNoticia=343</a></p><p />
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/32-BackTrack-3.-Instalacion-en-pendrive.html">BackTrack 3. Instalación en Pendrive</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-15T08:51:55+02:00" pubdate data-updated="true">Mi&eacute;rcoles, 15 de Octubre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>Si no conoces Backtrack quizá deberías visitar la web de <a href="http://www.remote-exploit.org/backtrack.html" title="Backtrack en remote-exploit.org"><b>remote-exploit.</b></a></p>
+
+
+<br />
+
+
+<p>Vamos a instalarla en un pendrive (de 1GB o mayor para que quepa). Los pasos son los siguientes:</p>
+
+
+<p>1-. Bajamos el iso (<a href="http://www.remote-exploit.org/cgi-bin/fileget?version=bt3-usb">bt3final_usb.iso</a>)</p>
+
+
+<p>2-. Copiamos el contenido al disco usb (damos por hecho que previamente el disco está vacío y particionado con una partición fat (o fat32). Para copiarlo podemos abrir el iso con, por ejemplo, winrar si lo hacemos en Ms Windows, o podemos montarlo en modo loop en gnu/linux (mount -o loop bt3final_usb.iso bt3/). Una vez tenemos el contenido disponible lo copiamos al disco usb.</p>
+
+
+<p>3-. Hacer el pendrive arrancable. Para ello ejecutamos un script (bootinst.bat en Windows o bootinst.sh en gnu/linux). Es posible que necesitemos disponer de permisos de administrador. En principio no debería haber problemas pero se impone leer con atención los mensajes que muestra el script.</p>
+
+
+<p>Para más detalles visita el <a href="http://wiki.remote-exploit.org/" title="Wiki de Remote-Exploit.org">wiki de remote-exploit.org</a></p>
+
+
+<p>Información extraida de <a href="http://lucas-coudures.blogspot.com/2008/07/instalar-backtrack-3-final.html">http://lucas-coudures.blogspot.com/2008/07/instalar-backtrack-3-final.html</a></p>
+
+
+<br />
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/31-Restaurar-imagen-de-WinXp-en-otro-hardware..html">Restaurar Imagen De WinXp en Otro Hardware.</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-03T11:06:54+02:00" pubdate data-updated="true">Viernes, 03 de Octubre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p align="justify">No dudes que el camino bueno es el que indican las ayudas de los programas de imágenes. Es decir&#8230; &quot;preparar&quot; la instalación para realizar la imagen con la utilidad <a title="Sysprep en Wikipedia (inglés)" href="http://en.wikipedia.org/wiki/Sysprep"> sysprep</a> de Microsoft y posteriormente realizar la imagen. Así cuando restauremos y arranquemos haremos como una finalización de instalación del S.O.</p>
+
+
+<p align="justify">Podemos encontrar información de le herramienta en <a title="Cómo utilizar la herramienta Sysprep.exe para automatizar la correcta implementación de Windows XP" href="http://support.microsoft.com/kb/302577/es">support de Microsoft</a> o <a title="Manual de SYSPREP para clonar un Windows XP en distintos PC(pdf)" href="http://download-linkat.xtec.cat/d83/sysprep.pdf">aquí</a>.</p>
+
+
+<p align="justify">Pero ¿qué pasa si se te ha fastidiado el hardware y quieres restaurar una imagen reciente en tu hardware nuevo? </p>
+
+
+<p align="justify">Puedes seguir el tutorial &quot;<b>Cómo cambiar una placa sin reinstalar Windows</b>&quot; (<a title="Cómo cambiar una placa sin reinstalar Windows" href="http://www.noticias3d.com/articulo.asp?idarticulo=903">web1</a> o <a title="Cómo cambiar una placa sin reinstalar Windows" href="http://www.comunicopy.com/foros/viewtopic.php?t=79">web2</a>)</p>
+
+
+<p align="justify">En mi caso, tras un fallo multiorgánico del equipo, tuve que recurrir a un hardware algo más antiguo con lo que tras la restauración de la imagen no había manera de que arrancara&#8230;</p>
+
+
+<p><strong>¿Qué podemos hacer?</strong></p>
+
+<p>Se puede hacer una instalación encima cambiando la HAL (presionar F5 mientras dice algo así como &#8220;si tienes drivers para controlador específico pulsa F6&#8221; al principio de la instalación; elegir el hal adecuado para tu máquina) y proceder con la instalación diciendole al instalador que mantenga el S.O. que previo (eso si, después hay que volver a aplicar los service packs y actualizaciones, cosa que hace que el tema sea muy lento). Como dice <a href="http://www.vicente-navarro.com/blog/">Vicente Navarro</a>&#8230; Lo hice y lo entendí, aunque yo lo hice y lo sufrí.</p>
+
+<p>La segunda opción es más rápida. Supongamos, como era mi caso, que la imagen está restaurada pero no arranca. Podemos seguir el tutorial anterior en la parte que hace referencia a la sustitución de la hal. Para ello extraemos los archivos de kernel y hal adecuados para nuestra máquina del service pack (ej c:\WINDOWS\Driver Cache\i386\sp2.cab) correspondiente (o de c:\WINDOWS\Driver Cache\i386\driver.cab) desde otra máquina (o arrancando con un livecd y extrayendolo del disco restaurado si no tenemos otra a mano). Les cambiamos el nombre y los colocamos en c:\WINDOWS\system32 de nuestro equipo siguiendo las recomendaciones del tutorial (krnl.exe, krnlpa.exe y halnew.dll). Posteriormente alteramos el boot.ini (archivo oculto y de solo lectura situado en la raíz c:\ que contiene las opciones de arranque).</p>
+
+<p>Lo que hacemos es introducir una nueva opción:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[boot loader]
+</span><span class='line'>timeout=10
+</span><span class='line'>default=multi(0)disk(0)rdisk(0)partition(1)\WINDOW S
+</span><span class='line'>
+</span><span class='line'>[operating systems]
+</span><span class='line'>multi(0)disk(0)rdisk(0)partition(1)\WINDOWS="Microsoft Windows XP ..." /fastdetect /NoExecute=OptIn
+</span><span class='line'>multi(0)disk(0)rdisk(0)partition(1)\WINDOWS="Windows XP cambio hal" /noexecute=alwaysoff /fastdetect /sos /kernel=krnl.exe /hal=halnew.dll</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Arrancaremos seleccionando esta nueva entrada. Detectará la hal diferente y copiara los archivos sobre los ntoskrnl.exe, ntkrnlpa.exe y hal.dll. Tras eso podemos reiniciar y arrancar con la opcion normal. Después borraremos del boot.ini la opción que nos ha servido para restaurar la hal adecuada.</p>
+
+<p>Solo nos faltará reactivar el windows.</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1</strong></p>
+
+<p>[Windows xp setup ACPI key, F10 F2 F6 F5 y otras teclas de función]
+(http://miguesmart.blogspot.com/2008/08/windows-xp-setup-acpi-key-f10-f2-f6-f5.html)</p>
+
+<p>Durante la instalación puede usar varias teclas de función para activar ciertas características y comandos. En la lista siguiente se detallan las teclas de función, lo que hacen y cómo se pueden usar.</p>
+
+<p>Se pueden usar tres teclas cuando se carga el programa de instalación y cuando se le pide que presione la tecla de función F6 para instalar la interfaz estándar de equipos pequeños (SCSI, Small Computer System Interface) de terceros y los controladores de las controladoras de host:</p>
+
+<blockquote><ul>
+<li>F5: para la selección de la capa de abstracción de hardware (HAL) o del tipo de equipo</li>
+<li>F6: para instalar controladores de controladoras de host y SCSI de terceros</li>
+<li>F7: para ejecutar el programa de instalación sin Interfaz avanzada de configuración y energía (ACPI)</li>
+</ul>
+</blockquote>
+
+<p>Cuando aparece la pantalla de bienvenida, se pueden usar las teclas de función siguientes:</p>
+
+<blockquote><ul>
+<li>F2: para iniciar automáticamente el proceso de Recuperación automática del sistema (ASR).</li>
+<li>F10: para omitir las pantallas de menú y cargar la Consola de recuperación</li>
+</ul>
+</blockquote>
+
+<p>Durante la instalación en modo de interfaz gráfica de usuario (GUI), se pueden usar las siguientes teclas de función:</p>
+
+<blockquote><ul>
+<li>MAYÚS+F10: para habilitar el acceso a un símbolo del sistema durante la instalación en modo GUI</li>
+<li>MAYÚS+F11: para mostrar los asistentes al &#8220;estilo antiguo&#8221; que ofrecen más detalles</li>
+</ul>
+</blockquote>
+
+<p><strong>Comentario 2 (el loco)</strong></p>
+
+<p>Hola, como estan?, tengo un problema con respecto al siguiente tema: Hice una imagen de un windows xp con todos los parches de seguridad y todo instalado y testeado, lo instale todo en una maquina rapida, (solo utilice el disco rigido) y no instale ningun driver ni nada (ya que no eran de la maquina en la que finalmente funcionarian), y luego cuando lleve ese disco a una maquina mas antigua el xp no arranca&#8230; se queda en la pantalla negra con el cursor titilando, no llega a mostrar la pantalla del windows cargando&#8230; y se que hay una solucion en el arranque, pero no se donde&#8230; (ya probe con los sectores de arranque y demas del disco pero no hay forma&#8230;) queria saber si tienen alguna solucion? sin tener que reinstalar nada.. Gracias.</p>
+
+<p><strong>Respuesta</strong></p>
+
+<p>Lee la documentación enlazada (las webs) y trata de averiguar que &#8216;hal&#8217; le corresponde a tu equipo.</p>
+
+<p>Luego puedes seguir el procedimiento que te cuento de poner los archivos a mano para que los cargue en el siguiente arranque.</p>
+
+<p>Saludos.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/30-Clonezilla-SysRescueCD.html">Clonezilla - SysRescueCD</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-23T12:50:07+02:00" pubdate data-updated="true">Martes, 23 de Septiembre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div align="left"><p>Tanto Clonezilla (que incluye ntfsclone) como SysRescCD son dos compilaciones de utilidades muy interesantes y desde este <a href="http://clonezilla-sysresccd.hellug.gr/" title="clonezilla-sysresccd"><b>sitio griego</b></a> podemos tenerlas juntas en el mismo cd. El siguiente texto está extraido de esta web&#8230;<u><b></b></u></p><blockquote><p><u><b>What is it all about?</b></u></p><p><b>Clonezilla-SysRescCD</b> is a Linux multi boot backup/restore and rescue CD, combining <a target="_blank" href="http://www.clonezilla.org/">Clonezilla Live</a> and <a target="_blank" href="http://www.sysresccd.org/Main_Page">System Rescue CD</a> in one CD.<br />  It is released under the <b>GNU General Public License (GPL)</b>.</p><p><a name="enhanced"></a><u><b>Enhanced features</b></u></p><p>Enhancements to <b>Clonezilla Live</b></p><ul><li><a href="http://clonezilla-sysresccd.hellug.gr/restore.html#auto" class="void">Automated restore DVDs</a><br />
+can be easily created, so that anybody can perform a system restore<br />
+operation (even people with minimum technical knowledge). All the<br />
+necessary files for the creation of the DVD are included in <b>Clonezilla-SysRescCD</b>.</li><li>A script called <a href="http://clonezilla-sysresccd.hellug.gr/reloc-img.html" class="void">reloc-img</a> makes it possible to restore an image file to a location (disk or partition) different than the one originally backed up.</li></ul><p>Enhancements to <b>System Rescue CD</b></p><ul><li>A script called <a href="http://clonezilla-sysresccd.hellug.gr/own-scripts.html#scripts-startx" class="void">startx-tft-ati</a> will help you get into the graphical environment on a TFT - ATI graphics card based PC.</li></ul><p>Other enhancements</p><ul><li>Part of <b>Clonezilla-SysRescCD&#8217;s</b> web site is included <a href="http://clonezilla-sysresccd.hellug.gr/help.html" class="void">in the CD</a>, so that help is always available.</li></ul></blockquote>               </div>
+
+
+<div align="center"><br />
+</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/29-Apagar-Linux-desde-Windows.html">Apagar Linux Desde Windows</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-03T11:57:10+02:00" pubdate data-updated="true">Mi&eacute;rcoles, 03 de Septiembre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<div align="justify">Por cuestiones que no vienen al caso necesito permitir que un usuario apague el servidor de un modo simple y sin requerirle mayor información.</div>
+
+
+<div align="justify"></div>
+
+
+<div align="justify"></div>
+
+
+<br /><div align="justify"></div><div align="justify">Para prepararlo crearé un usuario que permita apagar el equipo via ssh con par de claves publica-privada y prepararé un mini-script que muestre un dialogo de confirmación&#8230;</div><div align="justify"></div><div align="justify"></div><div align="justify"></div><br /><div align="justify">Para el funcionamiento se requiere que PuTTY esté instalado (realmente solo necesitamos puttygen para la creación de las claves pública y privada y plink para ejecución del comando <i>shutdown</i>)</div><div align="justify"></div><div align="justify"></div><div align="justify"></div> <br />
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/deries/archives/29-Apagar-Linux-desde-Windows.html">Leer m&aacute;s &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/28-Cron-en-NSLU2-con-UNSLUNG.html">Cron en NSLU2 Con UNSLUNG</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-09T18:36:07+02:00" pubdate data-updated="true">Lunes, 09 de Junio de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Inicialmente existe un servicio de temporización derivado de la funcionalidad inicial de Linksys. El ejecutable está en <i>/usr/sbin/crond.</i></p>
+
+
+<p>En los foros dedicados al tema (ver www.nslu2-linux.org) se recomienda instalar un segundo cron para otros funcionamientos.</p>
+
+
+<p>Dado que me interesaba tener actualizado una dirección de dyndns instalé este segundo. Queda situado dentro de opt (<i>/opt/sbin/cron</i>)<br /> </p>
+
+
+<p>Dada esta situación y con los 2 en marcha si utilizamos crontab modificamos el primero. Para utilizar el nuevo debemos incluir un nuevo archivo en /opt/etc/cron.d/ con la configuración. Es importante incluir el usuario que ha de ejecutar el comando temporizado&#8230; en el ejemplo se trata de root.</p>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bash-3.2# cat dyndnsupd
+</span><span class='line'># Set the interval of the next IP check using a crontab entry.
+</span><span class='line'># Once every 15 minutes is good for a home server.
+</span><span class='line'>*/15 * * * * root /opt/bin/dyndnsupdate.sh &&gt;/dev/null</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<p>Enlaces interantes:</p>
+
+
+<ul><li><a href="http://www.nslu2-linux.org/" title="NSLU2-LINUX">NSLU2-LINUX</a><i></i></li></ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/deries/page/3/">&larr; <!--Older-->Anteriores</a>
+    
+    <a href="/deries/archivo"><!--Blog Archives-->Archivo</a>
+    
+    <a class="next" href="/deries/"><!--Newer-->Posteriores &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

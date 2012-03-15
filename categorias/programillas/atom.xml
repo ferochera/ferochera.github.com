@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Categoría: Programillas | Xarx.es]]></title>
+  <link href="http://ferochera.github.com/deries/categorias/programillas/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/deries/"/>
+  <updated>2012-03-15T23:14:47+01:00</updated>
+  <id>http://ferochera.github.com/deries/</id>
+  <author>
+    <name><![CDATA[Fernando Ochera.]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Lista de Tareas TaskFreak]]></title>
+    <link href="http://ferochera.github.com/deries/archives/20-Lista-de-Tareas-TaskFreak.html"/>
+    <updated>2008-02-07T17:32:50+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Lista-de-Tareas-TaskFreak</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p>Os presento TaskFreak... Como podeis ver en el fragmento siguiente se trata de un gestor de tareas web.</p>
+
+
+<p>Tiene tanto versión monousuario como multiusuario, es fácil de utilizar y está en español.</p>
+
+
+<blockquote><h2>What is this?</h2><p>TaskFreak! is a simple but efficient web based task manager written in PHP.</p><h2>Main advantages &amp; features:</h2><ul><li><abbr title="Getting Things Done">GTD</abbr> compliant</li><li>easy setup with MySQL or SQLite (PHP4 and PHP5 compatible)</li><li>simple and easy to use (outrageously user friendly)</li><li>order tasks by priority and deadline, organize by project
+and context</li><li>absolutely free &amp; open source </li></ul></blockquote>
+
+
+<br />
+
+
+<div align="left">Es sencillo de instalar. Basta con crear la BD, descomprimir en nuestro espacio web y cambiar la configuración de modo que se acceda a la BD creada. al entrar en /install/index.php nos da la opción de crear las tablas. A partir de ese momento ya podemos usarlo.</div>
+
+
+<div align="left"></div>
+
+
+<div align="left"></div>
+
+
+<div align="left">Yo ya lo estoy probando... Si tu también quieres probarlo lo encontrarás en <a href="http://taskfreak.com/"><b>TaskFreak.com</b></a></div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rotar fotos según EXIF]]></title>
+    <link href="http://ferochera.github.com/deries/archives/15-Rotar-fotos-segun-EXIF.html"/>
+    <updated>2007-11-17T16:04:18+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Rotar-fotos-segun-EXIF</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p>La mayoría de las cámaras compactas digitales actuales, y en concreto la mía, una Canon IXUS 60, almacenan información de la orientación en su información <a href="http://es.wikipedia.org/wiki/Exif" target="_blank" title="Exif en la wikipedia">EXIF</a>.<p>Si a eso le juntamos que a muchos nos interesa subir las imágenes de una cámara a algúna galería en internet llegamos al momento de pensar como podemos automatizar el enderezado (giro de la imagen adecuado) para que todas se vean bien.</p></p>
+
+<!--more-->
+
+
+<p>Buscando por la web he encontrado la página Pilpi.net donde se ofrece esta herramienta al "mundo".</p>
+
+<p>La idea es incluir como menú contextual del explorador de archivos (Windows) o de konqueror (linux-kde) una entrada que rote las imágenes automáticamente. Está basado en el uso de las bibliotecas de funciones jhead y jpegtran y en la aplicación image-magick</p>
+
+<p>Desde <a href="http://pilpi.net">pilpi.net</a> se puede bajar la versión para MS Windows de auto-rotate.</p>
+
+<p>Para Kde, una vez tengamos instalado jhead y jpegtran (<em>apt-get install jhead exiftran</em> y sus paquetes asociados si los hay) podemos hacer que aparezcan con 3 enlaces en la carpeta adecuada (<em>~/.kde/share/apps/konqueror/servicemenus/</em>) en la que se describen las acciones. También podemos bajarnos desde pilpi.net un zip que ya contiene los archivos .desktop y los descomprime en el lugar adecuado si partimos de nuestra carpeta de usuario ~:</p>
+
+<p><strong>1.</strong> Rotar automáticamente un archivo. Crear el enlace <em>"jpeg-exif_autorotate.desktop"</em> que contenga lo siguiente...</p>
+
+<pre><code>[Desktop Entry]
+Encoding=UTF-8
+ServiceTypes=image/jpeg
+Actions=JPEG-EXIF_autorotate
+
+[Desktop Action JPEG-EXIF_autorotate]
+Name=Auto-rota la imagen
+Exec=jhead -autorot %f
+Icon=kfm
+</code></pre>
+
+<p><strong>2.</strong> Rotar automáticamente todos los archivos de una carpeta. Crear el enlace <em>"jpeg-exif_autorotatedir.desktop"</em> conteniendo...</p>
+
+<pre><code>[Desktop Entry]
+Encoding=UTF-8
+ServiceTypes=inode/directory
+Actions=JPEG-EXIF_autorotatedir
+
+[Desktop Action JPEG-EXIF_autorotatedir]
+Name=Auto-rota los archivos de la carpeta
+Exec=jhead -autorot %f/*
+Icon=kfm
+</code></pre>
+
+<p><strong>3.</strong> Rotar automáticamente todos los archivos de una carpeta y sus subcarpetas de un modo recursivo. Crear el enlace <em>"jpeg-exif_autorotatedir_recursive.desktop"</em> conteniendo...</p>
+
+<pre><code>[Desktop Entry]
+Encoding=UTF-8
+ServiceTypes=inode/directory
+Actions=JPEG-EXIF_autorotatedir_recursive
+
+[Desktop Action JPEG-EXIF_autorotatedir_recursive]
+Name=Auto-rota los archivos de la carpeta y sus subcarpetas
+Exec=find %f -iname "*.jpeg" -type f -exec /home/a/jhead/jhead -autorot {} \;
+Exec=find %f -iname "*.jpg" -type f -exec /home/a/jhead/jhead -autorot {} \;
+Icon=kfm
+</code></pre>
+
+<p>Podemos cambiar el texto que aparece en konqueror variando el atributo Name de los archivos anteriores.</p>
+
+<p>Esto puede hacerse con algunas otras acciones (girar independientemente del exif, por ejemplo para cámaras más antiguas) o redimensionados a valores concretos (ej 1200x900, 1500x1125,..), con o sin copia, utilizando imagemagick. O preparar una acción que redimensiones y luego autorote dejando las imágenes preparadas para subirlas.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Otras ideas para jugar con PHP]]></title>
+    <link href="http://ferochera.github.com/deries/archives/11-Otras-ideas-para-jugar-con-PHP.html"/>
+    <updated>2007-10-30T11:31:25+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Otras-ideas-para-jugar-con-PHP</id>
+    <content type="html"><![CDATA[<p>El actual manejo de la bd de isbn del ministerio de cultura es un poco 'cansino'. Propongo hacer una especie de envoltorio que recoja los datos de una determinada búsqueda en una tabla temporal de mysql para mostrarlo en forma de tabla con todos los datos intereasantes en vez de tener que pinchar 1 a 1.<p>Es posible que esto no llegue a nada pero ya veremos...</p></p>
+]]></content>
+  </entry>
+  
+</feed>

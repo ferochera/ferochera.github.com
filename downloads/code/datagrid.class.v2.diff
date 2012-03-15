@@ -1,0 +1,60 @@
+&#8212; ../../../var/www/pedidos/datagrid/datagrid.class.php	2007-10-25 10:27:56.000000000 +0200
++++ ../../../var/www/mimeteo/datagrid420/datagrid.class.php	2007-11-07 09:57:18.000000000 +0100
+@@ -614,6 +614,6 @@ class DataGrid
+         $this->multi_rows = 0;
+         $this->multirow_operations_array = array();        
+-        $this->multirow_operations_array[&#8216;delete&#8217;] = array(&#8220;view&#8221;=>true);
+-        $this->multirow_operations_array[&#8216;details&#8217;] = array(&#8220;view&#8221;=>true);
++        //$this->multirow_operations_array[&#8216;delete&#8217;] = array(&#8220;view&#8221;=>true);  //FERNANDO: habilitarlos explicitamente
++        //$this->multirow_operations_array[&#8216;details&#8217;] = array(&#8220;view&#8221;=>true);
+ 
+         $this->first_field_focus_allowed = false;
+@@ -1101,5 +1101,6 @@ class DataGrid
+             $this->sql_sort = &#8221; ORDER BY &#8221; . $this->primary_key . &#8221; DESC&#8221;;
+             if(($this->layouts[&#8216;view&#8217;] == 0) && ($this->layouts[&#8216;edit&#8217;] == 1) && ($req_mode == &#8220;details&#8221;)){
+-                $this->rids = explode(&#8220;-&#8220;, $this->rid);
++                //$this->rids = explode(&#8220;-&#8220;, $this->rid); //FERNANDO
++		$this->rids = explode(&#8220;_&#8221;, $this->rid);
+                 // if we have more that 1 row selected
+                 if(count($this->rids) > 1){ 
+@@ -1115,5 +1116,6 @@ class DataGrid
+                 $this->sql = &#8220;SELECT * FROM $this->tbl_name &#8220;.$where;                 
+             }else if(($this->layouts[&#8216;view&#8217;] == 0) && ($this->layouts[&#8216;edit&#8217;] == 1) && ($req_mode == &#8220;edit&#8221;)){
+-                $this->rids = explode(&#8220;-&#8220;, $this->rid);
++                //$this->rids = explode(&#8220;-&#8220;, $this->rid); //FERNANDO
++		$this->rids = explode(&#8220;_&#8221;, $this->rid);
+                 // if we have more that 1 row selected
+                 // mr_1 
+@@ -1131,5 +1133,6 @@ class DataGrid
+             }else if(($this->layouts[&#8216;view&#8217;] == 0) && ($this->layouts[&#8216;edit&#8217;] == 0) && ($req_mode == &#8220;details&#8221;)){                
+                 // if we have more that 1 row selected
+-                $this->rids = explode(&#8220;-&#8220;, $this->rid);
++                //$this->rids = explode(&#8220;-&#8220;, $this->rid); //FERNANDO
++		$this->rids = explode(&#8220;_&#8221;, $this->rid);
+                 if(count($this->rids) > 1){ 
+                     $where = &#8220;WHERE &#8220;.$this->primary_key.&#8221; IN (-1 &#8220;;
+@@ -2685,5 +2688,6 @@ class DataGrid
+                     for(i=&#8221;.$this->row_lower.&#8221;; i < ".$this->row_upper.&#8221;; i++){
+                         if(document.getElementById(&#34;&#8221;.$this->unique_prefix.&#8221;checkbox_&#34;+i).checked == true){
+-                            if(found == 1){ selected_rows_ids += &#8216;-&#8216;; }
++                            //if(found == 1){ selected_rows_ids += &#8216;-&#8216;; }
++                            if(found == 1){ selected_rows_ids += &#8216;_&#8217;; }
+                             selected_rows_ids += document.getElementById(&#34;&#8221;.$this->unique_prefix.&#8221;checkbox_&#34;+i).value;
+                             found = 1;
+@@ -3231,5 +3235,6 @@ class DataGrid
+     //&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;
+     function deleteRow($rid){
+-        $this->rids = explode(&#8220;-&#8220;, $rid);
++        //$this->rids = explode(&#8220;-&#8220;, $rid); //FERNANDO
++	$this->rids = explode(&#8220;_&#8221;, $this->rid);
+         $sql = &#8220;DELETE FROM $this->tbl_name WHERE $this->primary_key IN (-1 &#8220;;         
+         foreach ($this->rids as $key){
+@@ -4026,5 +4031,7 @@ class DataGrid
+                         break;
+                     case &#8220;linktoview&#8221;;
+-                        $curr_url = $this->combineUrl(&#8220;details&#8221;, intval($row[(($this->getFieldOffset($this->primary_key) != -1) ? $this->getFieldOffset($this->primary_key) : 0)]));                         
++			//FERNANDO: Retiro intval porque si la clave no es un entero se jode el invento.
++                        //$curr_url = $this->combineUrl(&#8220;details&#8221;, intval($row[(($this->getFieldOffset($this->primary_key) != -1) ? $this->getFieldOffset($this->primary_key) : 0)]));
++                        $curr_url = $this->combineUrl(&#8220;details&#8221;, $row[(($this->getFieldOffset($this->primary_key) != -1) ? $this->getFieldOffset($this->primary_key) : 0)]);
+                         $this->setUrlStringPaging($curr_url);
+                         $this->setUrlStringSorting($curr_url);

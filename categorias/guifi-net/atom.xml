@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Categoría: guifi.net | Xarx.es]]></title>
+  <link href="http://ferochera.github.com/deries/categorias/guifi-net/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/deries/"/>
+  <updated>2012-03-15T23:14:47+01:00</updated>
+  <id>http://ferochera.github.com/deries/</id>
+  <author>
+    <name><![CDATA[Fernando Ochera.]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Crear imagen de firmware de Ubiquiti con quagga]]></title>
+    <link href="http://ferochera.github.com/deries/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga/"/>
+    <updated>2009-05-15T00:20:00+02:00</updated>
+    <id>http://ferochera.github.com/deries/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga</id>
+    <content type="html"><![CDATA[<p>El objetivo es crear un archivo bin con el firmware de ubiquiti para nano5 o wispstation5 modificado de modo que incluya quagga como implementación de enrutamiento dinámico (usando ospf). Dado que el toolchain no ha cambiado desde la versión de inveneo en vez de aplicar sus cambios y compilar lo que haremos es abrir el firmware de inveneo extraer los scripts, librerias y ejecutables y añadirselos a la última versión (actualmente la 3.3.2).</p>
+
+<p>Este procedimiento está basado en la información compartida en las webs <a href="http://dren.dk/ubi.html">http://dren.dk/ubi.html</a> y <a href="http://rotobator.es">http://rotobator.es</a> y a ellos corresponde lo esencial del mérito.</p>
+
+<!--more-->
+
+
+<p>Procedimiento seguido:</p>
+
+<p>0- Bajar los firmwares: versión 3.3.2 de ubiquiti (http://www.ubnt.com/downloads/XS-fw/v3.3.2/XS5.ar2313.v3.3.2.4257.090214...) y versión 3.2 con quagga de inveneo.org (http://community.inveneo.org/downloads/ubnt/XS5/XS5.latest.bin)</p>
+
+<p>1- Bajar la toolchain de la web de Ubiquiti (<a href="http://www.ubnt.com/downloads/sdk/toolchain-mips-ls_0.1-1.deb">http://www.ubnt.com/downloads/sdk/toolchain-mips-ls_0.1-1.deb</a>), instalarla (sudo dpkg -i toolchain-mips-ls_0.1-1.deb)</p>
+
+<p>2- Bajar el SDK de la versión a utilizar (<a href="http://www.ubnt.com/downloads/XS-fw/v3.3.2/SDK.UBNT.v3.3.2.4257.tar.bz2">http://www.ubnt.com/downloads/XS-fw/v3.3.2/SDK.UBNT.v3.3.2.4257.tar.bz2</a>), descomprimirlo.</p>
+
+<p>3- Instalar las herramientas recomendadas (<a href="http://wiki.ubnt.com/wiki/index.php/AirOS-SDK">http://wiki.ubnt.com/wiki/index.php/AirOS-SDK</a>) para poder compilar, incluida sharutils.</p>
+
+<p>4- Bajar el patch para compilar en las últimas versiones de ubuntu (wget <a href="http://dren.dk/dl/SDK.UBNT.v3.3.2.4257-compilefixes.diff">http://dren.dk/dl/SDK.UBNT.v3.3.2.4257-compilefixes.diff</a>) y aplicarlo al código del SDK:</p>
+
+<pre><code>patch -p0 &lt; SDK.UBNT.v3.3.2.4257-compilefixes.diff
+</code></pre>
+
+<p>5- Compilar el firmware "make xs5". No vamos a usar ese firmware sino que los que nos interesa es que se compilen las utilidades para abrir el firmware (mkfwimage,...) situadas en SDK.../tools/bin</p>
+
+<p>6- Copiar las utilidades de dren.dk (diff-dir, patch-fw, unwrap-fw) a la carpeta de utilidades del sdk (SDK.../tools/bin)</p>
+
+<p>7- Se podría realizar el resto del procedimiento de un modo automático utilizando el script patch-fw de dren.dk pero voy a hacerlo manual para saber realmente que se está haciendo (rarito que es uno ;-)). Basandome en ese scritp y en el de rotobator.es (http://rotobator.es/arxius/imagen_fs.sh) realizo las siguientes acciones:</p>
+
+<p>7.1- desde SDK.../tools/bin ejecuto lo sgte para montar las imágenes</p>
+
+<pre><code>./unwrap-fw ../../../XS5.ar2313.v3.2.SDK.090218.1511.bin ../../../XS5-3.2-quagga
+./unwrap-fw ../../../XS5.ar2313.v3.3.2.4257.090214.1458.bin ../../../XS5-3.3.2
+</code></pre>
+
+<p>para que quede, dentro de carpetas al mismo nivel que el SDK los firmwares abiertos de ambas versiones</p>
+
+<p>7.2- Copiar y revisar los siguientes archivos desde las versión abierta de la versión 3.2-quagga a la 3.3.2. La lista está ordenada teniendo en cuenta la carpeta del archivo</p>
+
+<pre><code>'bin/ospfd',
+'bin/quaggad-restart.sh',
+'bin/ripd',
+'bin/saveconfig',
+'bin/watchquagga',
+'bin/zebra',
+'lib/libospf.la',
+'lib/libospf.so.0.0.0',
+'lib/libzebra.la',
+'lib/libzebra.so.0.0.0',
+</code></pre>
+
+<p>y los enlaces</p>
+
+<pre><code>'lib/libospf.so',
+'lib/libospf.so.0',
+'lib/libzebra.so',
+'lib/libzebra.so.0',
+</code></pre>
+
+<p>además de los archivos de configuración:</p>
+
+<pre><code>'usr/etc/ospfd.conf',
+'usr/etc/poststart.d',
+'usr/etc/poststart.d/quagga.sh',
+'usr/etc/ripd.conf',
+'usr/etc/zebra.conf',
+'usr/etc/rc.poststart',
+'usr/etc/rc.poststop',
+'usr/etc/rc.prestart',
+'usr/etc/rc.prestop',
+</code></pre>
+
+<p>Comparamos entre las 2 versiones para ver si hay diferencias...</p>
+
+<pre><code>'usr/etc/rc.d/rc', --&gt; si que hay diferencias
+'usr/etc/system.cfg', --&gt; faltaría copiarlo o adecuarlo con las lineas de org.inveneo...
+</code></pre>
+
+<p>Y finalmente:</p>
+
+<pre><code>'usr/lib/inveneo',
+'usr/lib/inveneo/inveneo-utils.sh'
+</code></pre>
+
+<p>7.3- Una vez copiados y tras comparar acabo añadiendo lo siguiente en el urs/etc/system.cfg. También quito el telnetd. Para más datos sobre la configuración sería bueno visitar la wiki de inveneo.</p>
+
+<pre><code>org.inveneo.rip=disabled
+org.inveneo.rip.config.manual=disabled
+org.inveneo.rip.export.kernel-routes=disabled
+org.inveneo.ospf=enabled
+org.inveneo.ospf.config.manual=enabled
+org.inveneo.strip.default-route=disabled
+
+sshd.status=enabled
+sshd.port=22
+</code></pre>
+
+<p>7.4- Revisemos las diferencias en el script rc</p>
+
+<p>```
+$ diff XS5-3.3.2/fs/usr/etc/rc.d/rc XS5-3.2-quagga/fs/usr/etc/rc.d/rc
+10,11c10,11
+&lt; if [ -f /etc/persistent/rc.prestop ]; then</p>
+
+<h2>&lt; . /etc/persistent/rc.prestop</h2>
+
+<blockquote><p>if [ -f /usr/etc/rc.prestop ]; then
+. /usr/etc/rc.prestop
+19,20c19,20
+&lt; if [ -f /etc/persistent/rc.prestart ]; then</p>
+
+<h2>&lt; . /etc/persistent/rc.prestart</h2>
+
+<p>if [ -f /usr/etc/rc.prestart ]; then
+. /usr/etc/rc.prestart
+43,44c43,44
+&lt; if [ -f /etc/persistent/rc.poststop ]; then</p>
+
+<h2>&lt; . /etc/persistent/rc.poststop</h2>
+
+<p>if [ -f /usr/etc/rc.poststop ]; then
+. /usr/etc/rc.poststop
+```</p></blockquote>
+
+<p>Acabo copiando el rc de inveneo también. Ojo esto hace que el único script que se coge de /etc/persistent sea el rc.poststart, que debería ser justamente el que arranque quagga tras el inicio del sistema.</p>
+
+<p>En teoría ya están hechas todas las modificaciones. Ahora habrá que volver a empaquetar el firmware en un archivo bin... Para ello de nuevo nos fijamos en los scripts de <a href="http://rotobator.es">rotobator.es</a> y <a href="http://dren.dk/ubi.html">dren.dk</a></p>
+
+<p>8- Crear el nuevo firmware (siguiendo script de rotovator y comparándolo con dren.dk)</p>
+
+<p>8.1- Cambiar la versión. Cambiar /usr/lib/version (XS5.ar2313.v3.3.2.4257.090214.1458) por la nueva (XS5.ar2313.v3.3.2.4257.090214.1458.quagga)</p>
+
+<pre><code>$ find fs -type f -exec sed -i s/XS5.ar2313.v3.3.2.4257.090214.1458/XS5.ar2313.v3.3.2.4257.090214.1458.quagga/g {} \;
+</code></pre>
+
+<p>8.2- Crear el enlace correspondiente en la carpeta /usr/www</p>
+
+<pre><code>$ (cd fs/usr/www &amp;&amp; ln -sf . XS5.ar2313.v3.3.2.4257.090214.1458.quagga)
+</code></pre>
+
+<p>y borrar el enlace previo</p>
+
+<pre><code>$ rm XS5.ar2313.v3.3.2.4257.090214.1458
+</code></pre>
+
+<p>8.3- Para el empaquetado volvemos al script de dren.dk (porque era el que hemos usado para el desempaquetado). Renombramos el cramfs: fw.cramfs --> fw.cramfs.viejo a modo de backup por si acaso y, a continuación, creamos el nuevo</p>
+
+<pre><code>cd airos (donde estén las carpetas SDK.., XS5-3.3.2, XS5-3.2...)
+$ fakeroot SDK.UBNT.v3.3.2.4257/tools/bin/mksquashfs XS5-3.3.2/fs XS5-3.3.2/fw.cramfs -be -all-root -noappend
+</code></pre>
+
+<p>8.4- Cambio también el archivo versión que hay en la carpeta de fw para que corresponda con la actual. Esto creo que es superfluo y que es simplemente información que se había creado al desempaquetar pero por si acaso estoy equivocado lo cambio.</p>
+
+<p>8.5- Reconstruir el firmware a partir de los archivos fw.* y version. Se usa la herramienta mkfwimage conla información contenida en fw.txt (que indica los tamaños y posiciones de cada parte en él)</p>
+
+<pre><code>cd a la carpeta donde está el fw.cramfs, en mi caso XS5-3.3.2/
+$../SDK.UBNT.v3.3.2.4257/tools/bin/mkfwimage -v XS5.ar2313.v3.3.2.4257.090214.1458.quagga -i fw.txt -o ../XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin
+</code></pre>
+
+<p>Atención: existe una diferencia de tamaño de 327680bytes (320kB) que viene a ser el tamaño de las aplicaciones o sea que debería ser correcto. Para ello también nos ha de sobrar espacio según el fw.txt (realmente cuando generamos la imagen nos dice que todavía nos sobra tamaño respecto del reservado).</p>
+
+<p><strong>9.</strong> Probar el firmware...</p>
+
+<p>Lo primero que hice fue cargar ese firmware (XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin). Lo que se observa es que no carga la configuración que le hemos puesto en el firmware.</p>
+
+<p>Mi conclusión momentanea es que dado que ya existe configuración en la partición dedicada a ello esa prevalece y no se genera una nueva a partir del firmware. Suponiendo que eso sea cierto ¿cómo podemos forzar esa regeneración de la configuración? Podríamos intentar cargar en el firmware una partición de configuración vacía que machaque la que haya (jugamos con fuengo ¿no?)</p>
+
+<p>Para ver si podemos hacerlo todo de una vez voy a recrear un firm igual que el anterior pero con la partición de configuración con todos los bytes a 0 para que se regenere el system.cfg (almenos) desde el del firmware... (ver <a href="http://ubnt.com/forum/viewtopic.php?t=2184">http://ubnt.com/forum/viewtopic.php?t=2184</a>)</p>
+
+<p>9.1-. Creo el archivo fw.cfgfix lleno de 0</p>
+
+<pre><code>$ dd if=/dev/zero of=fw.cfgfix bs=64k count=2
+</code></pre>
+
+<p>9.2- modifico fw.txt --> fw2.txt añadiendo la linea:</p>
+
+<pre><code>cfg 0x03 0xBFFC0000 0x00020000 0x00000000 0x00000000 fw.cfgfix
+</code></pre>
+
+<p>Donde las separaciones deben ser tabuladores (\t, para los amigos) en vez de espacios.</p>
+
+<p>9.3- Regeneramos el archivo bin con el firmware usando de nuevo mkfwimage:</p>
+
+<pre><code>$ ../SDK.UBNT.v3.3.2.4257/tools/bin/mkfwimage -v XS5.ar2313.v3.3.2.4257.090214.1458.quagga -i fw2.txt -o ../XS5.ar2313.v3.3.2.4257.090214.1458.quagga-cfgfix.bin
+$ ../SDK.UBNT.v3.3.2.4257/tools/bin/mkfwimage -v XS5.ar2313.v3.3.2.4257.090214.1458.quagga-cfgfix -i fw2.txt -o ../XS5.ar2313.v3.3.2.4257.090214.1458.quagga-cfgfix.bin
+</code></pre>
+
+<p>Esto genera la salida:</p>
+
+<pre><code>Firmware version: 'XS5.ar2313.v3.3.2.4257.090214.1458.quagga'
+Output file: '../XS5.ar2313.v3.3.2.4257.090214.1458.quagga-cfgfix.bin'
+Part count: 4
+RedBoot: 181960 bytes (free: 14648)
+kernel: 497774 bytes (free: 354194)
+cramfs: 2662400 bytes (free: 221184)
+cfg: 131072 bytes (free: 0)
+</code></pre>
+
+<p>En esta salida vemos que todavía nos cabría en el sistema de archivos (cramfs) aplicaciones hasta unos 200kB</p>
+
+<p>9.4 Y a probar de nuevo con el nuevo firmware (XS5.ar2313.v3.3.2.4257.090214.1458.quagga-cfgfix.bin). Es posible que me toque recuperar con tftp pero ya veremos. Por si acaso sería muy importante (si nos interesa la configuración previa) hacer una copia de seguridad.</p>
+
+<p>Por si hay por esos mundos algún otro "descerebrao" que quiera probar este firmware lo adjunto ;-) Falta regenerarlo de nuevo ya que me dice "Bad Firmware update image" al intentar subirlo con la interfaz web. Supongo que tiene que ver con el la versión tal como está arriba o debo ponerle la versión en todo (¿?). O quizá simplemente no soporta que suba esa partición.</p>
+
+<p>Otra opción recomendada es subir con tftp pero para ello debo desmontar la MaxStation así que de momento lo dejo aquí.</p>
+
+<p><strong>Seguimiento:</strong></p>
+
+<h2>APENDICE 1.</h2>
+
+<p>Vamos a ver que significa el mensaje del "mal firmware".</p>
+
+<p>Revisando upgrade.cgi se ve que se llama a la función fw_validate que está en www/lib/system.inc... Para ver que ocurre se puede subir el archivo a mano (scp) y lo renombramos a /tmp/fwupdate.bin para seguidamente ejecutar "/sbin/fwupdate -c" con lo que obtenemos:</p>
+
+<pre><code>FW image partition "cfg" (4) has a base address, 0xBFFC0000 outside the flash memory map. Valid range is 0xBE000000-0xBE400000.
+</code></pre>
+
+<p>Dado que doy por hecho que la configuración no ha cambiado respecto de la versión 3.0 a la que se hace referencia en el hilo del forum <a href="http://ubnt.com/forum/viewtopic.php?t=2184">http://ubnt.com/forum/viewtopic.php?t=2184</a> esto me hace suponer que los desarrolladores de ubiquiti han introducido limitaciones en las últimas versiones de fwupdate. Esto me deja con la última opción de intentarlo vía tftp.</p>
+
+<p>Como opinión personal de este momento comentar que sería más fácil entrar vía ssh/scp y modificar/copiar la configuración para adaptarla en vez de tratar de regenerarla.</p>
+
+<h2>APENDICE 2.</h2>
+
+<p>La instalación via tftp funciona:</p>
+
+<p><code>
+_Reset con el botón de unos 10s_
+$ tftp 192.168.1.20
+tftp&gt; bin
+tftp&gt; put flash_update (en los últimos firmwares no hace falta renombrar a este nombre)
+tftp&gt; quit
+_esperar unos 10min_
+</code></p>
+
+<p>Como ya he comentado se instala y se reconstruye la configuración incluyendo los valores adecuados (los de org.inveneo... y el servidor de ssh).</p>
+
+<p>¿Por qué no arranca quagga(zebra+ospfd)? Mi impresión es que /etc/rc.d/rc también debía ser cambiado de un modo similar al punto 7.4 en lo que corresponde al poststart</p>
+
+<h2>APENDICE 3.</h2>
+
+<p>Los firmwares finales son los que se presentan a continuación. Para usarlos se deberán descomprimir (el zip es para que me deje subir el adjunto) y aunque no debe ser necesario se puede quitar la última extensión para dejarlo como *.bin.</p>
+
+<p><a href="/downloads/XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin.sincfgfix-rcmodif.zip">"XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin(.sincfgfix-rcmodif)"</a>: Versión sin el cfgfix y tras modificar el script rc. He comprobado que ahora arranca automáticamente quagga</p>
+
+<p><a href="/downloads/XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin.cfgfix-rcmodif.zip">"XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin(.cfgfix-rcmodif)"</a>: Versión CON el cfgfix y tras modificar el script rc. Solo se puede actualizar a través de tftp con el procedimiento de recuperación. Esto supone tener acceso al botón de reset, cosa que no siempre es cierta sin desmontar.</p>
+
+<p>En cualquier caso hará falta revisar que la configuración es la adecuada (ospf activado y con la configuración manual habilitada). También hará falta añadir los archivos de configuración adecuados (zebra.conf y ospfd.conf en /etc/persistent/) y asegurarse que todo se almacena ejecutando</p>
+
+<pre><code>saveconfig
+</code></pre>
+
+<p>o lo que es lo mismo</p>
+
+<pre><code>cfgmtd -w -p /etc/
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cable de red: rígido vs flexible]]></title>
+    <link href="http://ferochera.github.com/deries/2009/02/26/cable-red-rigido-vs-flexible/"/>
+    <updated>2009-02-26T23:33:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/2009/02/26/cable-red-rigido-vs-flexible</id>
+    <content type="html"><![CDATA[<p>He extraido un par de comentarios que pueden ser útiles a la hora de elegir cable de red. La idea es ver que ventajas e inconvenientes tiene el uso de cable rígido y/o cable flexible.</p>
+
+<p>Aunque los fragmentos están en inglés al final he añadido unas conclusiones simples...</p>
+
+<h2>Comentario 1:</h2>
+
+<p><blockquote><p>Category 5e and Category 6 network cable comes in a solid conductor format, and in stranded conductor formats. People often ask which is appropriate for their application. We'll detail the difference between two types of cable, and help you decide which application is suits which cable.</p></p><p><p>Solid conductor uses 1 solid wire per conductor, so in a standard Cat-5e or Cat-6 4 pair (8 conductor) roll, there would be a total of 8 solid wires. Stranded conductor uses multiple wires wrapped around each other in each conductor, so in a 4 pair (8 conductor) 7 strand roll (typical configucation), there would be a total of 56 wires.</p></p><p><p>Solid conductor cable is most useful for structured wiring within a building. It is easily punched down onto wall jacks and patch panels since it is a single conductor. The wire seats properly into insulation displacement connector. Solid is less useful when you are terminating with standard RJ45 connectors, as used when making patch cables. Most RJ45 connectors use 2 prongs which penetrate the conductor itself. This is not desirable, since solid cable has the tendency to break when penetrated by the prong. Using a 3 prong style RJ45 connectors creates a much better connection as it doesn't break the conductor - the 3 prongs style connection wraps around the conductor instead of penetrating it. All being said, it is recommended that stranded network cable be used for patch cables - they make better quality RJ45 termination connections than even using 3 prong connectors. Stranded cable is much less useful for punching down on wall jacks because the strands do not keep their perfect round shape when thrust into a insulation displacement connector. For best results, use solid for wall jacks and stranded for crimp connectors.</p></p><p><p>Stranded cable is typicalled used to create patch cables. The cable itself is more flexible, and rolls up well. The RJ45 terminators have a better, and more flexible and complete connection to stranded wires than solid wire.</p><footer><strong>msc_data</strong> <cite><a href='http://reviews.ebay.com/Solid-vs-Stranded-Network-Cabling-Which-to-choose_W0QQugidZ10000000002065324'>Solid vs. Stranded Network Cabling - Which to Choose? : eBay Guides</a></cite></footer></blockquote></p>
+
+<h2>Comentario 2:</h2>
+
+<p><blockquote><p>UTP stands for Unshielded Twisted Pair. It is a cable type with pairs of twisted insulated copper conductors contained in a single sheath. UTP cables are the most common type of cabling used in desktop communications applications.</p></p><p><p>Stranded cable has several small gauge wires in each separate insulation sleeve. Stranded cable is more flexible, making it more suitable for shorter distances, such as patch cords.</p></p><p><p>Solid has one larger gauge wire in each sleeve. Solid cable has better electrical performance than stranded cable and is traditionally used for inside walls and through ceilings - any type of longer run of cable.</p></p><p><p>Patch Cables are made of stranded copper conductors for flexibility. This construction is great for the flexing and the frequent changes that occur at the wall outlet or patch panel. The stranded conductors do not transmit data signals as far as solid cable. The TIA/EIA 568A which is the governing standard regarding commercial cabling systems limits the length of patch cables to 10 meters in total length. Does that mean you can't use stranded cable for longer runs? Not at all, we've seen installations running stranded cable over 100 feet with no problems - it's just not recommended. This is why we don't sell patch cables over 30 feet in length.</p><footer><strong>Syscon Cables</strong> <cite><a href='http://www.connectworld.net/syscon/support.htm'>CAT-5, CAT-5e, CAT-6, CAT-7 Patch Cables</a></cite></footer></blockquote></p>
+
+<h2>Conclusiones:</h2>
+
+<ul>
+<li> El cable sólido se recomienda para instalaciones alejadas (largas tiradas de cable) y fijas (cableado de edificio, por ejemplo) mientras que el flexible se recomienda para latiguillos.</li>
+<li> El cable rígido es recomendable cuando está finalizado en rosetas. Cuando debe acabar en un conector rj45 macho debe buscarse uno que no seccione el cable, sino que lo rodee. Este problema no se presenta con el cable flexible.</li>
+<li> Para cableado en exteriores debería usarse FTP en vez de UTP por su mayor resistencia al medio ambiente.</li>
+</ul>
+
+
+<p><img src="/images/rj45amp.gif" alt="Esquema conectores rj45 dependiendo del tipo de cable" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[guifi.net a Castelló: La llavor]]></title>
+    <link href="http://ferochera.github.com/deries/2009/02/05/guifi-net-a-castello-la-llavor/"/>
+    <updated>2009-02-05T23:33:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/2009/02/05/guifi-net-a-castello-la-llavor</id>
+    <content type="html"><![CDATA[<p>Els vídeos de la jornada dedicada a ruralnet i a guifi.net el dia 15 de desembre de 2008.</p>
+
+<ul>
+<li> <a href="http://www.svideo.uji.es/peli.php?codi=310&amp;lg=">Jornada sobre Free Wi-fi. RURALNET, por Jorge Hortelano</a></li>
+<li> <a href="http://www.svideo.uji.es/peli.php?codi=309&amp;lg=">Jornada sobre Free Wi-fi. GUIFI.NET, por Lluís Dalmau</a></li>
+</ul>
+
+
+<p>Aquesta reunió va ser l'inici de la xarxa guifi.net a Castelló. A partir d'aquest moment es va començar a montar els primers nodes.</p>
+]]></content>
+  </entry>
+  
+</feed>

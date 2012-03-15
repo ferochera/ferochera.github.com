@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Restaurar imagen de WinXp en otro hardware. - Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="No dudes que el camino bueno es el que indican las ayudas de los programas de imágenes. Es decir&#8230; &quot;preparar&quot; la instalación para &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/archives/31-Restaurar-imagen-de-WinXp-en-otro-hardware..html">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Restaurar Imagen De WinXp en Otro Hardware.</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-03T11:06:54+02:00" pubdate data-updated="true">Viernes, 03 de Octubre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><br />
+
+
+<p align="justify">No dudes que el camino bueno es el que indican las ayudas de los programas de imágenes. Es decir&#8230; &quot;preparar&quot; la instalación para realizar la imagen con la utilidad <a title="Sysprep en Wikipedia (inglés)" href="http://en.wikipedia.org/wiki/Sysprep"> sysprep</a> de Microsoft y posteriormente realizar la imagen. Así cuando restauremos y arranquemos haremos como una finalización de instalación del S.O.</p>
+
+
+<p align="justify">Podemos encontrar información de le herramienta en <a title="Cómo utilizar la herramienta Sysprep.exe para automatizar la correcta implementación de Windows XP" href="http://support.microsoft.com/kb/302577/es">support de Microsoft</a> o <a title="Manual de SYSPREP para clonar un Windows XP en distintos PC(pdf)" href="http://download-linkat.xtec.cat/d83/sysprep.pdf">aquí</a>.</p>
+
+
+<p align="justify">Pero ¿qué pasa si se te ha fastidiado el hardware y quieres restaurar una imagen reciente en tu hardware nuevo? </p>
+
+
+<p align="justify">Puedes seguir el tutorial &quot;<b>Cómo cambiar una placa sin reinstalar Windows</b>&quot; (<a title="Cómo cambiar una placa sin reinstalar Windows" href="http://www.noticias3d.com/articulo.asp?idarticulo=903">web1</a> o <a title="Cómo cambiar una placa sin reinstalar Windows" href="http://www.comunicopy.com/foros/viewtopic.php?t=79">web2</a>)</p>
+
+
+<p align="justify">En mi caso, tras un fallo multiorgánico del equipo, tuve que recurrir a un hardware algo más antiguo con lo que tras la restauración de la imagen no había manera de que arrancara&#8230;</p>
+
+
+<p><strong>¿Qué podemos hacer?</strong></p>
+
+<p>Se puede hacer una instalación encima cambiando la HAL (presionar F5 mientras dice algo así como &#8220;si tienes drivers para controlador específico pulsa F6&#8221; al principio de la instalación; elegir el hal adecuado para tu máquina) y proceder con la instalación diciendole al instalador que mantenga el S.O. que previo (eso si, después hay que volver a aplicar los service packs y actualizaciones, cosa que hace que el tema sea muy lento). Como dice <a href="http://www.vicente-navarro.com/blog/">Vicente Navarro</a>&#8230; Lo hice y lo entendí, aunque yo lo hice y lo sufrí.</p>
+
+<p>La segunda opción es más rápida. Supongamos, como era mi caso, que la imagen está restaurada pero no arranca. Podemos seguir el tutorial anterior en la parte que hace referencia a la sustitución de la hal. Para ello extraemos los archivos de kernel y hal adecuados para nuestra máquina del service pack (ej c:\WINDOWS\Driver Cache\i386\sp2.cab) correspondiente (o de c:\WINDOWS\Driver Cache\i386\driver.cab) desde otra máquina (o arrancando con un livecd y extrayendolo del disco restaurado si no tenemos otra a mano). Les cambiamos el nombre y los colocamos en c:\WINDOWS\system32 de nuestro equipo siguiendo las recomendaciones del tutorial (krnl.exe, krnlpa.exe y halnew.dll). Posteriormente alteramos el boot.ini (archivo oculto y de solo lectura situado en la raíz c:\ que contiene las opciones de arranque).</p>
+
+<p>Lo que hacemos es introducir una nueva opción:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[boot loader]
+</span><span class='line'>timeout=10
+</span><span class='line'>default=multi(0)disk(0)rdisk(0)partition(1)\WINDOW S
+</span><span class='line'>
+</span><span class='line'>[operating systems]
+</span><span class='line'>multi(0)disk(0)rdisk(0)partition(1)\WINDOWS="Microsoft Windows XP ..." /fastdetect /NoExecute=OptIn
+</span><span class='line'>multi(0)disk(0)rdisk(0)partition(1)\WINDOWS="Windows XP cambio hal" /noexecute=alwaysoff /fastdetect /sos /kernel=krnl.exe /hal=halnew.dll</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Arrancaremos seleccionando esta nueva entrada. Detectará la hal diferente y copiara los archivos sobre los ntoskrnl.exe, ntkrnlpa.exe y hal.dll. Tras eso podemos reiniciar y arrancar con la opcion normal. Después borraremos del boot.ini la opción que nos ha servido para restaurar la hal adecuada.</p>
+
+<p>Solo nos faltará reactivar el windows.</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1</strong></p>
+
+<p>[Windows xp setup ACPI key, F10 F2 F6 F5 y otras teclas de función]
+(http://miguesmart.blogspot.com/2008/08/windows-xp-setup-acpi-key-f10-f2-f6-f5.html)</p>
+
+<p>Durante la instalación puede usar varias teclas de función para activar ciertas características y comandos. En la lista siguiente se detallan las teclas de función, lo que hacen y cómo se pueden usar.</p>
+
+<p>Se pueden usar tres teclas cuando se carga el programa de instalación y cuando se le pide que presione la tecla de función F6 para instalar la interfaz estándar de equipos pequeños (SCSI, Small Computer System Interface) de terceros y los controladores de las controladoras de host:</p>
+
+<blockquote><ul>
+<li>F5: para la selección de la capa de abstracción de hardware (HAL) o del tipo de equipo</li>
+<li>F6: para instalar controladores de controladoras de host y SCSI de terceros</li>
+<li>F7: para ejecutar el programa de instalación sin Interfaz avanzada de configuración y energía (ACPI)</li>
+</ul>
+</blockquote>
+
+<p>Cuando aparece la pantalla de bienvenida, se pueden usar las teclas de función siguientes:</p>
+
+<blockquote><ul>
+<li>F2: para iniciar automáticamente el proceso de Recuperación automática del sistema (ASR).</li>
+<li>F10: para omitir las pantallas de menú y cargar la Consola de recuperación</li>
+</ul>
+</blockquote>
+
+<p>Durante la instalación en modo de interfaz gráfica de usuario (GUI), se pueden usar las siguientes teclas de función:</p>
+
+<blockquote><ul>
+<li>MAYÚS+F10: para habilitar el acceso a un símbolo del sistema durante la instalación en modo GUI</li>
+<li>MAYÚS+F11: para mostrar los asistentes al &#8220;estilo antiguo&#8221; que ofrecen más detalles</li>
+</ul>
+</blockquote>
+
+<p><strong>Comentario 2 (el loco)</strong></p>
+
+<p>Hola, como estan?, tengo un problema con respecto al siguiente tema: Hice una imagen de un windows xp con todos los parches de seguridad y todo instalado y testeado, lo instale todo en una maquina rapida, (solo utilice el disco rigido) y no instale ningun driver ni nada (ya que no eran de la maquina en la que finalmente funcionarian), y luego cuando lleve ese disco a una maquina mas antigua el xp no arranca&#8230; se queda en la pantalla negra con el cursor titilando, no llega a mostrar la pantalla del windows cargando&#8230; y se que hay una solucion en el arranque, pero no se donde&#8230; (ya probe con los sectores de arranque y demas del disco pero no hay forma&#8230;) queria saber si tienen alguna solucion? sin tener que reinstalar nada.. Gracias.</p>
+
+<p><strong>Respuesta</strong></p>
+
+<p>Lee la documentación enlazada (las webs) y trata de averiguar que &#8216;hal&#8217; le corresponde a tu equipo.</p>
+
+<p>Luego puedes seguir el procedimiento que te cuento de poner los archivos a mano para que los cargue en el siguiente arranque.</p>
+
+<p>Saludos.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Enviado por <span class="fn">Fernando Ochera.</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-03T11:06:54+02:00" pubdate data-updated="true">Viernes, 03 de Octubre de 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/deries/categorias/cuaderno-laboratorio/'>Cuaderno-Laboratorio</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/deries/archives/30-Clonezilla-SysRescueCD.html" title="Post Previo: Clonezilla - SysRescueCD">&laquo; Clonezilla - SysRescueCD</a>
+      
+      
+        <a class="basic-alignment right" href="/deries/archives/32-BackTrack-3.-Instalacion-en-pendrive.html" title="Post Siguiente: BackTrack 3. Instalación en pendrive">BackTrack 3. Instalación en pendrive &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comentarios</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ferochera.github.com/deries/archives/31-Restaurar-imagen-de-WinXp-en-otro-hardware..html';
+        var disqus_url = 'http://ferochera.github.com/deries/archives/31-Restaurar-imagen-de-WinXp-en-otro-hardware..html';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

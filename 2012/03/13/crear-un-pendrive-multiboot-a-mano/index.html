@@ -1,0 +1,654 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Crear un pendrive multiboot a mano - Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="Aunque hay un montón de automatizaciones o semi-automatizaciones para crear pendrives con diferentes livecd&#8217;s decidí hacerlo a mano para &hellip;">
+  <meta name="keywords" content="pendrive, multiboot, clonezilla, gparted, system rescue cd, wifiway, knoppix, hiren's boot cd">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Crear Un Pendrive Multiboot a Mano</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-13T15:31:00+01:00" pubdate data-updated="true">Martes, 13 de Marzo de 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Aunque hay un montón de automatizaciones o semi-automatizaciones para crear pendrives con diferentes <em>livecd</em>&#8217;s decidí hacerlo a mano para aprender un poco más de <strong>syslinux/isolinux</strong> como gestor de arranque y porque, creo recordar, ninguno incluía <em>Hiren&#8217;s Boot CD</em>.</p>
+
+<p>Los livecds/utilidades que incluí son:</p>
+
+<ul>
+<li>Hiren&#8217;s Boot CD 14.1</li>
+<li>HDD Regenerator 2011</li>
+<li>Hardware Detection Tool 0.5.0</li>
+<li>KNOPPIX 6.7.1</li>
+<li>WIFIWAY 2.0.3</li>
+<li>CLONEZILLA 1.2.10</li>
+<li>GPARTED 0.9.1</li>
+<li>SYSTEM RESCUE CD</li>
+<li>GHOST RECOVERY CD</li>
+</ul>
+
+
+<!--more-->
+
+
+<p>La base del proceso fue el artículo <a href="http://www.taringa.net/posts/info/10670342/USB-Multiboot-sin-formatear_-paso-a-paso-_01_11_11_.html">http://www.taringa.net/posts/info/10670342/USB-Multiboot-sin-formatear<em>-paso-a-paso-</em>01_11_11_.html</a>.</p>
+
+<p>De él obtuve el archivo <a href="/deries/downloads/MultibootLFM.7z">MultibootLFM</a> que me sirvió de base. En él se incluía opciones para arrancar el Hiren&#8217;s boot cd y también para lanzar la instalación de windows desde USB. Se trata de ir modificando la configuración de syslinux para adaptarla a las opciones que deseamos.</p>
+
+<p>Lo que hice es adaptar las configuraciones de cada live en las que el arranque era a través de isolinux para lanzarlas desde la pantalla de entrada principal.</p>
+
+<p>La configuración principal de syslinux me quedó&#8230;</p>
+
+<figure class='code'><figcaption><span> (syslinux.cfg)</span> <a href='/deries/downloads/code/syslinux.cfg'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+</pre></td><td class='code'><pre><code class='cfg'><span class='line'><span class="c">#Actualizaciones de GRUB4DOS en http://code.google.com/p/grub4dos-chenall/downloads/list</span>
+</span><span class='line'><span class="c">#GRUB4DOS actual 0.4.5b 2011-05-28</span>
+</span><span class='line'><span class="c">#Actualizaciones de SYSLINUX en http://syslinux.zytor.com/wiki/index.php/The_Syslinux_Project</span>
+</span><span class='line'><span class="c">#SYSLINUX actual 4.04</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">TITLE</span> <span class="err">ELIJA</span> <span class="err">COMO</span> <span class="err">DESEA</span> <span class="err">INICIAR</span> <span class="err">EL</span> <span class="err">USB</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">AUTOBOOT</span> <span class="err">Continuar</span> <span class="err">con</span> <span class="err">el</span> <span class="err">inicio</span> <span class="err">en</span> <span class="c"># segundo{,s}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">TIMEOUT</span> <span class="err">100</span>
+</span><span class='line'><span class="err">TOTALTIMEOUT</span> <span class="err">900</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">INCLUDE</span> <span class="err">/boot/syslinux/tema_base.cfg</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">CONTINUAR</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">*</span> <span class="err">INICIO</span> <span class="err">NORMAL</span> <span class="err">del</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/grub.exe</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">find</span> <span class="err">--set-root</span> <span class="err">--ignore-floppies</span> <span class="err">--ignore-cd</span> <span class="err">/bootmgr</span> <span class="err">||</span> <span class="err">find</span> <span class="err">--set-root</span> <span class="err">--ignore-floppies</span> <span class="err">--ignore-cd</span> <span class="err">/ntldr</span> <span class="err">||</span> <span class="err">rootnoverify</span> <span class="err">(hd0)</span> <span class="err">&amp;&amp;</span> <span class="err">chainloader</span> <span class="err">+1</span> <span class="err">&amp;&amp;</span> <span class="err">boot</span><span class="c">;map () (hd0) &amp;&amp; map (hd0) () &amp;&amp; map --rehook;find --set-root --ignore-floppies --ignore-cd /bootmgr || find --set-root --ignore-floppies --ignore-cd /ntldr;chainloader /bootmgr || chainloader /ntldr</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Prosigue</span> <span class="err">con</span> <span class="err">el</span> <span class="err">inicio</span> <span class="err">normal</span> <span class="err">del</span> <span class="err">sistema.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">REINICIAR</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">*</span> <span class="err">REINICIAR</span> <span class="err">el</span> <span class="err">equipo</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">Reboot.c32</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Reinicia</span> <span class="err">el</span> <span class="err">equipo.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">SEPARATOR</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">HIRENS</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">HIRENS</span> <span class="err">Boot</span> <span class="err">CD</span> <span class="err">14.1</span>
+</span><span class='line'>  <span class="err">kernel</span> <span class="err">/boot/syslinux/grub.exe</span>
+</span><span class='line'>  <span class="na">APPEND --config-file</span><span class="o">=</span><span class="s">&quot;/HBCD/menu.lst</span>
+</span><span class='line'><span class="s">  TEXT HELP</span>
+</span><span class='line'><span class="s">  Inicia el CD de Utilidades Hiren&#39;s Boot CD</span>
+</span><span class='line'><span class="s">  ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">HDDREG</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">HDD</span> <span class="err">Regenerator</span> <span class="err">2011</span>
+</span><span class='line'><span class="c"># MENU INDENT 1</span>
+</span><span class='line'>  <span class="err">LINUX</span> <span class="err">/boot/syslinux/grub.exe</span>
+</span><span class='line'>  <span class="na">APPEND --config-file</span><span class="o">=</span><span class="s">&quot;ls /boot/HDDREG.iso || find --set-root /boot/HDDREG.iso;map --heads=0 --sectors-per-track=0 /boot/HDDREG.iso (0xff) || map --heads=0 --sectors-per-track=0 --mem /boot/HDDREG.iso (0xff);map --hook;chainloader (0xff)&quot;</span>
+</span><span class='line'><span class="s">  TEXT HELP</span>
+</span><span class='line'><span class="s">  Inicia el CD de HDD Regenerator 2011. Utilidad </span>
+</span><span class='line'><span class="s">  de lectura de sectores defectuosos de disco.</span>
+</span><span class='line'><span class="s">  ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">HDT</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">Hardware</span> <span class="err">Detection</span> <span class="err">Tool</span> <span class="err">0.5.0</span>
+</span><span class='line'>  <span class="err">COM32</span> <span class="err">/boot/syslinux/hdt.c32</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">Hardware</span> <span class="err">Detection</span> <span class="err">Tool</span> <span class="err">0.5.0.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">KNOPPIX</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">KNOPPIX</span> <span class="err">6.7.1</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">/boot/syslinux/knoppix.cfg</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">Knoppix</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">WIFIWAY</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">WIFIWAY</span> <span class="err">2.0.3</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">/boot/syslinux/wifiway.cfg</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">WifiWay</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">CLONEZILLA</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">CLONEZILLA</span> <span class="err">1.2.10</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">/boot/syslinux/clonezilla.cfg</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">Clonezilla.</span> <span class="err">Utilidad</span>
+</span><span class='line'>  <span class="err">para</span> <span class="err">crear/restaurar</span> <span class="err">imagenes</span> <span class="err">de</span> <span class="err">disco.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">GPARTED</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">GPARTED</span> <span class="err">0.9.1</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">/boot/syslinux/gparted.cfg</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">GParted.</span> <span class="err">Utilidad</span>
+</span><span class='line'>  <span class="err">para</span> <span class="err">crear/modificar</span> <span class="err">particiones</span> <span class="err">de</span> <span class="err">disco.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">SYSRESCD</span>
+</span><span class='line'>  <span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">SYSTEM</span> <span class="err">RESCUE</span> <span class="err">CD</span>
+</span><span class='line'>  <span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>  <span class="err">APPEND</span> <span class="err">/boot/syslinux/sysrescd.cfg</span>
+</span><span class='line'>  <span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>  <span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">System</span> <span class="err">Rescue</span> <span class="err">CD.</span>
+</span><span class='line'>  <span class="err">Utiles</span> <span class="err">para</span> <span class="err">rescatar</span> <span class="err">un</span> <span class="err">sistema.</span>
+</span><span class='line'>  <span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">SEPARATOR</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">NGRCD</span>
+</span><span class='line'>  <span class="na">MENU LABEL</span> <span class="o">=</span><span class="s">&gt; GHOST RECOVERY CD</span>
+</span><span class='line'><span class="s">  COM32 /boot/syslinux/chain.c32</span>
+</span><span class='line'><span class="s">  APPEND fs ntldr=/bootmgr</span>
+</span><span class='line'><span class="s">  TEXT HELP</span>
+</span><span class='line'><span class="s">  Inicia el Norton Ghost Recovery CD. </span>
+</span><span class='line'><span class="s">  Para recuperar Windows XP en mi Portatil.</span>
+</span><span class='line'><span class="s">  ENDTEXT</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cada una de las configuraciones parciales había que revisarlas para añadirles una entrada de volver al principal y revisar el <em>path</em> de los archivos añadidos al pendrive.</p>
+
+<p>El contenido del pendrive. Creo que basta con 8GB pero yo usé uno de 16GB.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>drwx------        8192 nov 10 09:51 autorun
+</span><span class='line'>drwx------        8192 nov 10 11:36 boot
+</span><span class='line'>drwx------        8192 ene 31  2011 bootdisk
+</span><span class='line'>-r--r--r--      438840 dic 17  2007 bootmgr
+</span><span class='line'>drwx------        8192 nov  9 11:32 boot_wifiway
+</span><span class='line'>-rw-r--r--         135 nov  8 20:31 Clonezilla-Live-Version
+</span><span class='line'>-rw-r--r--        1236 nov 10 10:54 contenido.txt
+</span><span class='line'>drwx------        8192 ene 20  2008 docs
+</span><span class='line'>drwx------        8192 ene 20  2008 driver validation
+</span><span class='line'>drwx------        8192 nov 10 10:39 EFI
+</span><span class='line'>-rw-r--r--         525 nov  9 14:18 GParted-Live-Version
+</span><span class='line'>drwx------        8192 ago 22  2011 HBCD
+</span><span class='line'>drwx------        8192 nov  8 20:31 home
+</span><span class='line'>drwx------        8192 sep 14 18:28 KNOPPIX
+</span><span class='line'>-r--r--r--       32256 feb 29 18:05 ldlinux.sys
+</span><span class='line'>drwx------        8192 nov  8 20:31 liveclz1210
+</span><span class='line'>drwx------        8192 nov  9 14:18 livegptd010
+</span><span class='line'>drwx------        8192 mar  2  2010 ntpasswd
+</span><span class='line'>drwx------        8192 ene 20  2008 sources
+</span><span class='line'>-r--r--r--      663206 ene 20  2008 symdriverinfo.xml
+</span><span class='line'>-r--r--r--         147 ene 20  2008 syminfo.xml
+</span><span class='line'>-rw-r--r--   302059520 ago 23  2011 sysrcd.dat
+</span><span class='line'>drwx------        8192 ene 20  2008 updatelocator
+</span><span class='line'>drwx------        8192 sep 15 19:19 wifiway</span></code></pre></td></tr></table></div></figure>
+
+
+<p>El contenido de /boot/syslinux es:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-rw-r--r--   193094 nov 10 15:06 base.png
+</span><span class='line'>-rw-r--r--     2048 sep 14 18:29 boot.cat
+</span><span class='line'>-rw-r--r--      360 jun  6  2011 boothdd.lst
+</span><span class='line'>-rw-r--r--    20192 abr 18  2011 chain.c32
+</span><span class='line'>-rw-r--r--     6138 nov  9 13:42 clonezilla.cfg
+</span><span class='line'>-rw-r--r--     4748 abr 18  2011 config.c32
+</span><span class='line'>-rw-r--r--    43283 sep 20 06:34 drblwp.png
+</span><span class='line'>-rw-r--r--     4011 nov  9 14:23 gparted.cfg
+</span><span class='line'>-rwxr-xr-x   285260 jun  7  2011 grub.exe
+</span><span class='line'>-rw-r--r--   642444 nov  9 14:18 Gsplash.png
+</span><span class='line'>-rw-r--r--   350388 may 17  2011 hdt.c32
+</span><span class='line'>-rw-r--r--    24576 abr 18  2011 isolinux.bin
+</span><span class='line'>-rw-r--r--     4516 dic 28  2010 kbdmap.c32
+</span><span class='line'>-rw-r--r--  1474560 feb  7  2009 knoppix_balder.img
+</span><span class='line'>-rw-r--r--       93 sep 14 15:00 knoppix_boot.msg
+</span><span class='line'>-rw-r--r--     3181 nov  4 20:52 knoppix.cfg
+</span><span class='line'>-rw-r--r--     1335 sep 14 18:28 knoppix_f2
+</span><span class='line'>-rw-r--r--     1324 sep 14 18:28 knoppix_f3
+</span><span class='line'>-rw-r--r--  3688752 sep  9  2011 knoppix_linux
+</span><span class='line'>-rw-r--r--  3955456 sep  9  2011 knoppix_linux64
+</span><span class='line'>-rw-r--r--    20052 feb  7  2009 knoppix_memdisk
+</span><span class='line'>-rw-r--r--   124648 mar  9  2011 knoppix_memtest
+</span><span class='line'>-rw-r--r--   951242 sep 13 05:01 knoppix_minirt.gz
+</span><span class='line'>-rw-r--r--    32768 may 17  2011 ldlinux.sys
+</span><span class='line'>-rw-r--r--    18186 jun 23  2011 logo.16
+</span><span class='line'>drwx------     8192 sep 26  2010 maps
+</span><span class='line'>-rw-r--r--    26140 may 30  2011 memdisk
+</span><span class='line'>-rw-r--r--    56164 abr 18  2011 menu.c32
+</span><span class='line'>-rw-r--r--     5150 jul 24  2007 novafont.psf
+</span><span class='line'>-rw-r--r--    46464 sep 20 06:34 ocswp.png
+</span><span class='line'>-rw-r--r--   709349 may 31  2011 pci.ids
+</span><span class='line'>-rw-r--r--      800 abr 18  2011 reboot.c32
+</span><span class='line'>-rw-r--r--  9767104 ago 22  2011 syrcd_altker32
+</span><span class='line'>-rw-r--r--  9898672 ago 22  2011 syrcd_altker64
+</span><span class='line'>-rw-r--r--  8743112 ago 23  2011 syrcd_initram.igz
+</span><span class='line'>-rw-r--r--    25340 dic 28  2010 syrcd_memdisk
+</span><span class='line'>-rw-r--r--  9804944 ago 13  2011 syrcd_rescue64
+</span><span class='line'>-rw-r--r--  9477120 ago 23  2011 syrcd_rescuecd
+</span><span class='line'>-rw-r--r--     3209 nov 10 14:47 syslinux.cfg
+</span><span class='line'>-rw-r--r--    23017 nov  9 15:16 sysrescd.cfg
+</span><span class='line'>-rw-r--r--     1461 ago 23  2011 sysrf1boot.msg
+</span><span class='line'>-rw-r--r--     1329 sep 26  2010 sysrf2images.msg
+</span><span class='line'>-rw-r--r--     1768 sep 26  2010 sysrf3params.msg
+</span><span class='line'>-rw-r--r--     1564 sep 26  2010 sysrf4arun.msg
+</span><span class='line'>-rw-r--r--     1667 sep 26  2010 sysrf5troubl.msg
+</span><span class='line'>-rw-r--r--     1282 sep 26  2010 sysrf6pxe.msg
+</span><span class='line'>-rw-r--r--     1364 sep 26  2010 sysrf7net.msg
+</span><span class='line'>-rw-r--r--      723 may 17  2011 tema_base.cfg
+</span><span class='line'>-rw-r--r--   155792 abr 18  2011 vesamenu.c32
+</span><span class='line'>-rw-r--r--     6414 nov  9 11:34 wifiway.cfg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>y los archivos de configuración utilizados son bajables pinchando <a href="/deries/downloads/syslinux_cfgs.7z">en este enlace</a>.</p>
+
+<p>El resto del procedimiento consiste en mezclar los distintos archivos de cada liveCD. Como puede verse en los listados se ha copiado el contenido importante de los livecds pero algunos nombres de carpeta se han adaptado para que los contenidos no se machaquen.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Enviado por <span class="fn">Fernando Ochera.</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-13T15:31:00+01:00" pubdate data-updated="true">Martes, 13 de Marzo de 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/deries/categorias/cuaderno-laboratorio/'>Cuaderno-laboratorio</a>, <a class='category' href='/deries/categorias/general/'>General</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/" title="Post Previo: ¿Qué has hecho en mi equipo?">&laquo; ¿Qué has hecho en mi equipo?</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comentarios</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/';
+        var disqus_url = 'http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

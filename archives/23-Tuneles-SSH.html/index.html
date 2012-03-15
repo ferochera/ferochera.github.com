@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Tuneles SSH - Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="Realmente no se trata solo de túneles sino de un manual en castellano hecho por HellGuest en vilecha.com: Utilizando SSH Es realmente interesante &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/archives/23-Tuneles-SSH.html">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Tuneles SSH</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-14T12:27:37+01:00" pubdate data-updated="true">Jueves, 14 de Febrero de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Realmente no se trata solo de túneles sino de un manual en castellano hecho por HellGuest en vilecha.com: <a href="http://www.vilecha.com/Hellguest/ssh.asp"><b>Utilizando SSH</b></a></p>
+
+<p>Es realmente interesante tener un resumen reducido pero además aclara el uso de túneles con ssh-agent como puede verse en el capitudo dedicado a ello y que reproduzco&#8230;</p>
+
+<!--more-->
+
+
+<h2>Utilizando SSH</h2>
+
+<h3>Crear túneles con SSH</h3>
+
+<p>OpenSSH nos permite crear dos clases de túneles: locales y remotos. En los locales se redirecciona un puerto de la máquina local (cliente) hacia un puerto en una máquina remota a la que el servidor tenga acceso. En los túneles remotos, lo que se hace es redireccionar un puerto desde una máquina remota a la que el servidor tenga acceso hacia un puerto de la máquina local.</p>
+
+<p><strong>Túneles locales</strong></p>
+
+<p>La forma de crear túneles locales con OpenSSH es mediante la opción -L, cuya sintaxis es:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-L [dirección_escucha:]puerto_escucha:máquina_remota:puerto_máquina_remota</span></code></pre></td></tr></table></div></figure>
+
+
+<p>En caso de emplear direcciones IPv6, se puede utilizar la siguiente sintaxis:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-L [dirección_escucha/]puerto_escucha/máquina_remota/puerto_máquina_remota</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Los túneles locales se establecen de la siguiente forma: primero se crea un conector (socket) de escucha en la máquina local, asociado al puerto puerto_escucha y, opcionalmente, a la dirección dirección_escucha. Cuando se realice una conexión al puerto en el que está escuchando el conector, OpenSSH encauzará la conexión a través del canal seguro hacia la máquina remota a la que el servidor tenga acceso, indicada por la IP máquina_remota y el puerto puerto_máquina_remota.</p>
+
+<p>Para demostrar como funcionan los túneles locales, me basaré en el siguiente diagrama ilustrativo:</p>
+
+<p><img class="center" src="/deries/images/ssh_tunel_local1.png" title="Esquema ssh tunnel local" alt="Esquema ssh tunnel local"></p>
+
+<p>En el diagrama tenemos que nos encontramos en el equipo llamado alpha.local.net, y lo que queremos es acceder al servidor web (puerto 80) que hay en el equipo web.remoto.net, el problema es que entre nosotros y el servidor hay un router denominado router.remoto.net que nos impide acceder al servidor. Obviamente, el router ha de tener un servidor de SSH funcionando al que nosotros tengamos acceso, cumpliendose esta premisa, lo que vamos a hacer es redireccionar el puerto 80 (web) del servidor web.remoto.net hacia, por ejemplo, el puerto 8080 de nuestro equipo:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[hell@alpha.local.net] $ ssh-agent -L 8080:web.remoto.net:80 router.remoto.net
+</span><span class='line'>Enter passphrase for key '/home/hell/.ssh/id_dsa':
+</span><span class='line'>[hell@router.remoto.net] $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hemos iniciado una sesión SSH interactiva en el router, pero además, ahora, en nuestro equipo, se habrá abierto el puerto 8080:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[hell@alpha.local.net] $ netstat -an | grep LISTEN
+</span><span class='line'>    tcp   0   0  127.0.0.1.8080  .   LISTEN
+</span><span class='line'>    tcp   0   0  .22            .   LISTEN
+</span><span class='line'>[hell@alpha.local.net] $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>El túnel está creado, ahora, mientras no cerremos la sesión SSH con el router, cada vez que nos conectemos al puerto 8080 de nuestro equipo (localhost o alpha.local.net), nuestra conexión estará siendo reenviada al puert 80 del servidor web.remoto.net. Por ejemplo, para acceder a el desde un navegador, tendríamos que usar una URL del estilo: <em>http://localhost:8080/</em></p>
+
+<p>Hasta aquí, bien, pero&#8230; si nos fijamos, en la salida del comando netstat que hay arriba, el túnel sólo acepta conexiones desde alpha.local.net, porque el conector (socket) que creo está asociado a la IP 127.0.0.1, también conocida como localhost, que sirve para referirse al propio equipo, así es que, ¿qué pasaría si lo que buscásemos fuese que otro equipo se conecte al servidor web.remoto.net a través de nuestro equipo? Añadamos ese nuevo equipo a nuestro diagrama:</p>
+
+<p><img class="center" src="/deries/images/ssh_tunel_local2.png" title="Esquema ssh tunnel local (2)" alt="Esquema ssh tunnel local (2)"></p>
+
+<p>Para permitir que beta.local.net también pueda beneficiarse de nuestro túnel, tenemos que hacer que el socket no se asocie con la IP 127.0.0.1, esto se consigue poniendo un asterisco (*), o, la IP del propio alpha.local.net en el parámetro opcional dirección_escucha, ejemplo:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[hell@alpha.local.net] $ ssh-agent -L :8080:web.remoto.net:80 router.remoto.net
+</span><span class='line'>Enter passphrase for key '/home/hell/.ssh/id_dsa':
+</span><span class='line'>[hell@router.remoto.net] $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Si ahora ejecutásemos otra vez el comando netstat en alpha.local.net veríamos lo siguiente:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[hell@alpha.local.net] $ netstat -an | grep LISTEN
+</span><span class='line'>    tcp 0 0 .8080 . LISTEN
+</span><span class='line'>    tcp 0 0 .22 . LISTEN
+</span><span class='line'>[hell@alpha.local.net] $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>El conector del túnel ahora acepta conexiones de cualquier equipo, perfectamente, ahora podríamos abrir un navegador en beta.local.net y poner la siguiente URL: <em>http://alpha.local.net:8080/</em>, la conexión sería canalizada a través del canal seguro establecido entre alpha.local.net y router.remoto.net, hasta llegar al puerto 80 de web.remoto.net.</p>
+
+<p><strong>Túneles remotos</strong></p>
+
+<p>La forma de crear túneles remotos con OpenSSH es mediante la opción -R, que tiene la siguiente sintaxis:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-R [dirección_escucha:]puerto_escucha:máquina_remota:puerto_máquina_remota</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pero si se quieren emplear direcciones IPv6, también se permite usar la siguiente sintaxis:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-R [dirección_escucha/]puerto_escucha/máquina_remota/puerto_máquina_remota</span></code></pre></td></tr></table></div></figure>
+
+
+<p>El mecanismo empleado para establecer los túneles remotos es: se crea un conector (socket) en el servidor asociado al puerto indicado por puerto_escucha y, opcionalmente, a la dirección IP dirección_escucha. Posteriormente, cuando se realice una conexión a dicho conector, la conexión será encauzada a través del canal seguro hacia una máquina a la que el equipo local tenga acceso, indicada por la IP máquina_remota y el puerto puerto_máquina_remota.</p>
+
+<p>A modo de ejemplo sobre como se establecen los túneles remotos, basemonos en los equipos del siguiente diagrama:</p>
+
+<p><img class="center" src="/deries/images/ssh_tunel_remoto1.png" title="Esquema ssh tunnel remoto" alt="Esquema ssh tunnel remoto"></p>
+
+<p>Para ponernos en situación, imaginemos que nos encontramos en el equipo alpha.local.net y que lo que queremos es que alguien desde el equipo terminal.remoto.com se pueda conectar a un servidor web (puerto 80) que tenemos en nuestro equipo, el problema está en que el router deja que nosotros podamos conectarnos a terminal.remoto.com, pero impide que el pueda conectarse a nosotros. Entonces, creamos un túnel remoto de la siguiente forma:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[hell@alpha.local.net] $ ssh-agent -R 8080:localhost:80 terminal.remoto.net
+</span><span class='line'>Enter passphrase for key '/home/hell/.ssh/id_dsa':
+</span><span class='line'>[hell@terminal.remoto.net] $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ahora, se habrá creado un conector (socket) en terminal.remoto.net que estará escuchando en el puerto 8080:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[hell@terminal.remoto.net] $ netstat -an | grept LISTEN
+</span><span class='line'>tcp 0 0 127.0.0.1.8080 . LISTEN
+</span><span class='line'>tcp 0 0 .22 .* LISTEN
+</span><span class='line'>hell@terminal.remoto.net] $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cada vez que se establezca una conexión al puerto 8080 en terminal.remoto.net, esta conexión, será canalizada por el canal seguro hasta llegar al puerto 80 del equipo alpha.local.net, de esta forma, conseguimos que un equipo ajeno a nuestra red, pueda acceder a nuestro equipo. Pero, ¿qué pasaría si en lugar de a nuestro equipo lo que quisiéramos es que terminal.remoto.com pueda acceder a otro?, usemos el siguiente diagrama para orientarnos:</p>
+
+<p><img class="center" src="/deries/images/ssh_tunel_remoto2.png" title="Esquema ssh tunnel remoto (2)" alt="Esquema ssh tunnel remoto (2)"></p>
+
+<p>De nuevo, nos encontramos en alpha.local.net, pero ahora, el servidor está en web.local.net, y lo que queremos es que terminal.remoto.net pueda acceder a el, pero el router sigue impidiendo que terminal.remoto.net se pueda conectar, y sin embargo, si que deja que nosotros desde alpha.local.net podamos conectarnos a terminal.remoto.net. Entonces, un comando como el siguiente sería suficiente:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[hell@alpha.local.net] $ ssh-agent -R 8080:web.local.net:80 terminal.remoto.net
+</span><span class='line'>Enter passphrase for key '/home/hell/.ssh/id_dsa':
+</span><span class='line'>hell@terminal.remoto.net] $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Esto indica que un extremo del túnel se corresponde con el puerto 8080 del equipo al que hemos conectado (terminal.remoto.net), y, el otro extremo, es el puerto 80 del equipo web.local.net, así de simple. Al establezcer una conexión en el puerto 8080 de terminal.remoto.net, la conexión viajará por el canal seguro establecido entre el cliente y el servidor de SSH, y después, se establecerá una nueva conexión entre alpha.local.net y web.loca.net para que los datos puedan fluir hasta su destino.</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1</strong></p>
+
+<p>Utilícese ssh-agent como sinónimo de ssh&#8230; por ejemplo:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ssh -R 8080:web.local.net:80 usuario@terminal.remoto.net</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Comentario 2</strong></p>
+
+<p>Ejemplo de uso donde además de abrir una sesión del usuario en serv1 se crearía 4 túneles (ej.: 2 para escritorio remoto en distintos equipos, otro para el puerto 8080 ej gestion web de otro equipo y la gestión de serv1)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ssh -L 8080:porta.midom.com:8080 -L 3389:win1.midom.com:3389 -L 3390:win2.midom.com:3389 -L 1081:serv1.midom.com:81 usuario@serv1.midom.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Atención</em>: para puertos &lt; 1024 se necesita privilegios de administrador (ej sudo ssh &#8230;)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Enviado por <span class="fn">Fernando Ochera.</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-14T12:27:37+01:00" pubdate data-updated="true">Jueves, 14 de Febrero de 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/deries/categorias/general/'>General</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/deries/archives/22-Navegar-anonimamente....html" title="Post Previo: Navegar anónimamente...">&laquo; Navegar anónimamente...</a>
+      
+      
+        <a class="basic-alignment right" href="/deries/archives/24-Rsync-a-traves-de-SSH-almacenado-en-FAT.html" title="Post Siguiente: Rsync a través de SSH. Almacenado en FAT">Rsync a través de SSH. Almacenado en FAT &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comentarios</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ferochera.github.com/deries/archives/23-Tuneles-SSH.html';
+        var disqus_url = 'http://ferochera.github.com/deries/archives/23-Tuneles-SSH.html';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

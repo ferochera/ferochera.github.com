@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Migrando el blog de s9y a Octopress - Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="Después de constatar que realmente utilizar un sistema dinámico no me depara beneficios visibles y revisar otros sistemas de creación estática como &hellip;">
+  <meta name="keywords" content="migración a octopress, ruby, rvm">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Migrando El Blog De S9y a Octopress</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-07T23:36:00+01:00" pubdate data-updated="true">Mi&eacute;rcoles, 07 de Marzo de 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Después de constatar que realmente utilizar un sistema dinámico no me depara beneficios visibles y revisar otros sistemas de creación estática como <a href="http://nanoc.stoneship.org">nanoc</a> finalmente, y tras conocer <a href="http://octopress.org">octopres</a> a través del <a href="http://www3.uji.es/~vrubert">blog de David Rubert</a>, decidí mudar mi blog que estaba creado con <a href="http://www.s9y.org">Serendipity-sy9</a></p>
+
+<p>Las etapas de este proceso han sido 3:</p>
+
+<ol>
+<li><p>Poner en marcha el sistema de desarrollo.</p></li>
+<li><p>Importar los posts previos.</p></li>
+<li><p>Adaptar octopress.</p></li>
+</ol>
+
+
+<!--more-->
+
+
+<p>Vamos a ver éstas etapas con más detalle:</p>
+
+<h2>Preparar el sistema de desarrollo</h2>
+
+<p>Procedimiento funcionando en ubuntu 10.04.4</p>
+
+<p><strong>1.</strong> Instalar rvm y ruby</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ bash -s stable &lt; &lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
+</span><span class='line'>$ rvm notes
+</span><span class='line'>$ rvm requirements
+</span><span class='line'>$ sudo aptitude install "los requirements"
+</span><span class='line'>$ rvm pkg install zlib
+</span><span class='line'>$ export C_INCLUDE_PATH=$HOME/.rvm/usr/include
+</span><span class='line'>$ rvm pkg install openssl</span></code></pre></td></tr></table></div></figure>
+
+
+<p>adecuar .bash_profile y/o .bashrc para shells con y sin login</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rvm install 1.9.3 --with-zlib-dir=$rvm_path/usr --with-openssl-dir=$rvm_path/usr</span></code></pre></td></tr></table></div></figure>
+
+
+<p>También instalé en lmde. Al repetir los pasos anteriores me aparecía un error respecto a zlib al usar gem y se solucionó siguiendo las instrucciones de rvm notes (no tengo muy claro si en el puesto en ubuntu ocurrió lo mismo o no)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rvm get head && rvm 1.9.3
+</span><span class='line'>$ rvm use 1.9.3 --default
+</span><span class='line'>$ gem install bundler (.gemrc con proxy si toca)</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>2.</strong> Preparar Octopress</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'>$ cd octopress         # si la versión de ruby no es adecuada se quejará
+</span><span class='line'>$ rvm use default      # usará la 1.9.3 según lo de arriba
+</span><span class='line'>$ bundle install       # instala las dependencias
+</span><span class='line'>$ rake install         # instala el tema por defecto</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Si alguna vez da problemas de versiones de las gemas será necesario hacer “<em>bundle exec rake comando</em>” en vez de solo “<em>rake comando</em>”. Para ver los comandos disponibles se usa &#8221;<em>rake -T</em>&#8221;</p>
+
+<h2>Importar los posts previos</h2>
+
+<p><a href="https://github.com/mojombo/jekyll/pull/399">El importador desde s9y</a> es una aportación de <a href="https://github.com/joschi">&#8220;joshi&#8221;</a> a <a href="https://github.com/mojombo/jekyll">jeckyll</a> que a su vez es la base de <a href="http://octopress.org">Octopress</a></p>
+
+<p>Solo usa la biblioteca estándar de Ruby, sin acceso a base de datos. Las entradas se exportan desde el blog original a través del rss. Con un enlace del tipo</p>
+
+<pre><code>http://blog.example.com/rss.php?version=2.0&amp;all=1
+</code></pre>
+
+<ol>
+<li><p>Lo bajé del enlace anterior y lo dejé en la carpeta de plugins.</p></li>
+<li><p>Ejecuté</p>
+
+<pre><code> ruby -r './s9y_rss.rb' -e 'Jekyll::S9Y.process("http://blog.example.com/rss.php?version=2.0&amp;all=1")'
+</code></pre></li>
+<li><p>Moví la carpeta _posts que se había creado al lugar adecuado.</p></li>
+<li><p>Revisé los posts para completarlos con los comentarios interesantes y con el resto del contenido si no estaban completos.</p></li>
+</ol>
+
+
+<h2>Adaptar</h2>
+
+<ul>
+<li>Adaptar los paths</li>
+</ul>
+
+
+<p>En <em>_config.yaml</em> cambié lo que hacía falta para que el path comenzara en <em>/deries</em> en vez de en <em>/</em></p>
+
+<ul>
+<li>Traducir algunos elementos (incluir algunos en _config.yaml)</li>
+</ul>
+
+
+<p>Me gustaría hacer un blog multilingüe pero eso parece algo alejado. Lo que si que he hecho es añadir algunos campos más en <em>_config.yaml</em> y colocarlos donde toca. También he cambiado algunos otros paths, como quitar <em>/blog/</em> o cambiar <em>/archives</em> por <em>/archivo</em></p>
+
+<pre><code>(...)
+date_format: "%A, %d de %B de %Y"
+
+\# Castellano
+excerpt_link: "Leer m&amp;aacute;s &amp;rarr;" 
+search_text: "Buscar"
+blog_nav_text: "Bitácora"
+archives_nav_text: "Archivo"
+recent_posts_aside_title: "Entradas recientes"
+github_aside_title: "Repositorios GitHub"
+older_text: "Anteriores"
+newer_text: "Posteriores"
+(...)
+</code></pre>
+
+<p>También modifiqué <em>/plugins/date.rb</em> para hacer que la fecha aparezca en castellano. Esto lo hice siguiendo una sugerencia de un turco llamado <a href="https://github.com/vigo/octopress/blob/master/plugins/date.rb"><em>Vigo</em></a>.</p>
+
+<pre><code>(...)
+MONTHNAMES_TR = [nil,
+  "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+]
+ABBR_MONTHNAMES_TR = [nil,
+  "Ene", "Feb", "Mar", "Abr", "May", "Jun",
+  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"
+]
+DAYNAMES_TR = [
+  "Domingo", "Lunes", "Martes", "Mi&amp;eacute;rcoles", 
+  "Jueves", "Viernes", "S&amp;aacute;bado"
+]
+ABBR_DAYNAMES_TR = [
+  "Dom", Lun", "Mar", "Mi&amp;eacute;",
+   "Jue", "Vie", "S&amp;aacute;b"
+]
+
+(...)
+
+  else
+    format.gsub!(/%a/, ABBR_DAYNAMES_TR[date.wday])
+    format.gsub!(/%A/, DAYNAMES_TR[date.wday])
+    format.gsub!(/%b/, ABBR_MONTHNAMES_TR[date.mon])
+    format.gsub!(/%B/, MONTHNAMES_TR[date.mon])
+    date_formatted = date.strftime(format)
+    #date_formatted = date.strftime(format)
+    #date_formatted.gsub!(/%o/, ordinal(date.strftime('%e').to_i))
+
+(...)
+</code></pre>
+
+<ul>
+<li>adaptar algunos estilos y otras cosas</li>
+</ul>
+
+
+<p>Por jugar más que otra cosa&#8230;</p>
+
+<p>Me pareció que los carácteres eran de un tamaño de fuente pequeño en el caso de los code_snippets y grande en las citas. Intenté mejorarlo aunque no juraría haberlo conseguido.</p>
+
+<p>También intenté poner un gráfico tipo el pulpo de octopress pero de momento lo que obtuve no fue de mi agrado así que lo retiré.</p>
+
+<p>Todos estos cambios pueden verse en el repositorio de github que los contiene: <a href="https://github.com/ferochera/deries">https://github.com/ferochera/deries</a></p>
+
+<p>Finalmente he añadido un <em>&#8220;aside&#8221;</em> con una nube de etiquetas y también una página de entrada a las categorías que las lista poniendo el número de artículos en cada una.</p>
+
+<p>Ambos elementos vienen del código de nube de tags de <a href="https://github.com/tokkonopapa/octopress-tagcloud"><em>tokkonopapa</em></a>. Eso si ha sido necesario hacer una pequeña modificación en el código ya que los paths no eran correctos.</p>
+
+<h2>Actualización..</h2>
+
+<p>La traducción de las fechas no está funcionando correctamente&#8230; es como si la función gsub! no hiciese lo que toca ¿? así que he decicido poner el formato a mano mientras averiguo que es lo que ocurre.</p>
+
+<pre><code>format = DAYNAMES_TR[date.wday] +", %d de " + MONTHNAMES_TR[date.mon] + " de %Y"
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Enviado por <span class="fn">Fernando Ochera.</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-07T23:36:00+01:00" pubdate data-updated="true">Mi&eacute;rcoles, 07 de Marzo de 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/deries/categorias/cuaderno-laboratorio/'>Cuaderno-Laboratorio</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html" title="Post Previo: Usar gmail-google apps desde una aplicación que no soporte SSL">&laquo; Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      
+      
+        <a class="basic-alignment right" href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/" title="Post Siguiente: Instalar Ubuntu remotamente usando grub">Instalar Ubuntu remotamente usando grub &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comentarios</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ferochera.github.com/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/';
+        var disqus_url = 'http://ferochera.github.com/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

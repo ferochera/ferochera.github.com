@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Rendimiento del miniservidor. - Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="La idea es realizar test sobre una de las webs del miniservidor para comprobar como trabaja y si podemos optimizar algo. Aunque también trataré de &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/archives/16-Rendimiento-del-miniservidor..html">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Rendimiento Del Miniservidor.</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-18T20:42:23+01:00" pubdate data-updated="true">Domingo, 18 de Noviembre de 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><br />
+
+
+<p>La idea es realizar test sobre una de las webs del miniservidor para comprobar como trabaja y si podemos optimizar algo. Aunque también trataré de aplicarlo a <a href="http://llig.es/" target="_blank" title="Ler Llibreries - Llibres i Gr&agrave;cia">llig.es</a>, que actualmente sirve un PII con menor ram y cpu que el miniservidor.</p>
+
+
+<p>Como premisa inicial disponemos del servidor (del hardware ya hablamos en la primera entrada de este tema/categoría) con ubuntu 7.10, ISPconfig y una web habilitada con Joomla recien instalado y vacío. Como documentación contamos especialmente con las charlas sobre php: <a target="_blank" href="http://talks.php.net/">talks.php.net</a></p>
+
+
+<p>Para realizar las pruebas utilizamos ab (<a href="http://httpd.apache.org/docs/2.2/programs/ab.html" target="_blank" title="ab de apache">apachebench</a>, que está incluida en apache) o <a href="http://www.joedog.org/JoeDog/Siege" target="_blank" title="homepage de siege">siege</a>. Son similares pero siege puede además simular diferentes clientes. Para más datos se pueden  visitar las páginas de estas aplicaciones o de <a href="http://www.apache-es.org/index.php/2006/12/26/herramientas-de-pruebas-de-carga/" target="_blank" title="herramientas de test de rendimiento para apache">otras alternativas</a>.</p>
+
+
+<p>Lo que tratamos de hacer es mejorar la configuración sin modificar el código de joomla o el cms que sea de modo que mejoremos en todos los clientes del isp. Decir sin embargo que este equipo deberá tener uno o dos webs únicamente.</p>
+
+
+
+
+<!--more-->
+
+
+<p><strong>Prueba 1, resultados de ab:</strong></p>
+
+<pre><code>Total transferred: 508144 bytes
+HTML transferred: 483896 bytes
+Requests per second: 0.45 [#/sec] (mean)
+Time per request: 6667.406 [ms] (mean)
+Time per request: 2222.469 [ms] (mean, across all concurrent requests)
+Transfer rate: 4.13 [Kbytes/sec] received
+</code></pre>
+
+<p><strong>Prueba 2, tras habilitar la compresión gzip y la cache de Joomla</strong></p>
+
+<pre><code>Total transferred: 156936 bytes
+HTML transferred: 131801 bytes
+Requests per second: 0.45 [#/sec] (mean)
+Time per request: 6677.524 [ms] (mean)
+Time per request: 2225.841 [ms] (mean, across all concurrent requests)
+Transfer rate: 1.27 [Kbytes/sec] received
+</code></pre>
+
+<p>Como se ve no aumentamos el número de peticiones atendidas por segundo. Solo reducimos la cantidad de datos transferidos gracias a la compresión gzip.</p>
+
+<p>Instalamos eAccelerator para intentar que esto aumente. Para ello seguimos otro de los manuales de howtoforge.com. En concreto el titulado &#8220;Integrating eAccelerator Into PHP5 (Debian Etch)&#8221; del que espero que resulte adecuado para Ubuntu. Podemos comprobar si eAccelerator está instalado viendo la versión de php:</p>
+
+<pre><code>$ php -v
+PHP 5.2.3-1ubuntu6 (cli) (built: Oct 4 2007 23:35:54)
+Copyright (c) 1997-2007 The PHP Group
+Zend Engine v2.2.0, Copyright (c) 1998-2007 Zend Technologies
+with eAccelerator v0.9.5.2, Copyright (c) 2004-2006 eAccelerator, by eAccelerator
+</code></pre>
+
+<p><strong>Prueba 3, tras instalar eAccelerator</strong> (bajar, compilar, instalar y configurar /etc/php5/conf.d/eaccelerator.ini cambiando el uso de shared memory de 16 a 32Mb). Ahora mostramos los resultados obtenidos con siege:</p>
+
+<pre><code>$ siege -r 25 -b -c3 -H 'Accept-Encoding: gzip' http://web.a.probar/
+
+Transactions: 75 hits
+Availability: 100.00 %
+Elapsed time: 123.05 secs
+Data transferred: 0.18 MB
+Response time: 4.47 secs
+Transaction rate: 0.61 trans/sec
+Throughput: 0.00 MB/sec
+Concurrency: 2.73
+Successful transactions: 75
+Failed transactions: 0
+Longest transaction: 20.68
+Shortest transaction: 1.57
+</code></pre>
+
+<p>Análisis del resultado: hemos subido a 0.15 transacciones por segundo. Algo hemos hecho. De todas formas también podemos ver que el tiempo de respuesta es de casi cinco segundos.</p>
+
+<p>La siguiente opción es intentar que las cachés se almacenen en memoria, en un tmpfs de modo que sea mucho más rápido acceder a ellas. Esto ya lo hace eAccelerator al usar shm por lo que no tiene sentido intentar otra cosa.</p>
+
+<p>Podemos deshabilitar pues la caché de joomla para que sea eAccelerator quien se encarge. Realmente conseguimos poco. Solo reducir algo los tiempos de respuesta. La compresión gzip solo afecta a la cantidad de datos transferida y no a la de respuesta o a las transacciones por segundo. Los resultados obtenidos son los siguientes:</p>
+
+<pre><code>Transactions: 75 hits
+Availability: 100.00 %
+Elapsed time: 119.59 secs
+Data transferred: 0.18 MB
+Response time: 4.19 secs
+Transaction rate: 0.63 trans/sec
+Throughput: 0.00 MB/sec
+Concurrency: 2.63
+Successful transactions: 75
+Failed transactions: 0
+Longest transaction: 23.50
+Shortest transaction: 1.58
+</code></pre>
+
+<p>Por este lado no veo mayor avance posible sin entrar en la implementación en php. Quizá el siguiente paso podría ser intentar mejorar el acceso a la base de datos. Pero esto lo dejaremos de momento.</p>
+
+<p>Al instalar algunos componentes en joomla (joomfish, para site multilenguage castellano-catalán, ZMG, para la galería, joomlexplorer,&#8230;) el rendimiento ha bajado casi al nivel inicial. Eso significa que cuanto más cargamos de php más lento. Quizá en máquinas con más potencia de cálculo no sea escesivamente importante pero aquí si que lo es.</p>
+
+<p>Para &#8216;acelerar&#8217; la página de entrada almenos hago que sea estática (uso wget desde el servidor para bajarla y guardarla como index.html, y lo repito habitualmente con cron para las actualizaciones)&#8230; esto hace que se parezca más a BarraPan que a una web dinámica.</p>
+
+<p>Habrá que pensar en si merece la pena o no hacer una web totalmente/principalmente estática.</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1</strong></p>
+
+<p>¿es que no hay nadie que use mod_caché con joomla? todo el mundo dispone de un maquinon para servir webs dinámicas? Tras buscar no he encontrado más que referencias a los manuales de los módulos y alguna combinación junto a mod_expires. OJO: también he descubierto que joomla envía una expiración fija de 1997 con lo que pasamos a tener que tocar el código (en concreto el index.php principal).</p>
+
+<p><strong>Comentario 2</strong></p>
+
+<p>Información sobre caches usando los documentos de error:</p>
+
+<ul>
+<li><p>Enlace 1 : <a href="http://www.phpbsd.net/2007/05/16/cache-de-paginas-estaticas-para-php/">Blog hablando del tema</a></p></li>
+<li><p>Enlace 2 : <a href="http://www.lerdorf.com/tips.pdf">Charla</a> (más en <a href="http://talks.php.net">talks.php.net</a>) del año 2002 sobre el mismo tema.</p></li>
+<li><p>Enlace 3 : <a href="http://cesarodas.com/2007/06/gcache_helping_php_to_work_faster.html">Clase para el mismo objetivo.</a></p></li>
+</ul>
+
+
+<p><strong>Comentario 3</strong></p>
+
+<p>Para WordPress existen cachés similares a lo que yo busco por ejemplo WP-Cache (de R. Galli) y sus derivados.</p>
+
+<p>Para Joomla hay algunas opciones de pago y también está PageCache. Habrá que experimentar con ello.</p>
+
+<p>Para que pagecache se integre con eaccelerator hemos de cambiar de:</p>
+
+<pre><code> $ ./configure
+</code></pre>
+
+<p>a:</p>
+
+<pre><code> $./configure --with-eaccelerator-shared-memory
+</code></pre>
+
+<p>mientras seguimos el howto de como instalar eaccelerator</p>
+
+<p><strong>Comentario 4</strong></p>
+
+<p>Gracias por el pequeño análisis!</p>
+
+<p>Yo también tengo un servidor y, buscando información sobre el rendimiento de GZIP, me he encontrado con esta web.</p>
+
+<p>Saludos desde Barcelona!
+Roc</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Enviado por <span class="fn">Fernando Ochera.</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-18T20:42:23+01:00" pubdate data-updated="true">Domingo, 18 de Noviembre de 2007</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/deries/categorias/cuaderno-laboratorio/'>Cuaderno-Laboratorio</a>, <a class='category' href='/deries/categorias/mini-servidor/'>mini-servidor</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/deries/archives/15-Rotar-fotos-segun-EXIF.html" title="Post Previo: Rotar fotos según EXIF">&laquo; Rotar fotos según EXIF</a>
+      
+      
+        <a class="basic-alignment right" href="/deries/archives/18-Instalar-y-utilizar-el-simulador-de-red-CNET.html" title="Post Siguiente: Instalar y utilizar el simulador de red CNET">Instalar y utilizar el simulador de red CNET &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comentarios</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ferochera.github.com/deries/archives/16-Rendimiento-del-miniservidor..html';
+        var disqus_url = 'http://ferochera.github.com/deries/archives/16-Rendimiento-del-miniservidor..html';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

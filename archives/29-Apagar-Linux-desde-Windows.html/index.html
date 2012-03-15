@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Apagar Linux desde Windows - Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="Por cuestiones que no vienen al caso necesito permitir que un usuario apague el servidor de un modo simple y sin requerirle mayor información. Para &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/archives/29-Apagar-Linux-desde-Windows.html">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Apagar Linux Desde Windows</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-03T11:57:10+02:00" pubdate data-updated="true">Mi&eacute;rcoles, 03 de Septiembre de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><br />
+
+
+<div align="justify">Por cuestiones que no vienen al caso necesito permitir que un usuario apague el servidor de un modo simple y sin requerirle mayor información.</div>
+
+
+<div align="justify"></div>
+
+
+<div align="justify"></div>
+
+
+<br /><div align="justify"></div><div align="justify">Para prepararlo crearé un usuario que permita apagar el equipo via ssh con par de claves publica-privada y prepararé un mini-script que muestre un dialogo de confirmación&#8230;</div><div align="justify"></div><div align="justify"></div><div align="justify"></div><br /><div align="justify">Para el funcionamiento se requiere que PuTTY esté instalado (realmente solo necesitamos puttygen para la creación de las claves pública y privada y plink para ejecución del comando <i>shutdown</i>)</div><div align="justify"></div><div align="justify"></div><div align="justify"></div> <br />
+
+
+
+
+<!--more-->
+
+
+<p>1-. Crear el usuario en el equipo a apagar. Suponemos que se trata de un Ubuntu (en otros sabores habrá que retirar el sudo y ejecutar los comandos como root). Preparamos el usuario para que pueda ejecutar el shutdown sin password.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo groupadd apagador
+</span><span class='line'>$ sudo useradd -d /home/apagador -g users -G apagador -m -s /bin/bash apagador
+</span><span class='line'>$ sudo passwd apagador
+</span><span class='line'>New UNIX password: &lt;password&gt;
+</span><span class='line'>Retype new UNIX password: &lt;password&gt;
+</span><span class='line'>passwd: password updated successfully
+</span><span class='line'>$ sudo visudo
+</span><span class='line'>
+</span><span class='line'># Incluimos permiso para que 'apagador' pueda ejecutar shutdown sin password ALL
+</span><span class='line'>apagador ALL = NOPASSWD: /sbin/shutdown</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2-. Creamos las claves. Para ello hacemos uso de PuTTYGen. En él seleccionamos una clave de 1024 bits del tipo SSH-2 DSA. Tras esto pulsamos el botón de generarla (&#8220;Generate&#8221;).</p>
+
+<p><img class="center" src="/deries/images/puttygen01.jpg" title="PuTTYGen" alt="Generando las claves con PuTTYGen"></p>
+
+<p>Mientras se crea debemos mover el puntero del ratón sobre la zona vacía del programa para aumentar la aleatoriedad de la clave. Tras esto tendremos el par de claves, publica y privada, creadas. Debemos copiar la clave pública al portapapeles desde la ventana donde nos aparece ya preparada para incluirla en el archivo de &#8220;authorized_keys&#8221; del usuario.</p>
+
+<p><img class="center" src="/deries/images/puttygen03.jpg" title="Clave pública" alt="Clave pública para copiar y pegar"></p>
+
+<p>Una vez hecho esto guardaremos las claves pública y la privada en ficheros, uno para cada una, de modo que plink pueda usar la clave privada (y el cliente la pública a través de su authorized_keys). Para que no nos pida el password de acceso a la clave privada debemos dejar el campo vacío al guardarla.</p>
+
+<p><img class="center" src="/deries/images/puttygen04.jpg" title="Passwords" alt="(No) Asignar contraseñas a las claves con PuTTYGen"></p>
+
+<p>Guardamos las dos claves en un lugar acesible en el equipo windows utilizando los botones &#8220;Save public key&#8221; y &#8220;Save private key&#8221;. Para la privada se sugiere la extensión ppk</p>
+
+<p><img class="center" src="/deries/images/puttygen05.jpg" title="PuTTYGen" alt="Almacenar las claves en archivo"></p>
+
+<p>3-. Incluir la clave pública generada en el authorized_keys del usuario apagador. Para ello podemos usar PuTTY desde el equipo windows. Vamos a editar /home/apagador/.ssh/authorized_keys. Debemos incluir lo que hemos copiado en el apartado 2, tras la creación de la clave. Incluimos como opción que el comando a ejecutar es shutdown y opcionalmente la ip del equipo windows. En la misma linea pegamos la clave pública (&#8220;ssh-dss AAAAB3&#8230;&#8221;)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;login como apagador&gt;
+</span><span class='line'>$ cd .ssh (&lt;-- si no existe crearlo con "mkdir .ssh")
+</span><span class='line'>$ nano authorized_keys
+</span><span class='line'>from=”10.0.3.2″,command=”sudo /sbin/shutdown -h -P now” ssh-dss AAAAB3...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4-. Ejecutando</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>plink -T apagador@equipolinux_o_ip -i claveprivada.ppk sudo /sbin/shutdown -h -P now</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ya debería funcionar (quizá faltara solo las rutas absolutas a plink y claveprivada.ppk). Pero para completar el tema vamos a utilizar un
+script vbs que antes de ejecutar el comando mostrará un msgbox de confirmación:</p>
+
+<figure class='code'><figcaption><span>Script de Apagado Remoto (apagarEquipoLinux.vbs)</span> <a href='/deries/downloads/code/apagarEquipoLinux.vbs'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='vbnet'><span class='line'>    <span class="c">&#39;script que muestra un msgbox para confirmar que se quiere apagar </span>
+</span><span class='line'>    <span class="c">&#39; el equipo linux remoto (llamado equipolinux y usando el usuario</span>
+</span><span class='line'>    <span class="c">&#39; apagador) a traves de plink.</span>
+</span><span class='line'>    <span class="c">&#39; Si la respuesta es afirmativa (OK) se envía la petición (apagar)</span>
+</span><span class='line'>    <span class="c">&#39; El usuario apagador ya está configurado en el equipo de destino</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">&#39; 4401 --&gt; msgbox modal, defaultbutton = 2o. (cancel), icono-peligro, botones OK-cancel</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">Option</span> <span class="n">Explicit</span>
+</span><span class='line'>    <span class="k">Dim</span> <span class="n">ws</span><span class="p">,</span> <span class="n">VarApplication</span>
+</span><span class='line'>    <span class="k">Dim</span> <span class="n">strMbox</span>
+</span><span class='line'>    <span class="c">&#39;On Error Resume Next</span>
+</span><span class='line'>    <span class="n">strMbox</span> <span class="o">=</span> <span class="s">&quot;.&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">strMbox</span> <span class="o">=</span> <span class="n">MsgBox</span><span class="p">(</span><span class="s">&quot;Vas a apagar el equipo.linux ¿Quieres continuar?&quot;</span><span class="p">,</span><span class="mi">4401</span><span class="p">,</span><span class="s">&quot;Apagando EquipoLinux...&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">If</span> <span class="n">strMbox</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">Then</span>
+</span><span class='line'>    <span class="k">Set</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">CreateObject</span><span class="p">(</span><span class="s">&quot;WScript.Shell&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">Set</span> <span class="n">VarApplication</span> <span class="o">=</span> <span class="n">ws</span><span class="p">.</span><span class="n">Exec</span><span class="p">(</span><span class="s">&quot;&quot;&quot;C:\Archivos de programa\PuTTY\plink.exe&quot;&quot; &quot;</span> <span class="o">&amp;</span> <span class="n">_</span>
+</span><span class='line'>  <span class="s">&quot;-T apagador@equipolinux &quot;</span> <span class="o">&amp;</span> <span class="n">_</span>
+</span><span class='line'>  <span class="s">&quot;-i &quot;&quot;C:\Documents and Settings\localusr\apagador\apagador_privkey.ppk&quot;&quot; &quot;</span> <span class="o">&amp;</span><span class="n">_</span>
+</span><span class='line'>  <span class="s">&quot;sudo /sbin/shutdown -h -P now&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">Wscript</span><span class="p">.</span><span class="n">Sleep</span> <span class="mi">1000</span>
+</span><span class='line'>    <span class="n">ws</span><span class="p">.</span><span class="n">AppActivate</span> <span class="s">&quot;Apagando EquipoLinux&quot;</span>
+</span><span class='line'>    <span class="k">End</span> <span class="k">If</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">WScript</span><span class="p">.</span><span class="n">Quit</span>
+</span><span class='line'>    <span class="c">&#39; End of example VBScript</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Solo faltará guardarlo en un archivo de extension vbs (ej apagarEquipoLinux.vbs) y podemos crear un acceso directo a él y colocarlo donde más convenga, el escritorio por ejemplo.</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1 (Fabio Rojas)</strong></p>
+
+<p>Muy bien; excelente.</p>
+
+<p>Lo malo es que cuando yo ejecuto el script desde cualquier máquina: primero, no me genera el mensaje de:</p>
+
+<blockquote><p>The server&#8217;s host key is not cached in the registry. You have no guarantee that the server is the computer you think it is.</p>
+
+<p>The server&#8217;s rsa2 key fingerprint is:</p>
+
+<p>ssh-rsa 2048 76:09:c0:c2:fe:4b:52:30:04:e4:91:47:2f:d3:16:8a</p>
+
+<p>If you trust this host, enter &#8220;y&#8221; to add the key to PuTTY&#8217;s cache and carry on connecting.</p>
+
+<p>If you want to carry on connecting just once, without adding the key to the cache, enter &#8220;n&#8221;.</p>
+
+<p>If you do not trust this host, press Return to abandon the connection.</p>
+
+<p>Store key in cache? (y/n)</p></blockquote>
+
+<p>Y por supuesto, no puede proseguir y menos ejecutar el comando en el lado del servidor Linux.</p>
+
+<p>Segundo; el ssh key password less, tengo entendido que es para conexión host to host. Yo lo necesito para que funcione desde cualquier máquina Windows.</p>
+
+<p>¿Hay solución para lo primero; por ejemplo mediante algún parámetro u opción de plink que envíe el &#8220;yes&#8221; o &#8220;y&#8221; para aceptar la llave ssh-rsa del servidor Linux e ingresarla a la caché de putty en el computador Windows?</p>
+
+<p>Y en lo segundo, ¿es posible dejar la llave pública para conectarse desde cualquier host o PC Windows?</p>
+
+<p>Un abrazo y de antemano gracias por su respuesta.</p>
+
+<p><strong>Respuesta</strong></p>
+
+<p>Tienes razón, también habrá que hacer que putty reconozca al servidor como aceptable. Esto deberías hacerlo la primera vez que te conectas a ese servidor.</p>
+
+<p>En cuanto a lo de usar un par de claves (pública+privada) para la identificación de más máquinas no podré serte de mucha ayuda pero me da la impresión (sin documentarme más) que dado que las claves autorizadas están ligadas a una ip supongo que es posible que te diera problemas (lo mejor sería experimentar probándolo).</p>
+
+<p>Si te funciona quizá lo peor es que en el authorized_keys de tu equipo a apagar debería haber una línea por cada uno de los equipos desde los que quieres apagar.</p>
+
+<p>Es probable que existan soluciones mejores. Pero a mi no se me ocurren.</p>
+
+<p>Saludos</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Enviado por <span class="fn">Fernando Ochera.</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-03T11:57:10+02:00" pubdate data-updated="true">Mi&eacute;rcoles, 03 de Septiembre de 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/deries/categorias/cuaderno-laboratorio/'>Cuaderno-Laboratorio</a>, <a class='category' href='/deries/categorias/mini-servidor/'>mini-servidor</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/deries/archives/28-Cron-en-NSLU2-con-UNSLUNG.html" title="Post Previo: Cron en NSLU2 con UNSLUNG">&laquo; Cron en NSLU2 con UNSLUNG</a>
+      
+      
+        <a class="basic-alignment right" href="/deries/archives/30-Clonezilla-SysRescueCD.html" title="Post Siguiente: Clonezilla - SysRescueCD">Clonezilla - SysRescueCD &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comentarios</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ferochera.github.com/deries/archives/29-Apagar-Linux-desde-Windows.html';
+        var disqus_url = 'http://ferochera.github.com/deries/archives/29-Apagar-Linux-desde-Windows.html';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

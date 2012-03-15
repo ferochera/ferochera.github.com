@@ -1,0 +1,878 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="Esta entrada solo tiene como fin hacerme eco del resumen de comandos Unix/Linux/BSD e incluso algunos Windows recopilada por Colin Barschel y que él &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/page/3">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/27-Resumen-de-comandos-UNIX-TOOLBOX.html">Resumen De Comandos - UNIX TOOLBOX</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-09T18:28:32+02:00" pubdate data-updated="true">Lunes, 09 de Junio de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<div align="left">Esta entrada solo tiene como fin hacerme eco del resumen de comandos Unix/Linux/BSD e incluso algunos Windows recopilada por Colin Barschel y que él llama <b><a title="Unix Toolbox" href="http://cb.vu/unixtoolbox.xhtml">UNIX ToolBox</a></b> y que conocí vía <b><a title="Kriptopolis" href="www.kriptopolis.org">Kriptopolis</a></b>.</div>
+
+
+<div align="left"></div>
+
+
+<div align="left">Es un gran resumen de comandos donde podeis encontrar ejemplos variados pasa distintos entornos.</div>
+
+
+<div align="left"><br />
+</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/26-Respaldos-y-Sincronizacion.html">Respaldos Y Sincronización</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-12T19:59:31+02:00" pubdate data-updated="true">S&aacute;bado, 12 de Abril de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Hoy voy a escribir sobre dos herramientas que me parecen útiles para conservar la información. Se trata de SimpleBackup y Dsynchronize.</p>
+
+
+<h3><a href="http://migas-sbackup.sourceforge.net/index.php"><b>SimpleBackup</b></a></h3>
+
+
+<p>Se trata de un script en perl para hacer backups. Existen versiones para diferentes S.O. pero realmente lo que me atrajo de esta solución es que existe una versión compilada para Windows y tiene multiples posibilidades para transportar la copia a un servidor remoto.</p>
+
+
+<p>En concreto yo lo he utilizado haciendo que el transporte funcione sobre ssh. Esto tiene la ventaja de que, una vez se ha configurado y transportado las claves, no necesitamos ninguna utilidad añadida en el extremo del servidor-almacen de copias. Aparte de las ventajas inherentes al ssh como la encriptación.</p>
+
+
+<p>Como  experiencia adicional comentar que casi bloqueaba el equipo windows del que hacía la copia de seguridad (temporizada con el programador de tareas). Para mejorar la experiencia del usuario mientras se hacía la copia, incluso a costa de alargar los tiempos las tareas se lanzan con el comando start y el parámetro /belownormal. En concreto:</p>
+
+
+<pre><code>    start "SimpleBackup Gestwin" /dC:\simplebackup /belownormal C:\simplebackup\simplebackup.exe --conf C:\simplebackup\splbkpwin.conf
+</code></pre>
+
+<p>De este modo la prioridad para esta tarea está por debajo del resto de las de usuario y el usuario no tiene la sensación de que el equipo está bloqueado mientras hace la copia de seguridad.</p>
+
+
+<p>[<a href="http://migas-sbackup.sourceforge.net/index.php">web de SimpleBackup</a>] [<a href="http://migas-sbackup.sourceforge.net/index.php?&action=screenshots">screenshots</a>]</p>
+
+
+<h3><a href="dimio.altervista.org/eng/" title="Web de Dsynchronize y otros">Dsynchronize</a></h3>
+
+
+<p> Se trata de una aplicación para sincronizar multiples carpetas. Las carpetas se sincronizan por pares (una de origen a una de destino).</p>
+
+
+<p>La interfaz es algo densa pero dado que solo tiene una pantalla con todas las opciones es adecuada. Puede trabajar en &#8216;tiempo real&#8217;, es decir haciendo un seguimiento cada pocos segundos de las carpetas, o bajo demanda. </p>
+
+
+<p>También puede lanzarse en segundo plano desde linea de comandos (una vez configurado) y sin que muestre la interfaz. Incluso tiene un programador incluido, compresión, apagar al finalizar, sincronización bidireccional y un montón de opciones más.</p>
+
+
+<p>Mi modo de uso, como comentaba arriba, es en segundo plano. Una vez configurado utilizo el programador de tareas para lanzar repetidamente &quot;Dsynchronize /START /HIDDEN&quot; de modo que llegado el momento arranque automáticamente la sincronización y sin que se notifique al usuario pues no se muestra ni gui ni icono en barra de tareas.</p>
+
+
+<p /><div align="left">[<a href="http://dimio.altervista.org/eng/">web de Dsynchronize</a>] [<a href="http://dimio.altervista.org/eng/dsynchronize.gif">screenshot</a>]</div></blockquote>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/25-Respaldo-de-Gmail-con-getmail.html">Respaldo De Gmail Con Getmail</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-03T19:49:08+01:00" pubdate data-updated="true">Lunes, 03 de Marzo de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>Pretendemos hacer una copia de seguridad de los correos de nuestra cuenta de gmail. Para ello utilizaremos la utilidad <a title="GetMail 4" href="http://pyropus.ca/software/getmail/">getmail</a> configurada para almacenar los correos al estilo MailDir.</p>
+
+
+<p>Dado que la utilidad está en los repositorios de ubuntu la instalaremos desde allí (sudo aptitude install getmail4).</p>
+
+
+<p>Una vez instalada creamos las carpetas donde almacenaremos el correo:</p>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir ~/.getmail&lt;br /&gt;$ mkdir -p ~/GmailBackup/new  ~/GmailBackup/tmp  ~/GmailBackup/cur</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<p>la carpeta .getmail es la que utiliza el programa por defecto para almacenar los archivos de configuración. Podemos crear el archivo para nuestra cuenta con cualquier editor. Por ejemplo:</p>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nano ~/.getmail/getmailrc.mictagmail</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<p>Y dentro añadiremos algo como lo siguente:</p>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[retriever]
+</span><span class='line'>type = SimplePOP3SSLRetriever
+</span><span class='line'>server = pop.gmail.com
+</span><span class='line'>username = micuenta@gmail.com
+</span><span class='line'>password = clavedemictagmail
+</span><span class='line'>
+</span><span class='line'>[destination]
+</span><span class='line'>type = Maildir
+</span><span class='line'>path = ~/GmailBackup/
+</span><span class='line'>
+</span><span class='line'>[options]
+</span><span class='line'>verbose = 2
+</span><span class='line'>received = false
+</span><span class='line'>delivered_to = false
+</span><span class='line'>message_log = ~/.getmail/backupgmail.log</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<p>eso si con los valores adecuados de username y password. Si en vez de maildir queremos que nuestros correos se almacenen en formato mbox deberíamos poner, por ejemplo,</p>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[destination]
+</span><span class='line'>type = Mboxrd
+</span><span class='line'>path = ~/GmailBackup.mbox</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<p>Finalmente solo faltaría añadir una tarea al cron para que se ejecute repetidamente y sin nuestra atención:</p>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># obtener copia local de la cuenta de gmail 
+</span><span class='line'>35 22 * * * /usr/bin/getmail -ln --rcfile getmailrc.mictagmail &gt;&gt; ~/respgmail.log</span></code></pre></td></tr></table></div></figure>
+
+
+<p>La opción -n indica obtener solo el correo nuevo. Además también se puede seguir el manual de getmail para recuperar más de una cuenta y para variar la carpeta en la que buscar los archivos de configuración.<p /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/24-Rsync-a-traves-de-SSH-almacenado-en-FAT.html">Rsync a Través De SSH. Almacenado en FAT</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-03T18:53:35+01:00" pubdate data-updated="true">Lunes, 03 de Marzo de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>La intención es respaldar una serie de carpetas en un equipo cliente a otro servidor. Realmente manteniendo una copia (mirror) de la original sin compresión, ni backups incrementales o diferenciales.</p>
+
+
+<p>Las características de los sistemas hacen que usemos:</p>
+
+
+<pre><code>1. rsync en el cliente-origen de la información
+2. la transferencia sea a través de ssh
+3. el servidor-receptor de la información carece de demonio rsync
+4. el sistema de archivos en el que se almacena la información es FAT
+</code></pre>
+
+<p>Realmente el cliente es el taperserver del que ya hemos hablado anteriormente y el servidor en el que se almacena la información es un NSLU2 de Linksys al que se le ha modificado el firmware hasta un Unslung V2.3R63-uNSLUng-6.8 (ver <a href="http://www.nslu2-linux.org/" title="Linux en el NSLU2">nslu2-linux</a> para mas detalle). Ambos están conectados a internet con conexiones de banda ancha (o más bien estrecha) de diferentes proveedores y en lugares separados.</p>
+
+<div align="justify">
+Para poner en marcha esta copia necesitamos que inicialmente en el equipo cliente esté instalado rsync, cron y openssh. Este último es necesario para crear las claves para que no haya que introducir las claves cada vez y podamos automatizar la copia usando cron. En el servidor bastará con openssh.</div>
+
+
+<div align="justify"></div>
+
+
+<div align="justify"></div>
+
+
+<div align="justify">Lo primero que deberemos hacer es probar manualmente que se puede realizar la copia. En la mayor parte de los tutoriales recomiendan ejecutar desde el cliente:</div>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rsync -avz -e ssh carpeta-del-contenido-a-copiar/ usuarioremoto@serverdestino:/carpeta-destino/</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<div align="justify">donde las opciones son a:archive(=-rlptgoD), v:verbose y z:comprimir. Si se usa la opción &#8211;dry-run podemos hacer una prueba con todo menos con la copia real por lo que es una buena opción a incluir inicialmente.</div>
+
+
+<div align="justify"></div>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/deries/archives/24-Rsync-a-traves-de-SSH-almacenado-en-FAT.html">Leer m&aacute;s &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/23-Tuneles-SSH.html">Tuneles SSH</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-14T12:27:37+01:00" pubdate data-updated="true">Jueves, 14 de Febrero de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Realmente no se trata solo de túneles sino de un manual en castellano hecho por HellGuest en vilecha.com: <a href="http://www.vilecha.com/Hellguest/ssh.asp"><b>Utilizando SSH</b></a></p>
+
+<p>Es realmente interesante tener un resumen reducido pero además aclara el uso de túneles con ssh-agent como puede verse en el capitudo dedicado a ello y que reproduzco&#8230;</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/deries/archives/23-Tuneles-SSH.html">Leer m&aacute;s &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/22-Navegar-anonimamente....html">Navegar Anónimamente&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-13T10:44:09+01:00" pubdate data-updated="true">Mi&eacute;rcoles, 13 de Febrero de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>Lo primero será instalar Tor y Privoxy para poder usar la red de Tor. El uso de privoxy está relacionado con las peticiones de dns. Para S.O. de Ms también habrá que considerar videlia. En el caso que nos ocupa trataremos con un equipo de escritorio con Ubuntu en él. Para otros sabores de gnu/linux habrá que buscar los paquetes o las fuentes adecuados.<p>Para proceder a la instalación podemos utilizar <a href="http://www.ubuntu-es.org/node/13996" title="Instalar Tor y Privoxy en Ubuntu">http://www.ubuntu-es.org/node/13996</a></p><p>Después deberemos considerar las extensiones adecuadas para firefox de modo que podamos mantener nuestro anonimato también con la información que suministramos.</p><p /><ul><li><a href="http://noscript.net/">NoScript</a>, para controlar los scripts</li><li><a href="https://addons.mozilla.org/firefox/2275/">Torbutton</a>, para habilitar o deshabilitar Tor a nuestro gusto.</li><li><a href="https://addons.mozilla.org/es-ES/firefox/addon/2497">CookieSafe</a> (o similar), para controlar las cookies y su almacenado.</li><li><a href="https://addons.mozilla.org/es-ES/firefox/addon/953">RefControl</a>, para controlar el envío de los Referers en el encabezado http</li><li><a href="https://addons.mozilla.org/es-ES/firefox/addon/59">User Agent Switcher</a>, para cambiar la identificación del navegador. Quizá no tenga demasiada utilidad pues según el orden de los parámetros de la cabecera http podría llegar a identificarse el navegador (ver <a href="http://www.net-security.org/dl/articles/browser_ident.pdf" title="Identificación de Navegadores">artículo en net-security</a>). Además cambiar la identificación puede llevarnos a problemas, por ejemplo con Gmail, que no acepta cualquiera <img src="/deries/images/sad.png" alt=":-(" style="display: inline; vertical-align: bottom;" class="emoticon" /> Aunque quizá pueda variarse el S.O.</li><li>Otras extensiones que pueden ser interesantes son <a href="https://addons.mozilla.org/firefox/1237/">QuickJava</a> y <a href="https://addons.mozilla.org/firefox/433/">FlashBlock</a> para controlar los applets de Java y los Flash que ejecutamos.<br /> </li></ul><p>Enlaces:</p><ul><li><a href="http://www.torproject.org/index.html.es">Tor</a></li><li><a href="http://www.privoxy.org/">Privoxy</a></li><li><a href="https://addons.mozilla.org/es-ES/firefox/">Extensiones Firefox</a></li><li><a href="http://en.wikipedia.org/wiki/Referer">Referer en Wikipedia</a></li></ul></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/21-Mover-sitios-web-entre-servidores-con-ISPConfig.html">Mover Sitios Web Entre Servidores Con ISPConfig</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-12T19:31:33+01:00" pubdate data-updated="true">Martes, 12 de Febrero de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Esta entrada es básicamente la traducción de la <a href="http://www.howtoforge.com/forums/showthread.php?t=2717" title="Forum Howtoforge: Moving ISPconfig">entrada del forum en Howtoforge.com</a> donde falko lo explica&#8230;</p>
+
+
+<p>Partimos de un servidor en &quot;producción&quot; y otro limpio (desde ispconfig.org se puede acceder a las guías de instalación).</p>
+
+
+<p><strong>1.</strong> Crear una copia de los archivos:</p>
+
+<pre><code>    /etc/passwd, /etc/shadow, /etc/group, 
+    Vhosts_ispconfig.conf (situado /etc/apache2/vhosts para debian, ubuntu,...), 
+    /etc/postfix/local-host-names, /etc/postfix/virtusertable, 
+    named.conf y todos los archivos de zona pri.* (¿situados en /etc/bind9/?) y 
+    los archivos /etc/proftpd/proftpd*.conf
+</code></pre>
+
+<p><strong>2.</strong> Crear una copia de seguridad de las bases de datos. Se puede usar phpMyAdmin si está disponible o si no se puede usar mysqldump desde la consola:</p></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mysqldump -h localhost -u usuario -pcontraseñadeeseusuario -c --add-drop-table --add-locks --all --quick --lock-tables --databases db1 db2 db3 &gt; sqldump.sql</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Donde debe observarse que entre -p y la contraseña no hay espacio (si no se pone nada la aplicación la pregunta), que el usuario debe tener suficientes permisos (lo normal es usar el usuario root de acceso al mysql), que si solo se quiere volcar una base de datos se puede quitar &#8211;databases y poner solo el nombre de la base de datos deseada.</p>
+
+<p><strong>3.</strong> crear una copia de la carpeta raíz del servidor web (ej /var/www para ubuntu) <strong>conservando los propietarios y los permisos</strong>. Para ello se usa la opción -p con tar:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /var; tar -pcjvf www.tar.bz2 www/</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>4.</strong> Si los buzones de correos están en formato mbox habría que parar postfixy copiar los buzones. Si se usa Maildir los buzones están incluidos en el www.tar.bz2.</p>
+
+<p><strong>5.</strong> En el servidor de destino recuperar las bases de datos desde los volcados del servidor original con phpMyAdmin o desde la consola:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mysql -h localhost -u usuario -pcontraseña nombredeladb &lt; sqldump.sql</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>6.</strong> Revisar los usuarios y permisos para uso de mysql. Incluir los usuarios y permisos en el servidor de destino que hubiese en el de origen.</p>
+
+<p><strong>7.</strong> Copiar local-host-names y virtusertable a /etc/postfix. Abrir local-host-names y reemplazar el viejo hostname por el nuevo. Ejecutar:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>postmap /etc/postfix/virtusertable</span></code></pre></td></tr></table></div></figure>
+
+
+<pre><code>Reiniciar postfix (ej /etc/init.d/postfix restart desde ubuntu)
+</code></pre>
+
+<p><strong>8.</strong> Reemplazar el Vhosts_ispconfig.conf del servidor destino por el que hemos obtenido del servidor de origen.</p>
+
+<p><strong>9.</strong> Transferir y descomprimir en el lugar adecuado (ej que quede en /var/www) www.tar.bz2 (en este caso no tengo claro si es necesario usar la opción -p con tar)</p>
+
+<p><strong>10.</strong> Si usasemos mailbox este sería el momento de descomprimirlo en su destino.</p>
+
+<p><strong>11.</strong> Alterar /etc/passwd, /etc/shadow y /etc/group comparando el del servidor de origen y el de destino. Añadir en el de destino los usuarios, grupos, etc adecuados (los que no existan en el destino y estén relacionados con los sitios a transportar)</p>
+
+<p><strong>12.</strong> Transferir la configuración de dns (named.conf y pri<em>). Transferir la configuración de proftp (proftpd</em>.conf). Revisar las configuraciones anteriores para cambiar la IP de la de origen a la de destino.</p>
+
+<p><strong>14.</strong> Reiniciar proftpd y apache:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/etc/init.d/proftpd restart
+</span><span class='line'>/etc/init.d/apache2 restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>15.</strong> Aunque Falko no lo dice creo que sería buena idea reiniciar también ispconfig</p>
+
+<p><strong>16.</strong> Entrar a la interfaz de administración de ispconfig en el servidor destino y cambiar la/s IP/s del servidor (de las del origen a las del destino). Ir a la gestión de DNS y revisar también las IPs de los registros dns por si fuera necesario cambiarlas.</p>
+
+<p><strong>17.</strong> Solo faltará que el correo se redirija desde el servidor origen al destino mientras se actualizan los valores en los registros MX. Para ello sobre el servidor original hacemos:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo "* smtp:[&lt;IP del servidor destino&gt;]" &gt;&gt; /etc/postfix/transport
+</span><span class='line'>postmap /etc/postfix/transport
+</span><span class='line'>/etc/init.d/postfix restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p>En el servidor destino faltará añadir la dirección del servidor de origen al final del /etc/postfix/local-host-names para que el servidor de destino acepte los correos que le envíe el de origen.</p>
+
+<p>Con esto y un bizcocho la cosa debería funcionar</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1</strong></p>
+
+<p>Un par de comentarios respecto al proceso:</p>
+
+<ol>
+<li><p>El paso 17 lo hice a medias (no incluí la dirección del viejo en el nuevo). Espero no haber perdido correos debido a la hora que era y a que los dns cambiaran rapidito :-O</p></li>
+<li><p>Al problema de mover los sitios se me juntó que en una actualización reciente había cambiado la versión de php (un cambio menor). Esto hizo que eAccelerator se quejara y no arrancara php. <em>Solución</em>: Recompilar para la versión actual de php (Un consejo, hacer <em>make test</em> después del <em>make install</em> de eAccelerator, que si se hace sin el <em>make install</em> usa la versión previa y sigue quejándose)</p></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/20-Lista-de-Tareas-TaskFreak.html">Lista De Tareas TaskFreak</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-07T17:32:50+01:00" pubdate data-updated="true">Jueves, 07 de Febrero de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><br />
+
+
+<p>Os presento TaskFreak&#8230; Como podeis ver en el fragmento siguiente se trata de un gestor de tareas web.</p>
+
+
+<p>Tiene tanto versión monousuario como multiusuario, es fácil de utilizar y está en español.</p>
+
+
+<blockquote><h2>What is this?</h2><p>TaskFreak! is a simple but efficient web based task manager written in PHP.</p><h2>Main advantages &amp; features:</h2><ul><li><abbr title="Getting Things Done">GTD</abbr> compliant</li><li>easy setup with MySQL or SQLite (PHP4 and PHP5 compatible)</li><li>simple and easy to use (outrageously user friendly)</li><li>order tasks by priority and deadline, organize by project
+and context</li><li>absolutely free &amp; open source </li></ul></blockquote>
+
+
+<br />
+
+
+<div align="left">Es sencillo de instalar. Basta con crear la BD, descomprimir en nuestro espacio web y cambiar la configuración de modo que se acceda a la BD creada. al entrar en /install/index.php nos da la opción de crear las tablas. A partir de ese momento ya podemos usarlo.</div>
+
+
+<div align="left"></div>
+
+
+<div align="left"></div>
+
+
+<div align="left">Yo ya lo estoy probando&#8230; Si tu también quieres probarlo lo encontrarás en <a href="http://taskfreak.com/"><b>TaskFreak.com</b></a></div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/17-Nueva-version-de-Datagrid.html">Nueva Versión De Datagrid</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-01-24T14:18:00+01:00" pubdate data-updated="true">Jueves, 24 de Enero de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ha sido publicada la versión 4.2.3 del Datagrid en la página del proyecto <a href="http://phpbuilder.blogspot.com">http://phpbuilder.blogspot.com</a></p>
+
+<p>En el post del Mr. Leumas Naypoka se puede ver los cambios respecto de la versión previa (changelog)</p>
+
+<p>En algún momento revisaré los diffs a ver si son aprovechables y publicaré las nuevas versiones. Almenos eso espero <img src="/deries/images/wink.png" alt=";-)" style="display: inline; vertical-align: bottom;" class="emoticon" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/archives/19-No-es-un-miniservidor,-es-un-Taper-Server.html">No Es Un Miniservidor, Es Un Taper-Server</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-01-24T13:52:00+01:00" pubdate data-updated="true">Jueves, 24 de Enero de 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tras ver que la fuente de alimentación que venía con la caja para lector de dvd externa no era suficiente había que improvisar.</p>
+
+<p>Busqué otra caja, esta vez un taper de los chinos (menos de 3€), y junto con una vieja fuente AT y unos cuantos tornillos de M3, sus tuercas y arandelas ya tenemos un TAPER-SERVER. La verdad es que la mayor parte del espacio se lo lleva la placa de la fuente AT y el ventilador con lo que ha quedado bastante más grande de lo que yo pretendía pero no había remedio.</p><p>Para que os riais un rato os pongo unas fotos&#8230;</p>
+
+<!--110x83px-->
+
+
+<p><a href="/deries/images/taperserver/IMG_3299.JPG"><img src="/deries/images/taperserver/IMG_3299.Thumb.JPG" title="'TaperServer'" ></a> <a href="/deries/images/taperserver/IMG_3300.JPG"><img src="/deries/images/taperserver/IMG_3300.Thumb.JPG" title="'TaperServer'" ></a> <a href="/deries/images/taperserver/IMG_3298.JPG"><img src="/deries/images/taperserver/IMG_3298.Thumb.JPG" title="'TaperServer'" ></a> <a href="/deries/images/taperserver/IMG_3302.JPG"><img src="/deries/images/taperserver/IMG_3302.Thumb.JPG" title="'TaperServer'" ></a> <a href="/deries/images/taperserver/IMG_3301.JPG"><img src="/deries/images/taperserver/IMG_3301.Thumb.JPG" title="'TaperServer'" ></a></p>
+
+<p>Como podeis ver no soy ningún fiera soldando ni recortando pero me parece suficiente. Es probable que haya que cambiar el ventilador por otro algo más silencioso y quizá haya que aumentar las entradas de aire. Al probarlo veremos cual es la temperatura que se alcanza en el interior.</p>
+
+
+<p>Veis que hay 2 interruptores. La cuestión es que quería cortar las dos fases de alimentación y no tenía más que el interruptor de la fuente AT y estos. </p>
+
+
+<p>Recordad que se basa en una placa de proporciones muy reducidas con un Via C3, 256 MB de Ram (SDRAMM 133 sodimm) y un disco 2.5&#8217; de 60GB. Todos los periféricos que no se van a usar están desactivados.</p>
+
+
+<p>En las pruebas que he hecho de momento el consumo es de unos 20W, aunque estos son valores con poca carga computacional. </p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/deries/page/4/">&larr; <!--Older-->Anteriores</a>
+    
+    <a href="/deries/archivo"><!--Blog Archives-->Archivo</a>
+    
+    <a class="next" href="/deries/page/2/"><!--Newer-->Posteriores &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

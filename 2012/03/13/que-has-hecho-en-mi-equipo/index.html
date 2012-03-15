@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="es"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>¿Qué has hecho en mi equipo? - Xarx.es</title>
+  <meta name="author" content="Fernando Ochera.">
+
+  
+  <meta name="description" content="Hace ya un tiempo llegué a un artículo del 2007 llamado &#8220;How To Make Your Computer Catch People Stealing Your Porn&#8221;. Se trata de un test &hellip;">
+  <meta name="keywords" content="tightvnc, pyvnc2swf, keylogger">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo">
+  <link href="/deries/favicon.ico" rel="icon">
+  <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/deries/javascripts/modernizr-2.0.js"></script>
+  <script src="/deries/javascripts/ender.js"></script>
+  <script src="/deries/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/deries/atom.xml" rel="alternate" title="Xarx.es" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/deries/">Xarx.es</a></h1>
+  
+    <h2>Dèries. La meua llibreta d'anotacions.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/deries/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
+    <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/deries/"><!--Blog-->Bitácora</a></li>
+  <li><a href="/deries/archivo"><!--Archives-->Archivo</a></li>
+  <li><a href="/deries/categorias">Categorías</a></li>
+  <li><a href="/deries/contacto">Contacto</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">¿Qué Has Hecho en Mi Equipo?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-13T15:03:00+01:00" pubdate data-updated="true">Martes, 13 de Marzo de 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Hace ya un tiempo llegué a un artículo del 2007 llamado <a href="http://consumerist.com/2007/07/how-to-make-your-computer-catch-people-stealing-your-porn.html">&#8220;How To Make Your Computer Catch People Stealing Your Porn&#8221;</a>. Se trata de un test sobre la privacidad de nuestros datos cuando llevamos el ordenador al servicio técnico. Los autores habían preparado un equipo con algunas imágenes golosas (chicas ligeras de ropa) y pedían a diferentes servicios técnicos que hicieran una intervención simple. Generaban vídeos del proceso y así cogieron a algunos técnicos que no actuaban profesionalmente&#8230;</p>
+
+<p>Realmente me interesaba el método para conocer que se ha hecho en mi equipo. En este artículo se cuenta como usar un vnc para generar un vídeo.</p>
+
+<p>Hace muy poco necesitaba buscar otra vez el artículo original y me costó volver a encontrarlo así que una vez hallado voy a preparar el resumen.</p>
+
+<!--more-->
+
+
+<p>Las herramientas que se utilizan son <strong>TightVNC</strong> y <strong>pyvnc2swf</strong>.</p>
+
+<ul>
+<li><p>TightVNC opera como el grabador. Provee una interfaz de salida para el escritorio del ordenador.</p></li>
+<li><p>Pyvnc2swf captura el resultado de esas imágenes y las almacena en un archivo para poder visualizarlos a posteriori. En un equipo con una memoria o CPU limitadas se puede optar por volcados crudos (<em>raw</em>) a un archivo VNC. En un equipo mejor dotado se puede volcar directamente a un archivo SWF comprimido</p></li>
+</ul>
+
+
+<h2>Configuración de TightVNC</h2>
+
+<p><img class="center" src="/deries/images/tightvncsetup.jpg" title="TightVNC setup" alt="Configurando TightVNC"></p>
+
+<p>Tras instalar TightVNC, se utiliza la aplicación de control para configurar el VNC incluyendo la contraseña y se debe habilitar las conexiones locales (de lookback). Una vez utilizada esa aplicación de control hay que desabilitarla del arranque. Esto es porque no nos interesa que aparezcan en la barra de tareas o de notificación para que no se vea que estamos grabando.</p>
+
+<h2>Pyvnc2swf</h2>
+
+<p>El trabajo real lo realiza pyvnc2swf. Éste lo lanzaremos con un archivo <em>batch</em>. Usar un archivo <em>batch</em> proporciona una forma fácil de aleatorizar los archivos resultantes y además puede ser lanzado desde un servicio que configuremos al efecto.</p>
+
+<p>La utilidad <em>srvany.exe</em> es un programa que permite ejecutar como un servicio del sistema operativo una aplicación normal de Ms Windows (Xp, es el del ejemplo, pero se supone que en otros Ms Windows habrá algo similar).</p>
+
+<p>Una vez tenemos el archivo <em>batch</em> preparado podemos utilizar este sistema para lanzarlo en el arranque. Como parte del proceso de definición del servicio elegiremos un nombre que suene <em>&#8220;Microsoft-iano&#8221;</em>, como &#8220;Windows Image Capture Service&#8221;. Esto es para que nuestro sistema de captura no sea detectado a primera vista.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo off
+</span><span class='line'>"C:\Archivos de Programa\hoyle\wddm.exe" -n -o "C:\Archivos de Programa\hoyle\"%RANDOM%.vnc -P "C:\Archivos de Programa\hoyle\password.txt" localhost</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Tal como puede verse en el código anterior se configura la contraseña en un archivo de texto (el nombre se puede &#8220;mejorar&#8221;) para poder acceder al VNC. En el archivo basta con que esté la contraseña en su propia línea. El parámetro <em>%RANDOM%</em> garantiza que pyvnc2swf no sobreescriba sus propios archivos al arrancar diferentes veces. Otra opción sería añadir <em>%TIME%</em> u otra similar.</p>
+
+<p>Tras configurar lo anterior habrá que verificar que nuestro servicio personalizado está configurado como &#8220;Automático&#8221;. Tras esto, si todo está configurado correctamente, en cada reinicio del computador éste comenzará a grabar los contenidos del escritorio en la carpeta que previamente hayamos definido.</p>
+
+<p>Posteriormente se puede utilizar la herramienta <em>&#8220;edit&#8221;</em> de pyvnc2swf para convertir los archivos según nuestras necesidades.</p>
+
+<p>En cuanto a la configuración restante faltaría, por ejemplo, regular con que frecuencia se captura la imagen del escritorio (probablemente con 1 o 2 imágenes por segundo bastará).</p>
+
+<h2>Captura de Teclado.</h2>
+
+<p>Complementando la captura del escritorio en vídeo podemos instalar un keylogger que nos capture también las teclas.</p>
+
+<p>Para esto nos basamos en el artículo <a href="http://voices.yahoo.com/how-home-keylogger-monitor-kids-2303677.html">How to Use Home Keylogger to Monitor Your Kids - Jimmy Vidzem</a>. Seguro que hay opciones más elaboradas en cuanto a captura y ocultación pero para lo que queremos debería ser suficiente&#8230;</p>
+
+<p>Los <em>keyloggers</em> son aplicaciones diseñadas para capturar las pulsaciones del teclado. En este caso utilizaremos <a href="http://www.spyarsenal.com/keylogger">Home Keylogger</a>. Este keylogger en particular es <em>freeware</em>. Y comenzaremos bajándolo e instalándolo.</p>
+
+<p>Tras instalarlo aparece una ventana donde podemos comprobar que funciona correctamente. En el área de notificación hay un icono negro. Haciendo clic en él y seleccionando &#8220;->View Log&#8221; deberíamos ver lo que habíamos tecleado previamente.</p>
+
+<p>Podemos hacer que se inicie con cada reinicio haciendo clic en el icono de nuevo y seleccionando &#8220;Autorun&#8221;. Para ocultar el keylogger habrá que hacer clic de nuevo y seleccionar &#8220;Hide icon&#8221;. Aparecerá un pop-up diciendo &#8220;To show press CTRL+ALT+SHIFT+M&#8221; y tan pronto como le demos a OK desaparecerá el icono del área de notificación. Para volver a hacerlo aparecer tendremos que volver a pulsar la misma combinación de teclas (CTRL+ALT+SHIFT+M)</p>
+
+<p>Tal vez se podría iniciar utilizando el mismo <em>batch</em> comentado arriba&#8230; Y no estaría de más revisar si hay opciones para lanzarlo oculto directamente.</p>
+
+<h2>Observaciones</h2>
+
+<ol>
+<li><p>Estos mecanismos no funcionarán si el equipo arranca en Modo Seguro (safe mode) ya que en ese caso no se inician los servicios y programas que no sean críticos en el sistema.</p></li>
+<li><p>Los servicios son diferenciables ya que los que nosotros ponemos no son de &#8220;sistema&#8221; sino de &#8220;usuario&#8221;.</p></li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Enviado por <span class="fn">Fernando Ochera.</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-13T15:03:00+01:00" pubdate data-updated="true">Martes, 13 de Marzo de 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/deries/categorias/cuaderno-laboratorio/'>Cuaderno-laboratorio</a>, <a class='category' href='/deries/categorias/general/'>General</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/" title="Post Previo: Instalar Ubuntu remotamente usando grub">&laquo; Instalar Ubuntu remotamente usando grub</a>
+      
+      
+        <a class="basic-alignment right" href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/" title="Post Siguiente: Crear un pendrive multiboot a mano">Crear un pendrive multiboot a mano &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comentarios</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1><!--Recent Posts-->Entradas recientes</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/">Crear un pendrive multiboot a mano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/13/que-has-hecho-en-mi-equipo/">¿Qué has hecho en mi equipo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/">Instalar Ubuntu remotamente usando grub</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/">Migrando el blog de s9y a Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Nube de Etiquetas</h1>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+</section>
+<section>
+  <h1>Enlaces</h1>
+  <p>Algunos proyectos/enlaces que me interesan o con los que estoy relacionado.</p>
+  <ul id="link-list">
+    <li><a href="http://www3.uji.es/~ochera" title="Mi web en la Universidad Jaume I"><img src="/deries/images/uji.png" /></a></li>
+    <li><a href="http://llig.es" title="LLIG, Llibres i Gràcia"><img src="/deries/images/LLIG.png" /></a></li>
+    <li><a href="http://planetari.castello.es">Planetari de Castelló</a> - 
+        <a href="http://www.castello.es/archivos/598/img/index.html">Est. meteo.</a>
+        <br /><a href="http://www.castello.es/archivos/598/img/index.html" title="Planetari de Castelló. Estación Meteorológica"><img src="http://www.castello.es/archivos/598/img/current.gif" /></a>
+    </li>
+    <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
+    <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC-BY-NC-SA</a>
+  2012 - <a href="/deries/autor">Fernando Ochera.</a> -
+  <span class="credit">Generado con <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xarxesderies';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo/';
+        var disqus_url = 'http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

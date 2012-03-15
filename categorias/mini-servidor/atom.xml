@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Categoría: mini-servidor | Xarx.es]]></title>
+  <link href="http://ferochera.github.com/deries/categorias/mini-servidor/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/deries/"/>
+  <updated>2012-03-15T23:14:47+01:00</updated>
+  <id>http://ferochera.github.com/deries/</id>
+  <author>
+    <name><![CDATA[Fernando Ochera.]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Instalar Ubuntu remotamente usando grub]]></title>
+    <link href="http://ferochera.github.com/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/"/>
+    <updated>2012-03-10T15:24:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub</id>
+    <content type="html"><![CDATA[<p>Primero habrá que bajar el kernel y initrd adecuados para instalar desde imagen iso (vmlinuz_hdmedia, initrd_hdmedia) o desde red (vmlinuz_netboot, initrd_netboot), donde los "_hdmedia" o "_netboot" los añadí para diferenciarlas.</p>
+
+<p>Después añadiremos las siguientes entradas (una o las dos) en la configuración de grub. Es necesario adecuar la partición donde estén los kernels de arranque. Para hdmedia resultaba interesante poner la imagen <em>iso</em>(ubuntu alternate, creo recordar) de instalación en la raíz de una partición vfat.</p>
+
+<p>Fragmento de /etc/grub.d/40_custom:</p>
+
+<p>```
+menuentry "Instalacion Ubuntu (ssh-netconsole, hdmedia)" {</p>
+
+<pre><code>  set root=(hd0,5)
+  linux /vmlinuz_hdmedia vga=normal ramdisk_size=16386 root=/dev/ram0 locale=en_US console-setup/ask_detect=false console-setup/layoutcode=us netcfg/choose_interface=auto netcfg/disable_dhcp=true netcfg/get_nameservers=132.1.6.55 netcfg/get_ipaddress=132.26.0.9 netcfg/get_netmask=255.255.0.0 netcfg/get_gateway=132.26.0.240 netcfg/confirm_static=true netcfg/get_hostname=halley netcfg/get_domain=aytocastellon.loc netcfg/wireless_wep= hw-detect/load_firmware=true anna/choose_modules=network-console network-console/password=r00tme network-console/password-again=r00tme rw --
+  initrd /initrd_hdmedia.gz
+</code></pre>
+
+<p>}</p>
+
+<p>menuentry "Instalacion Ubuntu (ssh-netconsole, netinstall)" {</p>
+
+<pre><code>  set root=(hd0,5)
+  linux /linux_netboot vga=normal ramdisk_size=16386 root=/dev/ram0 locale=en_US console-setup/ask_detect=false console-setup/layoutcode=us netcfg/choose_interface=auto netcfg/disable_dhcp=true netcfg/get_nameservers=132.1.6.55 netcfg/get_ipaddress=132.26.0.9 netcfg/get_netmask=255.255.0.0 netcfg/get_gateway=132.26.0.240 netcfg/confirm_static=true netcfg/get_hostname=halley netcfg/get_domain=aytocastellon.loc netcfg/wireless_wep= hw-detect/load_firmware=true anna/choose_modules=network-console network-console/password=r00tme network-console/password-again=r00tme rw --
+  initrd /initrd_netboot.gz
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Finalmente actualizaremos la configuración de grub con</p>
+
+<pre><code>$ sudo update-grub2
+</code></pre>
+
+<p>Para instalar bastará con reiniciar y seleccionar esa entrada. Para hacerlo remotamente también tendremos que cambiar la configuración de grub para que sea esa opción la arranque automáticamente.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apagar Linux desde Windows]]></title>
+    <link href="http://ferochera.github.com/deries/archives/29-Apagar-Linux-desde-Windows.html"/>
+    <updated>2008-09-03T11:57:10+02:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Apagar-Linux-desde-Windows</id>
+    <content type="html"><![CDATA[<br />
+
+
+<div align="justify">Por cuestiones que no vienen al caso necesito permitir que un usuario apague el servidor de un modo simple y sin requerirle mayor información.</div>
+
+
+<div align="justify"></div>
+
+
+<div align="justify"></div>
+
+
+<br /><div align="justify"></div><div align="justify">Para prepararlo crearé un usuario que permita apagar el equipo via ssh con par de claves publica-privada y prepararé un mini-script que muestre un dialogo de confirmación...</div><div align="justify"></div><div align="justify"></div><div align="justify"></div><br /><div align="justify">Para el funcionamiento se requiere que PuTTY esté instalado (realmente solo necesitamos puttygen para la creación de las claves pública y privada y plink para ejecución del comando <i>shutdown</i>)</div><div align="justify"></div><div align="justify"></div><div align="justify"></div> <br />
+
+
+
+
+<!--more-->
+
+
+<p>1-. Crear el usuario en el equipo a apagar. Suponemos que se trata de un Ubuntu (en otros sabores habrá que retirar el sudo y ejecutar los comandos como root). Preparamos el usuario para que pueda ejecutar el shutdown sin password.</p>
+
+<p>```</p>
+
+<pre><code>$ sudo groupadd apagador
+$ sudo useradd -d /home/apagador -g users -G apagador -m -s /bin/bash apagador
+$ sudo passwd apagador
+New UNIX password: &lt;password&gt;
+Retype new UNIX password: &lt;password&gt;
+passwd: password updated successfully
+$ sudo visudo
+
+# Incluimos permiso para que 'apagador' pueda ejecutar shutdown sin password ALL
+apagador ALL = NOPASSWD: /sbin/shutdown
+</code></pre>
+
+<p>```</p>
+
+<p>2-. Creamos las claves. Para ello hacemos uso de PuTTYGen. En él seleccionamos una clave de 1024 bits del tipo SSH-2 DSA. Tras esto pulsamos el botón de generarla ("Generate").</p>
+
+<p><img class="center" src="/images/puttygen01.jpg" title="PuTTYGen" alt="Generando las claves con PuTTYGen"></p>
+
+<p>Mientras se crea debemos mover el puntero del ratón sobre la zona vacía del programa para aumentar la aleatoriedad de la clave. Tras esto tendremos el par de claves, publica y privada, creadas. Debemos copiar la clave pública al portapapeles desde la ventana donde nos aparece ya preparada para incluirla en el archivo de "authorized_keys" del usuario.</p>
+
+<p><img class="center" src="/images/puttygen03.jpg" title="Clave pública" alt="Clave pública para copiar y pegar"></p>
+
+<p>Una vez hecho esto guardaremos las claves pública y la privada en ficheros, uno para cada una, de modo que plink pueda usar la clave privada (y el cliente la pública a través de su authorized_keys). Para que no nos pida el password de acceso a la clave privada debemos dejar el campo vacío al guardarla.</p>
+
+<p><img class="center" src="/images/puttygen04.jpg" title="Passwords" alt="(No) Asignar contraseñas a las claves con PuTTYGen"></p>
+
+<p>Guardamos las dos claves en un lugar acesible en el equipo windows utilizando los botones "Save public key" y "Save private key". Para la privada se sugiere la extensión ppk</p>
+
+<p><img class="center" src="/images/puttygen05.jpg" title="PuTTYGen" alt="Almacenar las claves en archivo"></p>
+
+<p>3-. Incluir la clave pública generada en el authorized_keys del usuario apagador. Para ello podemos usar PuTTY desde el equipo windows. Vamos a editar /home/apagador/.ssh/authorized_keys. Debemos incluir lo que hemos copiado en el apartado 2, tras la creación de la clave. Incluimos como opción que el comando a ejecutar es shutdown y opcionalmente la ip del equipo windows. En la misma linea pegamos la clave pública ("ssh-dss AAAAB3...")</p>
+
+<p>```</p>
+
+<pre><code>&lt;login como apagador&gt;
+$ cd .ssh (&lt;-- si no existe crearlo con "mkdir .ssh")
+$ nano authorized_keys
+from=”10.0.3.2″,command=”sudo /sbin/shutdown -h -P now” ssh-dss AAAAB3...
+</code></pre>
+
+<p>```</p>
+
+<p>4-. Ejecutando</p>
+
+<p>```</p>
+
+<pre><code>plink -T apagador@equipolinux_o_ip -i claveprivada.ppk sudo /sbin/shutdown -h -P now
+</code></pre>
+
+<p>```</p>
+
+<p>ya debería funcionar (quizá faltara solo las rutas absolutas a plink y claveprivada.ppk). Pero para completar el tema vamos a utilizar un
+script vbs que antes de ejecutar el comando mostrará un msgbox de confirmación:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Script de Apagado Remoto (apagarEquipoLinux.vbs)</span> <a href='/downloads/code/apagarEquipoLinux.vbs'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='vbnet'><span class='line'>    <span class="c">&#39;script que muestra un msgbox para confirmar que se quiere apagar </span>
+</span><span class='line'>    <span class="c">&#39; el equipo linux remoto (llamado equipolinux y usando el usuario</span>
+</span><span class='line'>    <span class="c">&#39; apagador) a traves de plink.</span>
+</span><span class='line'>    <span class="c">&#39; Si la respuesta es afirmativa (OK) se envía la petición (apagar)</span>
+</span><span class='line'>    <span class="c">&#39; El usuario apagador ya está configurado en el equipo de destino</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">&#39; 4401 --&gt; msgbox modal, defaultbutton = 2o. (cancel), icono-peligro, botones OK-cancel</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">Option</span> <span class="n">Explicit</span>
+</span><span class='line'>    <span class="k">Dim</span> <span class="n">ws</span><span class="p">,</span> <span class="n">VarApplication</span>
+</span><span class='line'>    <span class="k">Dim</span> <span class="n">strMbox</span>
+</span><span class='line'>    <span class="c">&#39;On Error Resume Next</span>
+</span><span class='line'>    <span class="n">strMbox</span> <span class="o">=</span> <span class="s">&quot;.&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">strMbox</span> <span class="o">=</span> <span class="n">MsgBox</span><span class="p">(</span><span class="s">&quot;Vas a apagar el equipo.linux ¿Quieres continuar?&quot;</span><span class="p">,</span><span class="mi">4401</span><span class="p">,</span><span class="s">&quot;Apagando EquipoLinux...&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">If</span> <span class="n">strMbox</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">Then</span>
+</span><span class='line'>    <span class="k">Set</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">CreateObject</span><span class="p">(</span><span class="s">&quot;WScript.Shell&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">Set</span> <span class="n">VarApplication</span> <span class="o">=</span> <span class="n">ws</span><span class="p">.</span><span class="n">Exec</span><span class="p">(</span><span class="s">&quot;&quot;&quot;C:\Archivos de programa\PuTTY\plink.exe&quot;&quot; &quot;</span> <span class="o">&amp;</span> <span class="n">_</span>
+</span><span class='line'>	<span class="s">&quot;-T apagador@equipolinux &quot;</span> <span class="o">&amp;</span> <span class="n">_</span>
+</span><span class='line'>	<span class="s">&quot;-i &quot;&quot;C:\Documents and Settings\localusr\apagador\apagador_privkey.ppk&quot;&quot; &quot;</span> <span class="o">&amp;</span><span class="n">_</span>
+</span><span class='line'>	<span class="s">&quot;sudo /sbin/shutdown -h -P now&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">Wscript</span><span class="p">.</span><span class="n">Sleep</span> <span class="mi">1000</span>
+</span><span class='line'>    <span class="n">ws</span><span class="p">.</span><span class="n">AppActivate</span> <span class="s">&quot;Apagando EquipoLinux&quot;</span>
+</span><span class='line'>    <span class="k">End</span> <span class="k">If</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">WScript</span><span class="p">.</span><span class="n">Quit</span>
+</span><span class='line'>    <span class="c">&#39; End of example VBScript</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Solo faltará guardarlo en un archivo de extension vbs (ej apagarEquipoLinux.vbs) y podemos crear un acceso directo a él y colocarlo donde más convenga, el escritorio por ejemplo.</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1 (Fabio Rojas)</strong></p>
+
+<p>Muy bien; excelente.</p>
+
+<p>Lo malo es que cuando yo ejecuto el script desde cualquier máquina: primero, no me genera el mensaje de:</p>
+
+<blockquote><p>The server's host key is not cached in the registry. You have no guarantee that the server is the computer you think it is.</p>
+
+<p>The server's rsa2 key fingerprint is:</p>
+
+<p>ssh-rsa 2048 76:09:c0:c2:fe:4b:52:30:04:e4:91:47:2f:d3:16:8a</p>
+
+<p>If you trust this host, enter "y" to add the key to PuTTY's cache and carry on connecting.</p>
+
+<p>If you want to carry on connecting just once, without adding the key to the cache, enter "n".</p>
+
+<p>If you do not trust this host, press Return to abandon the connection.</p>
+
+<p>Store key in cache? (y/n)</p></blockquote>
+
+<p>Y por supuesto, no puede proseguir y menos ejecutar el comando en el lado del servidor Linux.</p>
+
+<p>Segundo; el ssh key password less, tengo entendido que es para conexión host to host. Yo lo necesito para que funcione desde cualquier máquina Windows.</p>
+
+<p>¿Hay solución para lo primero; por ejemplo mediante algún parámetro u opción de plink que envíe el "yes" o "y" para aceptar la llave ssh-rsa del servidor Linux e ingresarla a la caché de putty en el computador Windows?</p>
+
+<p>Y en lo segundo, ¿es posible dejar la llave pública para conectarse desde cualquier host o PC Windows?</p>
+
+<p>Un abrazo y de antemano gracias por su respuesta.</p>
+
+<p><strong>Respuesta</strong></p>
+
+<p>Tienes razón, también habrá que hacer que putty reconozca al servidor como aceptable. Esto deberías hacerlo la primera vez que te conectas a ese servidor.</p>
+
+<p>En cuanto a lo de usar un par de claves (pública+privada) para la identificación de más máquinas no podré serte de mucha ayuda pero me da la impresión (sin documentarme más) que dado que las claves autorizadas están ligadas a una ip supongo que es posible que te diera problemas (lo mejor sería experimentar probándolo).</p>
+
+<p>Si te funciona quizá lo peor es que en el authorized_keys de tu equipo a apagar debería haber una línea por cada uno de los equipos desde los que quieres apagar.</p>
+
+<p>Es probable que existan soluciones mejores. Pero a mi no se me ocurren.</p>
+
+<p>Saludos</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mover sitios web entre servidores con ISPConfig]]></title>
+    <link href="http://ferochera.github.com/deries/archives/21-Mover-sitios-web-entre-servidores-con-ISPConfig.html"/>
+    <updated>2008-02-12T19:31:33+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Mover-sitios-web-entre-servidores-con-ISPConfig</id>
+    <content type="html"><![CDATA[<p>Esta entrada es básicamente la traducción de la <a href="http://www.howtoforge.com/forums/showthread.php?t=2717" title="Forum Howtoforge: Moving ISPconfig">entrada del forum en Howtoforge.com</a> donde falko lo explica...</p>
+
+
+<p>Partimos de un servidor en &quot;producción&quot; y otro limpio (desde ispconfig.org se puede acceder a las guías de instalación).</p>
+
+
+<p><strong>1.</strong> Crear una copia de los archivos:</p>
+
+<pre><code>    /etc/passwd, /etc/shadow, /etc/group, 
+    Vhosts_ispconfig.conf (situado /etc/apache2/vhosts para debian, ubuntu,...), 
+    /etc/postfix/local-host-names, /etc/postfix/virtusertable, 
+    named.conf y todos los archivos de zona pri.* (¿situados en /etc/bind9/?) y 
+    los archivos /etc/proftpd/proftpd*.conf
+</code></pre>
+
+<p><strong>2.</strong> Crear una copia de seguridad de las bases de datos. Se puede usar phpMyAdmin si está disponible o si no se puede usar mysqldump desde la consola:</p></p>
+
+<p><code>
+mysqldump -h localhost -u usuario -pcontraseñadeeseusuario -c --add-drop-table --add-locks --all --quick --lock-tables --databases db1 db2 db3 &gt; sqldump.sql
+</code></p>
+
+<p>Donde debe observarse que entre -p y la contraseña no hay espacio (si no se pone nada la aplicación la pregunta), que el usuario debe tener suficientes permisos (lo normal es usar el usuario root de acceso al mysql), que si solo se quiere volcar una base de datos se puede quitar --databases y poner solo el nombre de la base de datos deseada.</p>
+
+<p><strong>3.</strong> crear una copia de la carpeta raíz del servidor web (ej /var/www para ubuntu) <strong>conservando los propietarios y los permisos</strong>. Para ello se usa la opción -p con tar:</p>
+
+<p><code>
+cd /var; tar -pcjvf www.tar.bz2 www/
+</code></p>
+
+<p><strong>4.</strong> Si los buzones de correos están en formato mbox habría que parar postfixy copiar los buzones. Si se usa Maildir los buzones están incluidos en el www.tar.bz2.</p>
+
+<p><strong>5.</strong> En el servidor de destino recuperar las bases de datos desde los volcados del servidor original con phpMyAdmin o desde la consola:</p>
+
+<p><code>
+mysql -h localhost -u usuario -pcontraseña nombredeladb &lt; sqldump.sql
+</code></p>
+
+<p><strong>6.</strong> Revisar los usuarios y permisos para uso de mysql. Incluir los usuarios y permisos en el servidor de destino que hubiese en el de origen.</p>
+
+<p><strong>7.</strong> Copiar local-host-names y virtusertable a /etc/postfix. Abrir local-host-names y reemplazar el viejo hostname por el nuevo. Ejecutar:</p>
+
+<p><code>
+postmap /etc/postfix/virtusertable
+</code></p>
+
+<pre><code>Reiniciar postfix (ej /etc/init.d/postfix restart desde ubuntu)
+</code></pre>
+
+<p><strong>8.</strong> Reemplazar el Vhosts_ispconfig.conf del servidor destino por el que hemos obtenido del servidor de origen.</p>
+
+<p><strong>9.</strong> Transferir y descomprimir en el lugar adecuado (ej que quede en /var/www) www.tar.bz2 (en este caso no tengo claro si es necesario usar la opción -p con tar)</p>
+
+<p><strong>10.</strong> Si usasemos mailbox este sería el momento de descomprimirlo en su destino.</p>
+
+<p><strong>11.</strong> Alterar /etc/passwd, /etc/shadow y /etc/group comparando el del servidor de origen y el de destino. Añadir en el de destino los usuarios, grupos, etc adecuados (los que no existan en el destino y estén relacionados con los sitios a transportar)</p>
+
+<p><strong>12.</strong> Transferir la configuración de dns (named.conf y pri<em>). Transferir la configuración de proftp (proftpd</em>.conf). Revisar las configuraciones anteriores para cambiar la IP de la de origen a la de destino.</p>
+
+<p><strong>14.</strong> Reiniciar proftpd y apache:</p>
+
+<p><code>
+/etc/init.d/proftpd restart
+/etc/init.d/apache2 restart
+</code></p>
+
+<p><strong>15.</strong> Aunque Falko no lo dice creo que sería buena idea reiniciar también ispconfig</p>
+
+<p><strong>16.</strong> Entrar a la interfaz de administración de ispconfig en el servidor destino y cambiar la/s IP/s del servidor (de las del origen a las del destino). Ir a la gestión de DNS y revisar también las IPs de los registros dns por si fuera necesario cambiarlas.</p>
+
+<p><strong>17.</strong> Solo faltará que el correo se redirija desde el servidor origen al destino mientras se actualizan los valores en los registros MX. Para ello sobre el servidor original hacemos:</p>
+
+<p><code>
+echo "* smtp:[&lt;IP del servidor destino&gt;]" &gt;&gt; /etc/postfix/transport
+postmap /etc/postfix/transport
+/etc/init.d/postfix restart
+</code></p>
+
+<p>En el servidor destino faltará añadir la dirección del servidor de origen al final del /etc/postfix/local-host-names para que el servidor de destino acepte los correos que le envíe el de origen.</p>
+
+<p>Con esto y un bizcocho la cosa debería funcionar</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1</strong></p>
+
+<p>Un par de comentarios respecto al proceso:</p>
+
+<ol>
+<li><p>El paso 17 lo hice a medias (no incluí la dirección del viejo en el nuevo). Espero no haber perdido correos debido a la hora que era y a que los dns cambiaran rapidito :-O</p></li>
+<li><p>Al problema de mover los sitios se me juntó que en una actualización reciente había cambiado la versión de php (un cambio menor). Esto hizo que eAccelerator se quejara y no arrancara php. <em>Solución</em>: Recompilar para la versión actual de php (Un consejo, hacer <em>make test</em> después del <em>make install</em> de eAccelerator, que si se hace sin el <em>make install</em> usa la versión previa y sigue quejándose)</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[No es un miniservidor, es un Taper-Server]]></title>
+    <link href="http://ferochera.github.com/deries/archives/19-No-es-un-miniservidor,-es-un-Taper-Server.html"/>
+    <updated>2008-01-24T13:52:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/No-es-un-miniservidor,-es-un-Taper-Server</id>
+    <content type="html"><![CDATA[<p>Tras ver que la fuente de alimentación que venía con la caja para lector de dvd externa no era suficiente había que improvisar.</p>
+
+<p>Busqué otra caja, esta vez un taper de los chinos (menos de 3€), y junto con una vieja fuente AT y unos cuantos tornillos de M3, sus tuercas y arandelas ya tenemos un TAPER-SERVER. La verdad es que la mayor parte del espacio se lo lleva la placa de la fuente AT y el ventilador con lo que ha quedado bastante más grande de lo que yo pretendía pero no había remedio.</p><p>Para que os riais un rato os pongo unas fotos...</p>
+
+<!--110x83px-->
+
+
+<p><a href="/images/taperserver/IMG_3299.JPG"><img src="/images/taperserver/IMG_3299.Thumb.JPG" title="'TaperServer'" ></a> <a href="/images/taperserver/IMG_3300.JPG"><img src="/images/taperserver/IMG_3300.Thumb.JPG" title="'TaperServer'" ></a> <a href="/images/taperserver/IMG_3298.JPG"><img src="/images/taperserver/IMG_3298.Thumb.JPG" title="'TaperServer'" ></a> <a href="/images/taperserver/IMG_3302.JPG"><img src="/images/taperserver/IMG_3302.Thumb.JPG" title="'TaperServer'" ></a> <a href="/images/taperserver/IMG_3301.JPG"><img src="/images/taperserver/IMG_3301.Thumb.JPG" title="'TaperServer'" ></a></p>
+
+<p>Como podeis ver no soy ningún fiera soldando ni recortando pero me parece suficiente. Es probable que haya que cambiar el ventilador por otro algo más silencioso y quizá haya que aumentar las entradas de aire. Al probarlo veremos cual es la temperatura que se alcanza en el interior.</p>
+
+
+<p>Veis que hay 2 interruptores. La cuestión es que quería cortar las dos fases de alimentación y no tenía más que el interruptor de la fuente AT y estos. </p>
+
+
+<p>Recordad que se basa en una placa de proporciones muy reducidas con un Via C3, 256 MB de Ram (SDRAMM 133 sodimm) y un disco 2.5' de 60GB. Todos los periféricos que no se van a usar están desactivados.</p>
+
+
+<p>En las pruebas que he hecho de momento el consumo es de unos 20W, aunque estos son valores con poca carga computacional. </p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rendimiento del miniservidor.]]></title>
+    <link href="http://ferochera.github.com/deries/archives/16-Rendimiento-del-miniservidor..html"/>
+    <updated>2007-11-18T20:42:23+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Rendimiento-del-miniservidor.</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p>La idea es realizar test sobre una de las webs del miniservidor para comprobar como trabaja y si podemos optimizar algo. Aunque también trataré de aplicarlo a <a href="http://llig.es/" target="_blank" title="Ler Llibreries - Llibres i Gr&agrave;cia">llig.es</a>, que actualmente sirve un PII con menor ram y cpu que el miniservidor.</p>
+
+
+<p>Como premisa inicial disponemos del servidor (del hardware ya hablamos en la primera entrada de este tema/categoría) con ubuntu 7.10, ISPconfig y una web habilitada con Joomla recien instalado y vacío. Como documentación contamos especialmente con las charlas sobre php: <a target="_blank" href="http://talks.php.net/">talks.php.net</a></p>
+
+
+<p>Para realizar las pruebas utilizamos ab (<a href="http://httpd.apache.org/docs/2.2/programs/ab.html" target="_blank" title="ab de apache">apachebench</a>, que está incluida en apache) o <a href="http://www.joedog.org/JoeDog/Siege" target="_blank" title="homepage de siege">siege</a>. Son similares pero siege puede además simular diferentes clientes. Para más datos se pueden  visitar las páginas de estas aplicaciones o de <a href="http://www.apache-es.org/index.php/2006/12/26/herramientas-de-pruebas-de-carga/" target="_blank" title="herramientas de test de rendimiento para apache">otras alternativas</a>.</p>
+
+
+<p>Lo que tratamos de hacer es mejorar la configuración sin modificar el código de joomla o el cms que sea de modo que mejoremos en todos los clientes del isp. Decir sin embargo que este equipo deberá tener uno o dos webs únicamente.</p>
+
+
+
+
+<!--more-->
+
+
+<p><strong>Prueba 1, resultados de ab:</strong></p>
+
+<pre><code>Total transferred: 508144 bytes
+HTML transferred: 483896 bytes
+Requests per second: 0.45 [#/sec] (mean)
+Time per request: 6667.406 [ms] (mean)
+Time per request: 2222.469 [ms] (mean, across all concurrent requests)
+Transfer rate: 4.13 [Kbytes/sec] received
+</code></pre>
+
+<p><strong>Prueba 2, tras habilitar la compresión gzip y la cache de Joomla</strong></p>
+
+<pre><code>Total transferred: 156936 bytes
+HTML transferred: 131801 bytes
+Requests per second: 0.45 [#/sec] (mean)
+Time per request: 6677.524 [ms] (mean)
+Time per request: 2225.841 [ms] (mean, across all concurrent requests)
+Transfer rate: 1.27 [Kbytes/sec] received
+</code></pre>
+
+<p>Como se ve no aumentamos el número de peticiones atendidas por segundo. Solo reducimos la cantidad de datos transferidos gracias a la compresión gzip.</p>
+
+<p>Instalamos eAccelerator para intentar que esto aumente. Para ello seguimos otro de los manuales de howtoforge.com. En concreto el titulado "Integrating eAccelerator Into PHP5 (Debian Etch)" del que espero que resulte adecuado para Ubuntu. Podemos comprobar si eAccelerator está instalado viendo la versión de php:</p>
+
+<pre><code>$ php -v
+PHP 5.2.3-1ubuntu6 (cli) (built: Oct 4 2007 23:35:54)
+Copyright (c) 1997-2007 The PHP Group
+Zend Engine v2.2.0, Copyright (c) 1998-2007 Zend Technologies
+with eAccelerator v0.9.5.2, Copyright (c) 2004-2006 eAccelerator, by eAccelerator
+</code></pre>
+
+<p><strong>Prueba 3, tras instalar eAccelerator</strong> (bajar, compilar, instalar y configurar /etc/php5/conf.d/eaccelerator.ini cambiando el uso de shared memory de 16 a 32Mb). Ahora mostramos los resultados obtenidos con siege:</p>
+
+<pre><code>$ siege -r 25 -b -c3 -H 'Accept-Encoding: gzip' http://web.a.probar/
+
+Transactions: 75 hits
+Availability: 100.00 %
+Elapsed time: 123.05 secs
+Data transferred: 0.18 MB
+Response time: 4.47 secs
+Transaction rate: 0.61 trans/sec
+Throughput: 0.00 MB/sec
+Concurrency: 2.73
+Successful transactions: 75
+Failed transactions: 0
+Longest transaction: 20.68
+Shortest transaction: 1.57
+</code></pre>
+
+<p>Análisis del resultado: hemos subido a 0.15 transacciones por segundo. Algo hemos hecho. De todas formas también podemos ver que el tiempo de respuesta es de casi cinco segundos.</p>
+
+<p>La siguiente opción es intentar que las cachés se almacenen en memoria, en un tmpfs de modo que sea mucho más rápido acceder a ellas. Esto ya lo hace eAccelerator al usar shm por lo que no tiene sentido intentar otra cosa.</p>
+
+<p>Podemos deshabilitar pues la caché de joomla para que sea eAccelerator quien se encarge. Realmente conseguimos poco. Solo reducir algo los tiempos de respuesta. La compresión gzip solo afecta a la cantidad de datos transferida y no a la de respuesta o a las transacciones por segundo. Los resultados obtenidos son los siguientes:</p>
+
+<pre><code>Transactions: 75 hits
+Availability: 100.00 %
+Elapsed time: 119.59 secs
+Data transferred: 0.18 MB
+Response time: 4.19 secs
+Transaction rate: 0.63 trans/sec
+Throughput: 0.00 MB/sec
+Concurrency: 2.63
+Successful transactions: 75
+Failed transactions: 0
+Longest transaction: 23.50
+Shortest transaction: 1.58
+</code></pre>
+
+<p>Por este lado no veo mayor avance posible sin entrar en la implementación en php. Quizá el siguiente paso podría ser intentar mejorar el acceso a la base de datos. Pero esto lo dejaremos de momento.</p>
+
+<p>Al instalar algunos componentes en joomla (joomfish, para site multilenguage castellano-catalán, ZMG, para la galería, joomlexplorer,...) el rendimiento ha bajado casi al nivel inicial. Eso significa que cuanto más cargamos de php más lento. Quizá en máquinas con más potencia de cálculo no sea escesivamente importante pero aquí si que lo es.</p>
+
+<p>Para 'acelerar' la página de entrada almenos hago que sea estática (uso wget desde el servidor para bajarla y guardarla como index.html, y lo repito habitualmente con cron para las actualizaciones)... esto hace que se parezca más a BarraPan que a una web dinámica.</p>
+
+<p>Habrá que pensar en si merece la pena o no hacer una web totalmente/principalmente estática.</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1</strong></p>
+
+<p>¿es que no hay nadie que use mod_caché con joomla? todo el mundo dispone de un maquinon para servir webs dinámicas? Tras buscar no he encontrado más que referencias a los manuales de los módulos y alguna combinación junto a mod_expires. OJO: también he descubierto que joomla envía una expiración fija de 1997 con lo que pasamos a tener que tocar el código (en concreto el index.php principal).</p>
+
+<p><strong>Comentario 2</strong></p>
+
+<p>Información sobre caches usando los documentos de error:</p>
+
+<ul>
+<li><p>Enlace 1 : <a href="http://www.phpbsd.net/2007/05/16/cache-de-paginas-estaticas-para-php/">Blog hablando del tema</a></p></li>
+<li><p>Enlace 2 : <a href="http://www.lerdorf.com/tips.pdf">Charla</a> (más en <a href="http://talks.php.net">talks.php.net</a>) del año 2002 sobre el mismo tema.</p></li>
+<li><p>Enlace 3 : <a href="http://cesarodas.com/2007/06/gcache_helping_php_to_work_faster.html">Clase para el mismo objetivo.</a></p></li>
+</ul>
+
+
+<p><strong>Comentario 3</strong></p>
+
+<p>Para WordPress existen cachés similares a lo que yo busco por ejemplo WP-Cache (de R. Galli) y sus derivados.</p>
+
+<p>Para Joomla hay algunas opciones de pago y también está PageCache. Habrá que experimentar con ello.</p>
+
+<p>Para que pagecache se integre con eaccelerator hemos de cambiar de:</p>
+
+<pre><code> $ ./configure
+</code></pre>
+
+<p>a:</p>
+
+<pre><code> $./configure --with-eaccelerator-shared-memory
+</code></pre>
+
+<p>mientras seguimos el howto de como instalar eaccelerator</p>
+
+<p><strong>Comentario 4</strong></p>
+
+<p>Gracias por el pequeño análisis!</p>
+
+<p>Yo también tengo un servidor y, buscando información sobre el rendimiento de GZIP, me he encontrado con esta web.</p>
+
+<p>Saludos desde Barcelona!
+Roc</p>
+]]></content>
+  </entry>
+  
+</feed>

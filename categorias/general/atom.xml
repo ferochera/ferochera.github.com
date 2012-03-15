@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Categoría: General | Xarx.es]]></title>
+  <link href="http://ferochera.github.com/deries/categorias/general/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/deries/"/>
+  <updated>2012-03-15T23:14:47+01:00</updated>
+  <id>http://ferochera.github.com/deries/</id>
+  <author>
+    <name><![CDATA[Fernando Ochera.]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Crear un pendrive multiboot a mano]]></title>
+    <link href="http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/"/>
+    <updated>2012-03-13T15:31:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano</id>
+    <content type="html"><![CDATA[<p>Aunque hay un montón de automatizaciones o semi-automatizaciones para crear pendrives con diferentes <em>livecd</em>'s decidí hacerlo a mano para aprender un poco más de <strong>syslinux/isolinux</strong> como gestor de arranque y porque, creo recordar, ninguno incluía <em>Hiren's Boot CD</em>.</p>
+
+<p>Los livecds/utilidades que incluí son:</p>
+
+<ul>
+<li>Hiren's Boot CD 14.1</li>
+<li>HDD Regenerator 2011</li>
+<li>Hardware Detection Tool 0.5.0</li>
+<li>KNOPPIX 6.7.1</li>
+<li>WIFIWAY 2.0.3</li>
+<li>CLONEZILLA 1.2.10</li>
+<li>GPARTED 0.9.1</li>
+<li>SYSTEM RESCUE CD</li>
+<li>GHOST RECOVERY CD</li>
+</ul>
+
+
+<!--more-->
+
+
+<p>La base del proceso fue el artículo <a href="http://www.taringa.net/posts/info/10670342/USB-Multiboot-sin-formatear_-paso-a-paso-_01_11_11_.html">http://www.taringa.net/posts/info/10670342/USB-Multiboot-sin-formatear<em>-paso-a-paso-</em>01_11_11_.html</a>.</p>
+
+<p>De él obtuve el archivo <a href="/downloads/MultibootLFM.7z">MultibootLFM</a> que me sirvió de base. En él se incluía opciones para arrancar el Hiren's boot cd y también para lanzar la instalación de windows desde USB. Se trata de ir modificando la configuración de syslinux para adaptarla a las opciones que deseamos.</p>
+
+<p>Lo que hice es adaptar las configuraciones de cada live en las que el arranque era a través de isolinux para lanzarlas desde la pantalla de entrada principal.</p>
+
+<p>La configuración principal de syslinux me quedó...
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (syslinux.cfg)</span> <a href='/downloads/code/syslinux.cfg'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+</pre></td><td class='code'><pre><code class='cfg'><span class='line'><span class="c">#Actualizaciones de GRUB4DOS en http://code.google.com/p/grub4dos-chenall/downloads/list</span>
+</span><span class='line'><span class="c">#GRUB4DOS actual 0.4.5b 2011-05-28</span>
+</span><span class='line'><span class="c">#Actualizaciones de SYSLINUX en http://syslinux.zytor.com/wiki/index.php/The_Syslinux_Project</span>
+</span><span class='line'><span class="c">#SYSLINUX actual 4.04</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">TITLE</span> <span class="err">ELIJA</span> <span class="err">COMO</span> <span class="err">DESEA</span> <span class="err">INICIAR</span> <span class="err">EL</span> <span class="err">USB</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">AUTOBOOT</span> <span class="err">Continuar</span> <span class="err">con</span> <span class="err">el</span> <span class="err">inicio</span> <span class="err">en</span> <span class="c"># segundo{,s}.</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">TIMEOUT</span> <span class="err">100</span>
+</span><span class='line'><span class="err">TOTALTIMEOUT</span> <span class="err">900</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">INCLUDE</span> <span class="err">/boot/syslinux/tema_base.cfg</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">CONTINUAR</span>
+</span><span class='line'>	<span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">*</span> <span class="err">INICIO</span> <span class="err">NORMAL</span> <span class="err">del</span>
+</span><span class='line'>	<span class="err">KERNEL</span> <span class="err">/boot/syslinux/grub.exe</span>
+</span><span class='line'>	<span class="err">APPEND</span> <span class="err">find</span> <span class="err">--set-root</span> <span class="err">--ignore-floppies</span> <span class="err">--ignore-cd</span> <span class="err">/bootmgr</span> <span class="err">||</span> <span class="err">find</span> <span class="err">--set-root</span> <span class="err">--ignore-floppies</span> <span class="err">--ignore-cd</span> <span class="err">/ntldr</span> <span class="err">||</span> <span class="err">rootnoverify</span> <span class="err">(hd0)</span> <span class="err">&amp;&amp;</span> <span class="err">chainloader</span> <span class="err">+1</span> <span class="err">&amp;&amp;</span> <span class="err">boot</span><span class="c">;map () (hd0) &amp;&amp; map (hd0) () &amp;&amp; map --rehook;find --set-root --ignore-floppies --ignore-cd /bootmgr || find --set-root --ignore-floppies --ignore-cd /ntldr;chainloader /bootmgr || chainloader /ntldr</span>
+</span><span class='line'>	<span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>	<span class="err">Prosigue</span> <span class="err">con</span> <span class="err">el</span> <span class="err">inicio</span> <span class="err">normal</span> <span class="err">del</span> <span class="err">sistema.</span>
+</span><span class='line'>	<span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">REINICIAR</span>
+</span><span class='line'>	<span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">*</span> <span class="err">REINICIAR</span> <span class="err">el</span> <span class="err">equipo</span>
+</span><span class='line'>	<span class="err">KERNEL</span> <span class="err">Reboot.c32</span>
+</span><span class='line'>	<span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>	<span class="err">Reinicia</span> <span class="err">el</span> <span class="err">equipo.</span>
+</span><span class='line'>	<span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">SEPARATOR</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">HIRENS</span>
+</span><span class='line'>	<span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">HIRENS</span> <span class="err">Boot</span> <span class="err">CD</span> <span class="err">14.1</span>
+</span><span class='line'>	<span class="err">kernel</span> <span class="err">/boot/syslinux/grub.exe</span>
+</span><span class='line'>	<span class="na">APPEND --config-file</span><span class="o">=</span><span class="s">&quot;/HBCD/menu.lst</span>
+</span><span class='line'><span class="s">	TEXT HELP</span>
+</span><span class='line'><span class="s">	Inicia el CD de Utilidades Hiren&#39;s Boot CD</span>
+</span><span class='line'><span class="s">	ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">HDDREG</span>
+</span><span class='line'>	<span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">HDD</span> <span class="err">Regenerator</span> <span class="err">2011</span>
+</span><span class='line'><span class="c">#	MENU INDENT 1</span>
+</span><span class='line'>	<span class="err">LINUX</span> <span class="err">/boot/syslinux/grub.exe</span>
+</span><span class='line'>	<span class="na">APPEND --config-file</span><span class="o">=</span><span class="s">&quot;ls /boot/HDDREG.iso || find --set-root /boot/HDDREG.iso;map --heads=0 --sectors-per-track=0 /boot/HDDREG.iso (0xff) || map --heads=0 --sectors-per-track=0 --mem /boot/HDDREG.iso (0xff);map --hook;chainloader (0xff)&quot;</span>
+</span><span class='line'><span class="s">	TEXT HELP</span>
+</span><span class='line'><span class="s">	Inicia el CD de HDD Regenerator 2011. Utilidad </span>
+</span><span class='line'><span class="s">	de lectura de sectores defectuosos de disco.</span>
+</span><span class='line'><span class="s">	ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">HDT</span>
+</span><span class='line'>	<span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">Hardware</span> <span class="err">Detection</span> <span class="err">Tool</span> <span class="err">0.5.0</span>
+</span><span class='line'>	<span class="err">COM32</span> <span class="err">/boot/syslinux/hdt.c32</span>
+</span><span class='line'>	<span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>	<span class="err">Inicia</span> <span class="err">Hardware</span> <span class="err">Detection</span> <span class="err">Tool</span> <span class="err">0.5.0.</span>
+</span><span class='line'>	<span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">KNOPPIX</span>
+</span><span class='line'>	<span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">KNOPPIX</span> <span class="err">6.7.1</span>
+</span><span class='line'>	<span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>	<span class="err">APPEND</span> <span class="err">/boot/syslinux/knoppix.cfg</span>
+</span><span class='line'>	<span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>	<span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">Knoppix</span>
+</span><span class='line'>	<span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">WIFIWAY</span>
+</span><span class='line'>	<span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">WIFIWAY</span> <span class="err">2.0.3</span>
+</span><span class='line'>	<span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>	<span class="err">APPEND</span> <span class="err">/boot/syslinux/wifiway.cfg</span>
+</span><span class='line'>	<span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>	<span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">WifiWay</span>
+</span><span class='line'>	<span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">CLONEZILLA</span>
+</span><span class='line'>	<span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">CLONEZILLA</span> <span class="err">1.2.10</span>
+</span><span class='line'>	<span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>	<span class="err">APPEND</span> <span class="err">/boot/syslinux/clonezilla.cfg</span>
+</span><span class='line'>	<span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>	<span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">Clonezilla.</span> <span class="err">Utilidad</span>
+</span><span class='line'>	<span class="err">para</span> <span class="err">crear/restaurar</span> <span class="err">imagenes</span> <span class="err">de</span> <span class="err">disco.</span>
+</span><span class='line'>	<span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">GPARTED</span>
+</span><span class='line'>	<span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">GPARTED</span> <span class="err">0.9.1</span>
+</span><span class='line'>	<span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>	<span class="err">APPEND</span> <span class="err">/boot/syslinux/gparted.cfg</span>
+</span><span class='line'>	<span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>	<span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">GParted.</span> <span class="err">Utilidad</span>
+</span><span class='line'>	<span class="err">para</span> <span class="err">crear/modificar</span> <span class="err">particiones</span> <span class="err">de</span> <span class="err">disco.</span>
+</span><span class='line'>	<span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">SYSRESCD</span>
+</span><span class='line'>	<span class="err">MENU</span> <span class="err">LABEL</span> <span class="err">&gt;</span> <span class="err">Iniciar</span> <span class="err">SYSTEM</span> <span class="err">RESCUE</span> <span class="err">CD</span>
+</span><span class='line'>	<span class="err">KERNEL</span> <span class="err">/boot/syslinux/vesaMENU.c32</span>
+</span><span class='line'>	<span class="err">APPEND</span> <span class="err">/boot/syslinux/sysrescd.cfg</span>
+</span><span class='line'>	<span class="err">TEXT</span> <span class="err">HELP</span>
+</span><span class='line'>	<span class="err">Inicia</span> <span class="err">el</span> <span class="err">CD-Live</span> <span class="err">de</span> <span class="err">System</span> <span class="err">Rescue</span> <span class="err">CD.</span>
+</span><span class='line'>	<span class="err">Utiles</span> <span class="err">para</span> <span class="err">rescatar</span> <span class="err">un</span> <span class="err">sistema.</span>
+</span><span class='line'>	<span class="err">ENDTEXT</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">MENU</span> <span class="err">SEPARATOR</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">LABEL</span> <span class="err">NGRCD</span>
+</span><span class='line'>	<span class="na">MENU LABEL</span> <span class="o">=</span><span class="s">&gt; GHOST RECOVERY CD</span>
+</span><span class='line'><span class="s">	COM32 /boot/syslinux/chain.c32</span>
+</span><span class='line'><span class="s">	APPEND fs ntldr=/bootmgr</span>
+</span><span class='line'><span class="s">	TEXT HELP</span>
+</span><span class='line'><span class="s">	Inicia el Norton Ghost Recovery CD. </span>
+</span><span class='line'><span class="s">	Para recuperar Windows XP en mi Portatil.</span>
+</span><span class='line'><span class="s">	ENDTEXT</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Cada una de las configuraciones parciales había que revisarlas para añadirles una entrada de volver al principal y revisar el <em>path</em> de los archivos añadidos al pendrive.</p>
+
+<p>El contenido del pendrive. Creo que basta con 8GB pero yo usé uno de 16GB.</p>
+
+<p><code>
+drwx------        8192 nov 10 09:51 autorun
+drwx------        8192 nov 10 11:36 boot
+drwx------        8192 ene 31  2011 bootdisk
+-r--r--r--      438840 dic 17  2007 bootmgr
+drwx------        8192 nov  9 11:32 boot_wifiway
+-rw-r--r--         135 nov  8 20:31 Clonezilla-Live-Version
+-rw-r--r--        1236 nov 10 10:54 contenido.txt
+drwx------        8192 ene 20  2008 docs
+drwx------        8192 ene 20  2008 driver validation
+drwx------        8192 nov 10 10:39 EFI
+-rw-r--r--         525 nov  9 14:18 GParted-Live-Version
+drwx------        8192 ago 22  2011 HBCD
+drwx------        8192 nov  8 20:31 home
+drwx------        8192 sep 14 18:28 KNOPPIX
+-r--r--r--       32256 feb 29 18:05 ldlinux.sys
+drwx------        8192 nov  8 20:31 liveclz1210
+drwx------        8192 nov  9 14:18 livegptd010
+drwx------        8192 mar  2  2010 ntpasswd
+drwx------        8192 ene 20  2008 sources
+-r--r--r--      663206 ene 20  2008 symdriverinfo.xml
+-r--r--r--         147 ene 20  2008 syminfo.xml
+-rw-r--r--   302059520 ago 23  2011 sysrcd.dat
+drwx------        8192 ene 20  2008 updatelocator
+drwx------        8192 sep 15 19:19 wifiway
+</code></p>
+
+<p>El contenido de /boot/syslinux es:</p>
+
+<p><code>
+-rw-r--r--   193094 nov 10 15:06 base.png
+-rw-r--r--     2048 sep 14 18:29 boot.cat
+-rw-r--r--      360 jun  6  2011 boothdd.lst
+-rw-r--r--    20192 abr 18  2011 chain.c32
+-rw-r--r--     6138 nov  9 13:42 clonezilla.cfg
+-rw-r--r--     4748 abr 18  2011 config.c32
+-rw-r--r--    43283 sep 20 06:34 drblwp.png
+-rw-r--r--     4011 nov  9 14:23 gparted.cfg
+-rwxr-xr-x   285260 jun  7  2011 grub.exe
+-rw-r--r--   642444 nov  9 14:18 Gsplash.png
+-rw-r--r--   350388 may 17  2011 hdt.c32
+-rw-r--r--    24576 abr 18  2011 isolinux.bin
+-rw-r--r--     4516 dic 28  2010 kbdmap.c32
+-rw-r--r--  1474560 feb  7  2009 knoppix_balder.img
+-rw-r--r--       93 sep 14 15:00 knoppix_boot.msg
+-rw-r--r--     3181 nov  4 20:52 knoppix.cfg
+-rw-r--r--     1335 sep 14 18:28 knoppix_f2
+-rw-r--r--     1324 sep 14 18:28 knoppix_f3
+-rw-r--r--  3688752 sep  9  2011 knoppix_linux
+-rw-r--r--  3955456 sep  9  2011 knoppix_linux64
+-rw-r--r--    20052 feb  7  2009 knoppix_memdisk
+-rw-r--r--   124648 mar  9  2011 knoppix_memtest
+-rw-r--r--   951242 sep 13 05:01 knoppix_minirt.gz
+-rw-r--r--    32768 may 17  2011 ldlinux.sys
+-rw-r--r--    18186 jun 23  2011 logo.16
+drwx------     8192 sep 26  2010 maps
+-rw-r--r--    26140 may 30  2011 memdisk
+-rw-r--r--    56164 abr 18  2011 menu.c32
+-rw-r--r--     5150 jul 24  2007 novafont.psf
+-rw-r--r--    46464 sep 20 06:34 ocswp.png
+-rw-r--r--   709349 may 31  2011 pci.ids
+-rw-r--r--      800 abr 18  2011 reboot.c32
+-rw-r--r--  9767104 ago 22  2011 syrcd_altker32
+-rw-r--r--  9898672 ago 22  2011 syrcd_altker64
+-rw-r--r--  8743112 ago 23  2011 syrcd_initram.igz
+-rw-r--r--    25340 dic 28  2010 syrcd_memdisk
+-rw-r--r--  9804944 ago 13  2011 syrcd_rescue64
+-rw-r--r--  9477120 ago 23  2011 syrcd_rescuecd
+-rw-r--r--     3209 nov 10 14:47 syslinux.cfg
+-rw-r--r--    23017 nov  9 15:16 sysrescd.cfg
+-rw-r--r--     1461 ago 23  2011 sysrf1boot.msg
+-rw-r--r--     1329 sep 26  2010 sysrf2images.msg
+-rw-r--r--     1768 sep 26  2010 sysrf3params.msg
+-rw-r--r--     1564 sep 26  2010 sysrf4arun.msg
+-rw-r--r--     1667 sep 26  2010 sysrf5troubl.msg
+-rw-r--r--     1282 sep 26  2010 sysrf6pxe.msg
+-rw-r--r--     1364 sep 26  2010 sysrf7net.msg
+-rw-r--r--      723 may 17  2011 tema_base.cfg
+-rw-r--r--   155792 abr 18  2011 vesamenu.c32
+-rw-r--r--     6414 nov  9 11:34 wifiway.cfg
+</code></p>
+
+<p>y los archivos de configuración utilizados son bajables pinchando <a href="/downloads/syslinux_cfgs.7z">en este enlace</a>.</p>
+
+<p>El resto del procedimiento consiste en mezclar los distintos archivos de cada liveCD. Como puede verse en los listados se ha copiado el contenido importante de los livecds pero algunos nombres de carpeta se han adaptado para que los contenidos no se machaquen.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[¿Qué has hecho en mi equipo?]]></title>
+    <link href="http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo/"/>
+    <updated>2012-03-13T15:03:00+01:00</updated>
+    <id>http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo</id>
+    <content type="html"><![CDATA[<p>Hace ya un tiempo llegué a un artículo del 2007 llamado <a href="http://consumerist.com/2007/07/how-to-make-your-computer-catch-people-stealing-your-porn.html">"How To Make Your Computer Catch People Stealing Your Porn"</a>. Se trata de un test sobre la privacidad de nuestros datos cuando llevamos el ordenador al servicio técnico. Los autores habían preparado un equipo con algunas imágenes golosas (chicas ligeras de ropa) y pedían a diferentes servicios técnicos que hicieran una intervención simple. Generaban vídeos del proceso y así cogieron a algunos técnicos que no actuaban profesionalmente...</p>
+
+<p>Realmente me interesaba el método para conocer que se ha hecho en mi equipo. En este artículo se cuenta como usar un vnc para generar un vídeo.</p>
+
+<p>Hace muy poco necesitaba buscar otra vez el artículo original y me costó volver a encontrarlo así que una vez hallado voy a preparar el resumen.</p>
+
+<!--more-->
+
+
+<p>Las herramientas que se utilizan son <strong>TightVNC</strong> y <strong>pyvnc2swf</strong>.</p>
+
+<ul>
+<li><p>TightVNC opera como el grabador. Provee una interfaz de salida para el escritorio del ordenador.</p></li>
+<li><p>Pyvnc2swf captura el resultado de esas imágenes y las almacena en un archivo para poder visualizarlos a posteriori. En un equipo con una memoria o CPU limitadas se puede optar por volcados crudos (<em>raw</em>) a un archivo VNC. En un equipo mejor dotado se puede volcar directamente a un archivo SWF comprimido</p></li>
+</ul>
+
+
+<h2>Configuración de TightVNC</h2>
+
+<p><img class="center" src="/images/tightvncsetup.jpg" title="TightVNC setup" alt="Configurando TightVNC"></p>
+
+<p>Tras instalar TightVNC, se utiliza la aplicación de control para configurar el VNC incluyendo la contraseña y se debe habilitar las conexiones locales (de lookback). Una vez utilizada esa aplicación de control hay que desabilitarla del arranque. Esto es porque no nos interesa que aparezcan en la barra de tareas o de notificación para que no se vea que estamos grabando.</p>
+
+<h2>Pyvnc2swf</h2>
+
+<p>El trabajo real lo realiza pyvnc2swf. Éste lo lanzaremos con un archivo <em>batch</em>. Usar un archivo <em>batch</em> proporciona una forma fácil de aleatorizar los archivos resultantes y además puede ser lanzado desde un servicio que configuremos al efecto.</p>
+
+<p>La utilidad <em>srvany.exe</em> es un programa que permite ejecutar como un servicio del sistema operativo una aplicación normal de Ms Windows (Xp, es el del ejemplo, pero se supone que en otros Ms Windows habrá algo similar).</p>
+
+<p>Una vez tenemos el archivo <em>batch</em> preparado podemos utilizar este sistema para lanzarlo en el arranque. Como parte del proceso de definición del servicio elegiremos un nombre que suene <em>"Microsoft-iano"</em>, como "Windows Image Capture Service". Esto es para que nuestro sistema de captura no sea detectado a primera vista.</p>
+
+<p><code>
+echo off
+"C:\Archivos de Programa\hoyle\wddm.exe" -n -o "C:\Archivos de Programa\hoyle\"%RANDOM%.vnc -P "C:\Archivos de Programa\hoyle\password.txt" localhost
+</code></p>
+
+<p>Tal como puede verse en el código anterior se configura la contraseña en un archivo de texto (el nombre se puede "mejorar") para poder acceder al VNC. En el archivo basta con que esté la contraseña en su propia línea. El parámetro <em>%RANDOM%</em> garantiza que pyvnc2swf no sobreescriba sus propios archivos al arrancar diferentes veces. Otra opción sería añadir <em>%TIME%</em> u otra similar.</p>
+
+<p>Tras configurar lo anterior habrá que verificar que nuestro servicio personalizado está configurado como "Automático". Tras esto, si todo está configurado correctamente, en cada reinicio del computador éste comenzará a grabar los contenidos del escritorio en la carpeta que previamente hayamos definido.</p>
+
+<p>Posteriormente se puede utilizar la herramienta <em>"edit"</em> de pyvnc2swf para convertir los archivos según nuestras necesidades.</p>
+
+<p>En cuanto a la configuración restante faltaría, por ejemplo, regular con que frecuencia se captura la imagen del escritorio (probablemente con 1 o 2 imágenes por segundo bastará).</p>
+
+<h2>Captura de Teclado.</h2>
+
+<p>Complementando la captura del escritorio en vídeo podemos instalar un keylogger que nos capture también las teclas.</p>
+
+<p>Para esto nos basamos en el artículo <a href="http://voices.yahoo.com/how-home-keylogger-monitor-kids-2303677.html">How to Use Home Keylogger to Monitor Your Kids - Jimmy Vidzem</a>. Seguro que hay opciones más elaboradas en cuanto a captura y ocultación pero para lo que queremos debería ser suficiente...</p>
+
+<p>Los <em>keyloggers</em> son aplicaciones diseñadas para capturar las pulsaciones del teclado. En este caso utilizaremos <a href="http://www.spyarsenal.com/keylogger">Home Keylogger</a>. Este keylogger en particular es <em>freeware</em>. Y comenzaremos bajándolo e instalándolo.</p>
+
+<p>Tras instalarlo aparece una ventana donde podemos comprobar que funciona correctamente. En el área de notificación hay un icono negro. Haciendo clic en él y seleccionando "->View Log" deberíamos ver lo que habíamos tecleado previamente.</p>
+
+<p>Podemos hacer que se inicie con cada reinicio haciendo clic en el icono de nuevo y seleccionando "Autorun". Para ocultar el keylogger habrá que hacer clic de nuevo y seleccionar "Hide icon". Aparecerá un pop-up diciendo "To show press CTRL+ALT+SHIFT+M" y tan pronto como le demos a OK desaparecerá el icono del área de notificación. Para volver a hacerlo aparecer tendremos que volver a pulsar la misma combinación de teclas (CTRL+ALT+SHIFT+M)</p>
+
+<p>Tal vez se podría iniciar utilizando el mismo <em>batch</em> comentado arriba... Y no estaría de más revisar si hay opciones para lanzarlo oculto directamente.</p>
+
+<h2>Observaciones</h2>
+
+<ol>
+<li><p>Estos mecanismos no funcionarán si el equipo arranca en Modo Seguro (safe mode) ya que en ese caso no se inician los servicios y programas que no sean críticos en el sistema.</p></li>
+<li><p>Los servicios son diferenciables ya que los que nosotros ponemos no son de "sistema" sino de "usuario".</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Archivos híbridos pdf-odt]]></title>
+    <link href="http://ferochera.github.com/deries/archives/41-Archivos-hibridos-pdf-odt.html"/>
+    <updated>2009-05-19T17:50:22+02:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Archivos-hibridos-pdf-odt</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p>Intersantísimo fragmento del texto de <a href="http://www.kriptopolis.org/interoperabilidad-3" title="Interoperabilidad. Fernando Acero. Kriptopolis">Fernando Acero para Kriptópolis.org</a></p>
+
+
+<blockquote><p><i>Por ejemplo, si instalamos <a href="http://extensions.services.openoffice.org/project/pdfimport">Sun PDF Import Extension [Beta]</a>, podremos modificar los archivos de OpenOffice.org almacenados en formato PDF, aunque no dispongamos de los archivos originales. Cuando tenemos esta extensión, los archivos PDF son importados en Draw e Impress, para conservar su estructura y para permitir una edición básica de los mismos. Esta es una solución muy interesante para hacer pequeñas correcciones, o cambios en el documento PDF, como fechas, cifras, o partes del texto mínimas. Desgraciadamente, no se pueden importar en este momento los documentos PDF nativos, es decir, los que no han sido creados con OpenOffice.org. Hay versiones de esta extensión para las distintas plataformas para las que está disponible OpenOffice.org en su versión 3.X, por lo que también la podemos usar desde Windows. También está previsto que en siguientes versiones de este añadido se mejoren las capacidades de  edición de los documentos PDF. </i></p><p><i>Esta extensión también permite algo muy curioso e interesante cara a la interoperabilidad y el almacenamiento de la información a largo plazo, como es la exportación de un PDF híbrido, es decir, un PDF con el archivo fuente, en formato ODF, embebido en él. De esta forma, el PDF híbrido se puede abrir desde OpenOffice.org como si fuera un ODF normal, sin perder el formato original del documento y con todas las posibilidades de edición que permite el programa. Sin embargo, los usuarios que no dispongan de OpenOffice.org podrán seguir abriendo la parte PDF de ese archivo híbrido sin problemas, por lo que seguirá siendo interoperable con los lectores PDF tradicionales. En este momento es una de las opciones que más utilizo con OpenOffice.org cuando genero mis documentos y deseo garantizar su interoperabilidad a largo plazo, pero sin renunciar a las posibilidades de edición cuando los abro en mi sistema. Es más, usando <a href="http://www.kriptopolis.org/sinadura-1-linux">Sinadura</a> o <a href="http://www.kriptopolis.org/portablesigner-2">PortableSigner</a>, puedo añadir una firma digital a estos archivos PDF, lo que también es interesante, ya que firmar el documento, no me impide editarlo posteriormente aunque, como es lógico, con ello se pierde la validez de la firma. Hay que señalar que OpenOffice.org también me permite firmar digitalmente y verificar la firma digital de documentos almacenados en formato ODF.</i></p><p><i>Para crear un archivo híbrido, una vez instalada la extensión Sun PDF Import, seleccionaremos la secuencia de mandatos Archivo | Exportar en formato PDF y en el recuadro de diálogo que nos aparece en pantalla, seleccionaremos las opciones PDF/A-1, que es una opción para almacenamiento a largo plazo de documentos PDF (encapsula todos tipos de letra que se utilizaron durante la edición y las etiquetas PDF) y la opción Crear archivo híbrido, seguido de la pulsación del botón Exportar. Bastará con seleccionar un nombre y trayectoria para nuestro archivo PDF en el siguiente recuadro de diálogo y volver a pulsar el botón Exportar, para finalizar el procedimiento.</i></p><p><i>También hay disponible un <a href="https://addons.mozilla.org/es-ES/firefox/addon/1888">visualizador de archivos en formato ODF para Firefox</a>. Este visualizador ODF también permite exportar el documento a PDF con solamente pulsar un botón en la interfaz de usuario del &quot;plugin&quot;.</i></p><p><i>&quot;Copyleft 2009 Fernando Acero Martín. Verbatim copying, translation and distribution of this entire article is permitted in any digital medium, provided this notice is preserved&quot;</i></p></blockquote>
+
+
+<br />
+
+
+<br />
+
+
+<br />
+
+
+<p>El resumen es que se trata (la extensión de SUN) de una gran idea. Por lo menos podemos mini-editar los pdfs generados exportando desde openoffice.</p>
+
+
+<p>En cuanto a los archivos híbridos también parecen muy útiles. Obviamente el tamaño de uno híbrido es la suma de los tamaños del archivo pdf normal más el del odf.</p>
+
+
+<p>Es, por tanto, una extensión imprescindible.</p>
+
+
+<br />
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[BackTrack 3. Instalación en pendrive]]></title>
+    <link href="http://ferochera.github.com/deries/archives/32-BackTrack-3.-Instalacion-en-pendrive.html"/>
+    <updated>2008-10-15T08:51:55+02:00</updated>
+    <id>http://ferochera.github.com/deries/archives/BackTrack-3.-Instalacion-en-pendrive</id>
+    <content type="html"><![CDATA[<br />
+
+
+<p>Si no conoces Backtrack quizá deberías visitar la web de <a href="http://www.remote-exploit.org/backtrack.html" title="Backtrack en remote-exploit.org"><b>remote-exploit.</b></a></p>
+
+
+<br />
+
+
+<p>Vamos a instalarla en un pendrive (de 1GB o mayor para que quepa). Los pasos son los siguientes:</p>
+
+
+<p>1-. Bajamos el iso (<a href="http://www.remote-exploit.org/cgi-bin/fileget?version=bt3-usb">bt3final_usb.iso</a>)</p>
+
+
+<p>2-. Copiamos el contenido al disco usb (damos por hecho que previamente el disco está vacío y particionado con una partición fat (o fat32). Para copiarlo podemos abrir el iso con, por ejemplo, winrar si lo hacemos en Ms Windows, o podemos montarlo en modo loop en gnu/linux (mount -o loop bt3final_usb.iso bt3/). Una vez tenemos el contenido disponible lo copiamos al disco usb.</p>
+
+
+<p>3-. Hacer el pendrive arrancable. Para ello ejecutamos un script (bootinst.bat en Windows o bootinst.sh en gnu/linux). Es posible que necesitemos disponer de permisos de administrador. En principio no debería haber problemas pero se impone leer con atención los mensajes que muestra el script.</p>
+
+
+<p>Para más detalles visita el <a href="http://wiki.remote-exploit.org/" title="Wiki de Remote-Exploit.org">wiki de remote-exploit.org</a></p>
+
+
+<p>Información extraida de <a href="http://lucas-coudures.blogspot.com/2008/07/instalar-backtrack-3-final.html">http://lucas-coudures.blogspot.com/2008/07/instalar-backtrack-3-final.html</a></p>
+
+
+<br />
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tuneles SSH]]></title>
+    <link href="http://ferochera.github.com/deries/archives/23-Tuneles-SSH.html"/>
+    <updated>2008-02-14T12:27:37+01:00</updated>
+    <id>http://ferochera.github.com/deries/archives/Tuneles-SSH</id>
+    <content type="html"><![CDATA[<p>Realmente no se trata solo de túneles sino de un manual en castellano hecho por HellGuest en vilecha.com: <a href="http://www.vilecha.com/Hellguest/ssh.asp"><b>Utilizando SSH</b></a></p>
+
+<p>Es realmente interesante tener un resumen reducido pero además aclara el uso de túneles con ssh-agent como puede verse en el capitudo dedicado a ello y que reproduzco...</p>
+
+<!--more-->
+
+
+<h2>Utilizando SSH</h2>
+
+<h3>Crear túneles con SSH</h3>
+
+<p>OpenSSH nos permite crear dos clases de túneles: locales y remotos. En los locales se redirecciona un puerto de la máquina local (cliente) hacia un puerto en una máquina remota a la que el servidor tenga acceso. En los túneles remotos, lo que se hace es redireccionar un puerto desde una máquina remota a la que el servidor tenga acceso hacia un puerto de la máquina local.</p>
+
+<p><strong>Túneles locales</strong></p>
+
+<p>La forma de crear túneles locales con OpenSSH es mediante la opción -L, cuya sintaxis es:</p>
+
+<p><code>
+-L [dirección_escucha:]puerto_escucha:máquina_remota:puerto_máquina_remota
+</code></p>
+
+<p>En caso de emplear direcciones IPv6, se puede utilizar la siguiente sintaxis:</p>
+
+<p><code>
+-L [dirección_escucha/]puerto_escucha/máquina_remota/puerto_máquina_remota
+</code></p>
+
+<p>Los túneles locales se establecen de la siguiente forma: primero se crea un conector (socket) de escucha en la máquina local, asociado al puerto puerto_escucha y, opcionalmente, a la dirección dirección_escucha. Cuando se realice una conexión al puerto en el que está escuchando el conector, OpenSSH encauzará la conexión a través del canal seguro hacia la máquina remota a la que el servidor tenga acceso, indicada por la IP máquina_remota y el puerto puerto_máquina_remota.</p>
+
+<p>Para demostrar como funcionan los túneles locales, me basaré en el siguiente diagrama ilustrativo:</p>
+
+<p><img class="center" src="/images/ssh_tunel_local1.png" title="Esquema ssh tunnel local" alt="Esquema ssh tunnel local"></p>
+
+<p>En el diagrama tenemos que nos encontramos en el equipo llamado alpha.local.net, y lo que queremos es acceder al servidor web (puerto 80) que hay en el equipo web.remoto.net, el problema es que entre nosotros y el servidor hay un router denominado router.remoto.net que nos impide acceder al servidor. Obviamente, el router ha de tener un servidor de SSH funcionando al que nosotros tengamos acceso, cumpliendose esta premisa, lo que vamos a hacer es redireccionar el puerto 80 (web) del servidor web.remoto.net hacia, por ejemplo, el puerto 8080 de nuestro equipo:</p>
+
+<p><code>
+[hell@alpha.local.net] $ ssh-agent -L 8080:web.remoto.net:80 router.remoto.net
+Enter passphrase for key '/home/hell/.ssh/id_dsa':
+[hell@router.remoto.net] $
+</code></p>
+
+<p>Hemos iniciado una sesión SSH interactiva en el router, pero además, ahora, en nuestro equipo, se habrá abierto el puerto 8080:</p>
+
+<p>```
+[hell@alpha.local.net] $ netstat -an | grep LISTEN</p>
+
+<pre><code>tcp   0   0  127.0.0.1.8080  .   LISTEN
+tcp   0   0  .22            .   LISTEN
+</code></pre>
+
+<p>[hell@alpha.local.net] $
+```</p>
+
+<p>El túnel está creado, ahora, mientras no cerremos la sesión SSH con el router, cada vez que nos conectemos al puerto 8080 de nuestro equipo (localhost o alpha.local.net), nuestra conexión estará siendo reenviada al puert 80 del servidor web.remoto.net. Por ejemplo, para acceder a el desde un navegador, tendríamos que usar una URL del estilo: <em>http://localhost:8080/</em></p>
+
+<p>Hasta aquí, bien, pero... si nos fijamos, en la salida del comando netstat que hay arriba, el túnel sólo acepta conexiones desde alpha.local.net, porque el conector (socket) que creo está asociado a la IP 127.0.0.1, también conocida como localhost, que sirve para referirse al propio equipo, así es que, ¿qué pasaría si lo que buscásemos fuese que otro equipo se conecte al servidor web.remoto.net a través de nuestro equipo? Añadamos ese nuevo equipo a nuestro diagrama:</p>
+
+<p><img class="center" src="/images/ssh_tunel_local2.png" title="Esquema ssh tunnel local (2)" alt="Esquema ssh tunnel local (2)"></p>
+
+<p>Para permitir que beta.local.net también pueda beneficiarse de nuestro túnel, tenemos que hacer que el socket no se asocie con la IP 127.0.0.1, esto se consigue poniendo un asterisco (*), o, la IP del propio alpha.local.net en el parámetro opcional dirección_escucha, ejemplo:</p>
+
+<p><code>
+[hell@alpha.local.net] $ ssh-agent -L :8080:web.remoto.net:80 router.remoto.net
+Enter passphrase for key '/home/hell/.ssh/id_dsa':
+[hell@router.remoto.net] $
+</code></p>
+
+<p>Si ahora ejecutásemos otra vez el comando netstat en alpha.local.net veríamos lo siguiente:</p>
+
+<p>```
+[hell@alpha.local.net] $ netstat -an | grep LISTEN</p>
+
+<pre><code>tcp 0 0 .8080 . LISTEN
+tcp 0 0 .22 . LISTEN
+</code></pre>
+
+<p>[hell@alpha.local.net] $
+```</p>
+
+<p>El conector del túnel ahora acepta conexiones de cualquier equipo, perfectamente, ahora podríamos abrir un navegador en beta.local.net y poner la siguiente URL: <em>http://alpha.local.net:8080/</em>, la conexión sería canalizada a través del canal seguro establecido entre alpha.local.net y router.remoto.net, hasta llegar al puerto 80 de web.remoto.net.</p>
+
+<p><strong>Túneles remotos</strong></p>
+
+<p>La forma de crear túneles remotos con OpenSSH es mediante la opción -R, que tiene la siguiente sintaxis:</p>
+
+<p><code>
+-R [dirección_escucha:]puerto_escucha:máquina_remota:puerto_máquina_remota
+</code></p>
+
+<p>Pero si se quieren emplear direcciones IPv6, también se permite usar la siguiente sintaxis:</p>
+
+<p><code>
+-R [dirección_escucha/]puerto_escucha/máquina_remota/puerto_máquina_remota
+</code></p>
+
+<p>El mecanismo empleado para establecer los túneles remotos es: se crea un conector (socket) en el servidor asociado al puerto indicado por puerto_escucha y, opcionalmente, a la dirección IP dirección_escucha. Posteriormente, cuando se realice una conexión a dicho conector, la conexión será encauzada a través del canal seguro hacia una máquina a la que el equipo local tenga acceso, indicada por la IP máquina_remota y el puerto puerto_máquina_remota.</p>
+
+<p>A modo de ejemplo sobre como se establecen los túneles remotos, basemonos en los equipos del siguiente diagrama:</p>
+
+<p><img class="center" src="/images/ssh_tunel_remoto1.png" title="Esquema ssh tunnel remoto" alt="Esquema ssh tunnel remoto"></p>
+
+<p>Para ponernos en situación, imaginemos que nos encontramos en el equipo alpha.local.net y que lo que queremos es que alguien desde el equipo terminal.remoto.com se pueda conectar a un servidor web (puerto 80) que tenemos en nuestro equipo, el problema está en que el router deja que nosotros podamos conectarnos a terminal.remoto.com, pero impide que el pueda conectarse a nosotros. Entonces, creamos un túnel remoto de la siguiente forma:</p>
+
+<p><code>
+[hell@alpha.local.net] $ ssh-agent -R 8080:localhost:80 terminal.remoto.net
+Enter passphrase for key '/home/hell/.ssh/id_dsa':
+[hell@terminal.remoto.net] $
+</code></p>
+
+<p>Ahora, se habrá creado un conector (socket) en terminal.remoto.net que estará escuchando en el puerto 8080:</p>
+
+<p><code>
+[hell@terminal.remoto.net] $ netstat -an | grept LISTEN
+tcp 0 0 127.0.0.1.8080 . LISTEN
+tcp 0 0 .22 .* LISTEN
+hell@terminal.remoto.net] $
+</code></p>
+
+<p>Cada vez que se establezca una conexión al puerto 8080 en terminal.remoto.net, esta conexión, será canalizada por el canal seguro hasta llegar al puerto 80 del equipo alpha.local.net, de esta forma, conseguimos que un equipo ajeno a nuestra red, pueda acceder a nuestro equipo. Pero, ¿qué pasaría si en lugar de a nuestro equipo lo que quisiéramos es que terminal.remoto.com pueda acceder a otro?, usemos el siguiente diagrama para orientarnos:</p>
+
+<p><img class="center" src="/images/ssh_tunel_remoto2.png" title="Esquema ssh tunnel remoto (2)" alt="Esquema ssh tunnel remoto (2)"></p>
+
+<p>De nuevo, nos encontramos en alpha.local.net, pero ahora, el servidor está en web.local.net, y lo que queremos es que terminal.remoto.net pueda acceder a el, pero el router sigue impidiendo que terminal.remoto.net se pueda conectar, y sin embargo, si que deja que nosotros desde alpha.local.net podamos conectarnos a terminal.remoto.net. Entonces, un comando como el siguiente sería suficiente:</p>
+
+<p><code>
+[hell@alpha.local.net] $ ssh-agent -R 8080:web.local.net:80 terminal.remoto.net
+Enter passphrase for key '/home/hell/.ssh/id_dsa':
+hell@terminal.remoto.net] $
+</code></p>
+
+<p>Esto indica que un extremo del túnel se corresponde con el puerto 8080 del equipo al que hemos conectado (terminal.remoto.net), y, el otro extremo, es el puerto 80 del equipo web.local.net, así de simple. Al establezcer una conexión en el puerto 8080 de terminal.remoto.net, la conexión viajará por el canal seguro establecido entre el cliente y el servidor de SSH, y después, se establecerá una nueva conexión entre alpha.local.net y web.loca.net para que los datos puedan fluir hasta su destino.</p>
+
+<h2>Actualizaciones y Comentarios previos</h2>
+
+<p><strong>Comentario 1</strong></p>
+
+<p>Utilícese ssh-agent como sinónimo de ssh... por ejemplo:</p>
+
+<p><code>
+$ ssh -R 8080:web.local.net:80 usuario@terminal.remoto.net
+</code></p>
+
+<p><strong>Comentario 2</strong></p>
+
+<p>Ejemplo de uso donde además de abrir una sesión del usuario en serv1 se crearía 4 túneles (ej.: 2 para escritorio remoto en distintos equipos, otro para el puerto 8080 ej gestion web de otro equipo y la gestión de serv1)</p>
+
+<p><code>
+$ ssh -L 8080:porta.midom.com:8080 -L 3389:win1.midom.com:3389 -L 3390:win2.midom.com:3389 -L 1081:serv1.midom.com:81 usuario@serv1.midom.com
+</code></p>
+
+<p><em>Atención</em>: para puertos &lt; 1024 se necesita privilegios de administrador (ej sudo ssh ...)</p>
+]]></content>
+  </entry>
+  
+</feed>
