@@ -1,269 +1,251 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/1-Gran-Inauguracion..html</loc>
+        <loc>http://ferochera.github.com/archives/1-Gran-Inauguracion..html</loc>
+        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ferochera.github.com/archives/4-El-Mini-Servidor-es-un-Primor.html</loc>
+        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ferochera.github.com/archives/5-Entorno-de-Pedidos.html</loc>
+        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ferochera.github.com/archives/6-Mi-nombre-es-Log,-CridaLog.html</loc>
+        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ferochera.github.com/archives/7-Varios-CMS.html</loc>
+        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ferochera.github.com/archives/8-Diff-respecto-DataGrid-4.20.html</loc>
+        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ferochera.github.com/archives/9-Subdominios-y-s9y.html</loc>
+        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ferochera.github.com/archives/10-Actualizacion-Ubuntu-Gutsy-1-yo-0.html</loc>
+        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ferochera.github.com/archives/11-Otras-ideas-para-jugar-con-PHP.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/4-El-Mini-Servidor-es-un-Primor.html
+            http://ferochera.github.com/archives/12-Instalando-Ubuntu-Gutsy-desde-la-Red.html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/5-Entorno-de-Pedidos.html</loc>
-        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://ferochera.github.com/deries/archives/6-Mi-nombre-es-Log,-CridaLog.html</loc>
-        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://ferochera.github.com/deries/archives/7-Varios-CMS.html</loc>
-        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://ferochera.github.com/deries/archives/8-Diff-respecto-DataGrid-4.20.html</loc>
-        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://ferochera.github.com/deries/archives/9-Subdominios-y-s9y.html</loc>
+        <loc>http://ferochera.github.com/archives/13-Diff-respecto-DataGrid-4.20-II.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/10-Actualizacion-Ubuntu-Gutsy-1-yo-0.html
+            http://ferochera.github.com/archives/14-Continua-la-Instalacion-del-Servidor-IspConfig-y-mas.html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://ferochera.github.com/deries/archives/11-Otras-ideas-para-jugar-con-PHP.html
-        </loc>
+        <loc>http://ferochera.github.com/archives/15-Rotar-fotos-segun-EXIF.html</loc>
+        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ferochera.github.com/archives/16-Rendimiento-del-miniservidor..html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/12-Instalando-Ubuntu-Gutsy-desde-la-Red.html
-        </loc>
-        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://ferochera.github.com/deries/archives/13-Diff-respecto-DataGrid-4.20-II.html
-        </loc>
-        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://ferochera.github.com/deries/archives/14-Continua-la-Instalacion-del-Servidor-IspConfig-y-mas.html
-        </loc>
-        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://ferochera.github.com/deries/archives/15-Rotar-fotos-segun-EXIF.html</loc>
-        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://ferochera.github.com/deries/archives/16-Rendimiento-del-miniservidor..html
-        </loc>
-        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://ferochera.github.com/deries/archives/18-Instalar-y-utilizar-el-simulador-de-red-CNET.html
+            http://ferochera.github.com/archives/18-Instalar-y-utilizar-el-simulador-de-red-CNET.html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/19-No-es-un-miniservidor,-es-un-Taper-Server.html
+            http://ferochera.github.com/archives/19-No-es-un-miniservidor,-es-un-Taper-Server.html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/17-Nueva-version-de-Datagrid.html</loc>
+        <loc>http://ferochera.github.com/archives/17-Nueva-version-de-Datagrid.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/20-Lista-de-Tareas-TaskFreak.html</loc>
+        <loc>http://ferochera.github.com/archives/20-Lista-de-Tareas-TaskFreak.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/21-Mover-sitios-web-entre-servidores-con-ISPConfig.html
+            http://ferochera.github.com/archives/21-Mover-sitios-web-entre-servidores-con-ISPConfig.html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/22-Navegar-anonimamente....html</loc>
+        <loc>http://ferochera.github.com/archives/22-Navegar-anonimamente....html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/23-Tuneles-SSH.html</loc>
+        <loc>http://ferochera.github.com/archives/23-Tuneles-SSH.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/24-Rsync-a-traves-de-SSH-almacenado-en-FAT.html
+            http://ferochera.github.com/archives/24-Rsync-a-traves-de-SSH-almacenado-en-FAT.html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://ferochera.github.com/deries/archives/25-Respaldo-de-Gmail-con-getmail.html
-        </loc>
+        <loc>http://ferochera.github.com/archives/25-Respaldo-de-Gmail-con-getmail.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/26-Respaldos-y-Sincronizacion.html</loc>
+        <loc>http://ferochera.github.com/archives/26-Respaldos-y-Sincronizacion.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://ferochera.github.com/deries/archives/27-Resumen-de-comandos-UNIX-TOOLBOX.html
-        </loc>
+        <loc>http://ferochera.github.com/archives/27-Resumen-de-comandos-UNIX-TOOLBOX.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/28-Cron-en-NSLU2-con-UNSLUNG.html</loc>
+        <loc>http://ferochera.github.com/archives/28-Cron-en-NSLU2-con-UNSLUNG.html</loc>
         <lastmod>2012-03-06T18:09:49+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/29-Apagar-Linux-desde-Windows.html</loc>
+        <loc>http://ferochera.github.com/archives/29-Apagar-Linux-desde-Windows.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/30-Clonezilla-SysRescueCD.html</loc>
+        <loc>http://ferochera.github.com/archives/30-Clonezilla-SysRescueCD.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/31-Restaurar-imagen-de-WinXp-en-otro-hardware..html
+            http://ferochera.github.com/archives/31-Restaurar-imagen-de-WinXp-en-otro-hardware..html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/32-BackTrack-3.-Instalacion-en-pendrive.html
+            http://ferochera.github.com/archives/32-BackTrack-3.-Instalacion-en-pendrive.html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/33-Concatenar-pdf-o-ps-con-gs.html</loc>
+        <loc>http://ferochera.github.com/archives/33-Concatenar-pdf-o-ps-con-gs.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/34-UBUNTU-DEBIAN-Evitar-actualizacion-de-un-paquete.html
-        </loc>
-        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://ferochera.github.com/deries/archives/35-Renombrar-muchos-archivos-desde-linea-de-comandos.html
+            http://ferochera.github.com/archives/34-UBUNTU-DEBIAN-Evitar-actualizacion-de-un-paquete.html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/36-Udev-y-Monit.-Resolviendo-problemas-de-wview..html
+            http://ferochera.github.com/archives/35-Renombrar-muchos-archivos-desde-linea-de-comandos.html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/37-Desinstalar-nucleos-antiguos.html
+            http://ferochera.github.com/archives/36-Udev-y-Monit.-Resolviendo-problemas-de-wview..html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/2009/02/05/guifi-net-a-castello-la-llavor/</loc>
+        <loc>http://ferochera.github.com/archives/37-Desinstalar-nucleos-antiguos.html</loc>
+        <lastmod>2012-03-06T17:54:57+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ferochera.github.com/2009/02/05/guifi-net-a-castello-la-llavor/</loc>
         <lastmod>2012-03-12T00:10:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/2009/02/26/cable-red-rigido-vs-flexible/</loc>
+        <loc>http://ferochera.github.com/2009/02/26/cable-red-rigido-vs-flexible/</loc>
         <lastmod>2012-03-12T00:18:26+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/38-Ejecutar-aplicaciones-X-como-root-en-un-display-de-usuario.html
+            http://ferochera.github.com/archives/38-Ejecutar-aplicaciones-X-como-root-en-un-display-de-usuario.html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga/
+            http://ferochera.github.com/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga/
         </loc>
         <lastmod>2012-03-12T01:04:35+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archives/41-Archivos-hibridos-pdf-odt.html</loc>
+        <loc>http://ferochera.github.com/archives/41-Archivos-hibridos-pdf-odt.html</loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://ferochera.github.com/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html
+            http://ferochera.github.com/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html
         </loc>
         <lastmod>2012-03-06T17:54:57+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://ferochera.github.com/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/
-        </loc>
+        <loc>http://ferochera.github.com/2011/11/21/guifi-dot-net-a-la-tertulia-del-portal/</loc>
+        <lastmod>2012-03-16T18:44:10+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ferochera.github.com/2012/03/07/migrando-el-blog-de-s9y-a-octopress/</loc>
         <lastmod>2012-03-14T00:19:07+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://ferochera.github.com/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/
-        </loc>
+        <loc>http://ferochera.github.com/2012/03/10/instalar-ubuntu-remotamente-usando-grub/</loc>
         <lastmod>2012-03-10T15:54:43+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo/</loc>
+        <loc>http://ferochera.github.com/2012/03/13/que-has-hecho-en-mi-equipo/</loc>
         <lastmod>2012-03-13T18:56:07+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/
-        </loc>
+        <loc>http://ferochera.github.com/2012/03/13/crear-un-pendrive-multiboot-a-mano/</loc>
         <lastmod>2012-03-13T19:03:25+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/</loc>
-        <lastmod>2012-03-15T16:15:00+01:00</lastmod>
+        <loc>http://ferochera.github.com/</loc>
+        <lastmod>2012-03-16T18:44:10+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/autor/</loc>
-        <lastmod>2012-03-15T23:14:17+01:00</lastmod>
+        <loc>http://ferochera.github.com/autor/</loc>
+        <lastmod>2012-03-16T18:08:03+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/archivo/</loc>
-        <lastmod>2012-03-14T00:19:07+01:00</lastmod>
+        <loc>http://ferochera.github.com/archivo/</loc>
+        <lastmod>2012-03-16T18:44:10+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/contacto/envio.html</loc>
+        <loc>http://ferochera.github.com/contacto/envio.html</loc>
         <lastmod>2012-03-15T13:52:43+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/contacto/</loc>
+        <loc>http://ferochera.github.com/contacto/</loc>
         <lastmod>2012-03-15T13:58:35+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/categorias/</loc>
-        <lastmod>2012-03-14T00:19:07+01:00</lastmod>
+        <loc>http://ferochera.github.com/categorias/</loc>
+        <lastmod>2012-03-16T18:44:10+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/downloads/code/datagrid.class.v2total.diff</loc>
+        <loc>http://ferochera.github.com/downloads/code/datagrid.class.v2total.diff</loc>
         <lastmod>2012-03-06T16:16:25+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/downloads/code/datagrid.class.diff</loc>
+        <loc>http://ferochera.github.com/downloads/code/datagrid.class.diff</loc>
         <lastmod>2012-03-06T16:16:25+01:00</lastmod>
     </url>
     <url>
-        <loc>http://ferochera.github.com/deries/downloads/code/datagrid.class.v2.diff</loc>
+        <loc>http://ferochera.github.com/downloads/code/datagrid.class.v2.diff</loc>
         <lastmod>2012-03-06T16:16:25+01:00</lastmod>
     </url>
 </urlset>

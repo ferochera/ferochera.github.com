@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Categoría: guifi.net | Xarx.es]]></title>
-  <link href="http://ferochera.github.com/deries/categorias/guifi-net/atom.xml" rel="self"/>
-  <link href="http://ferochera.github.com/deries/"/>
-  <updated>2012-03-15T23:14:47+01:00</updated>
-  <id>http://ferochera.github.com/deries/</id>
+  <link href="http://ferochera.github.com/categorias/guifi-net/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/"/>
+  <updated>2012-03-16T18:44:31+01:00</updated>
+  <id>http://ferochera.github.com/</id>
   <author>
     <name><![CDATA[Fernando Ochera.]]></name>
     
@@ -14,10 +14,50 @@
 
   
   <entry>
+    <title type="html"><![CDATA[guifi.net a La Tertúlia del Portal]]></title>
+    <link href="http://ferochera.github.com/2011/11/21/guifi-dot-net-a-la-tertulia-del-portal/"/>
+    <updated>2011-11-21T17:36:00+01:00</updated>
+    <id>http://ferochera.github.com/2011/11/21/guifi-dot-net-a-la-tertulia-del-portal</id>
+    <content type="html"><![CDATA[<p><img class="right" src="/images/03-guifi-net.jpg" title="&#34;guifi.net a la Tertúlia del Portal&#34;" alt="&#34;guifi.net a la Tertúlia del Portal&#34;">
+La tertúlia del dilluns, 21 de novembre de 2011 ha estat <em>"<strong>guifi.net</strong>. Xarxa Oberta, Lliure i Neutral"</em> i com és habitual ha tingut lloc al saló del Llaurador de CaixAlmassora a les 22h.</p>
+
+<p>El tertulià vaig estar jo...</p>
+
+<p>Ací podeu trobar:</p>
+
+<ul>
+<li><p><a href="https://docs.google.com/document/d/13aVZ1ffggnTccIqxf25FoVQfsq0y2p9XAiHDWKgDUvg/edit">Resum de la tertúlia</a></p></li>
+<li><p>Els enllaços d'interés</p>
+
+<ul>
+<li><p><a href="http://guifi.net">guifi.net</a>, la web principal.</p></li>
+<li><p><a href="http://castello.guifi.net">castello.guifi.net</a>, la xarxa a la nostra província.</p></li>
+<li><p><a href="http://test.guifi.net">test.guifi.net</a>, la pàgina de proves per a jugar sense trencar res.</p></li>
+<li><p><a href="http://goo.gl/JGdz1">les diapos de la tertúlia</a></p></li>
+<li><p><a href="http://castello.guifi.net/mailman/listinfo/usuaris">llista de correu d'usuaris de Castelló</a>, subscriute per a mantindre't informat.</p></li>
+</ul>
+</li>
+<li><p>El vídeo de la tertúlia (per problemes tècnics falten un parell de fragments)</p></li>
+</ul>
+
+
+<iframe width="400" height="300" frameborder="0" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" src="http://player.vimeo.com/video/36858760?title=0&amp;byline=0&amp;portrait=0" ></iframe>
+
+
+
+
+<p><a href="http://vimeo.com/36858760">Guifi.net. Fernando Ochera</a> - Vídeo de <a href="http://vimeo.com/user9971849">La Tertúlia del Portal a Vimeo</a>.</p>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Crear imagen de firmware de Ubiquiti con quagga]]></title>
-    <link href="http://ferochera.github.com/deries/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga/"/>
+    <link href="http://ferochera.github.com/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga/"/>
     <updated>2009-05-15T00:20:00+02:00</updated>
-    <id>http://ferochera.github.com/deries/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga</id>
+    <id>http://ferochera.github.com/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga</id>
     <content type="html"><![CDATA[<p>El objetivo es crear un archivo bin con el firmware de ubiquiti para nano5 o wispstation5 modificado de modo que incluya quagga como implementación de enrutamiento dinámico (usando ospf). Dado que el toolchain no ha cambiado desde la versión de inveneo en vez de aplicar sus cambios y compilar lo que haremos es abrir el firmware de inveneo extraer los scripts, librerias y ejecutables y añadirselos a la última versión (actualmente la 3.3.2).</p>
 
 <p>Este procedimiento está basado en la información compartida en las webs <a href="http://dren.dk/ubi.html">http://dren.dk/ubi.html</a> y <a href="http://rotobator.es">http://rotobator.es</a> y a ellos corresponde lo esencial del mérito.</p>
@@ -277,9 +317,9 @@ _esperar unos 10min_
   
   <entry>
     <title type="html"><![CDATA[Cable de red: rígido vs flexible]]></title>
-    <link href="http://ferochera.github.com/deries/2009/02/26/cable-red-rigido-vs-flexible/"/>
+    <link href="http://ferochera.github.com/2009/02/26/cable-red-rigido-vs-flexible/"/>
     <updated>2009-02-26T23:33:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/2009/02/26/cable-red-rigido-vs-flexible</id>
+    <id>http://ferochera.github.com/2009/02/26/cable-red-rigido-vs-flexible</id>
     <content type="html"><![CDATA[<p>He extraido un par de comentarios que pueden ser útiles a la hora de elegir cable de red. La idea es ver que ventajas e inconvenientes tiene el uso de cable rígido y/o cable flexible.</p>
 
 <p>Aunque los fragmentos están en inglés al final he añadido unas conclusiones simples...</p>
@@ -307,9 +347,9 @@ _esperar unos 10min_
   
   <entry>
     <title type="html"><![CDATA[guifi.net a Castelló: La llavor]]></title>
-    <link href="http://ferochera.github.com/deries/2009/02/05/guifi-net-a-castello-la-llavor/"/>
+    <link href="http://ferochera.github.com/2009/02/05/guifi-net-a-castello-la-llavor/"/>
     <updated>2009-02-05T23:33:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/2009/02/05/guifi-net-a-castello-la-llavor</id>
+    <id>http://ferochera.github.com/2009/02/05/guifi-net-a-castello-la-llavor</id>
     <content type="html"><![CDATA[<p>Els vídeos de la jornada dedicada a ruralnet i a guifi.net el dia 15 de desembre de 2008.</p>
 
 <ul>

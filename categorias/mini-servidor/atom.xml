@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Categoría: mini-servidor | Xarx.es]]></title>
-  <link href="http://ferochera.github.com/deries/categorias/mini-servidor/atom.xml" rel="self"/>
-  <link href="http://ferochera.github.com/deries/"/>
-  <updated>2012-03-15T23:14:47+01:00</updated>
-  <id>http://ferochera.github.com/deries/</id>
+  <link href="http://ferochera.github.com/categorias/mini-servidor/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/"/>
+  <updated>2012-03-16T18:44:31+01:00</updated>
+  <id>http://ferochera.github.com/</id>
   <author>
     <name><![CDATA[Fernando Ochera.]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Instalar Ubuntu remotamente usando grub]]></title>
-    <link href="http://ferochera.github.com/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/"/>
+    <link href="http://ferochera.github.com/2012/03/10/instalar-ubuntu-remotamente-usando-grub/"/>
     <updated>2012-03-10T15:24:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub</id>
+    <id>http://ferochera.github.com/2012/03/10/instalar-ubuntu-remotamente-usando-grub</id>
     <content type="html"><![CDATA[<p>Primero habrá que bajar el kernel y initrd adecuados para instalar desde imagen iso (vmlinuz_hdmedia, initrd_hdmedia) o desde red (vmlinuz_netboot, initrd_netboot), donde los "_hdmedia" o "_netboot" los añadí para diferenciarlas.</p>
 
 <p>Después añadiremos las siguientes entradas (una o las dos) en la configuración de grub. Es necesario adecuar la partición donde estén los kernels de arranque. Para hdmedia resultaba interesante poner la imagen <em>iso</em>(ubuntu alternate, creo recordar) de instalación en la raíz de una partición vfat.</p>
@@ -55,9 +55,9 @@ menuentry "Instalacion Ubuntu (ssh-netconsole, hdmedia)" {</p>
   
   <entry>
     <title type="html"><![CDATA[Apagar Linux desde Windows]]></title>
-    <link href="http://ferochera.github.com/deries/archives/29-Apagar-Linux-desde-Windows.html"/>
+    <link href="http://ferochera.github.com/archives/29-Apagar-Linux-desde-Windows.html"/>
     <updated>2008-09-03T11:57:10+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Apagar-Linux-desde-Windows</id>
+    <id>http://ferochera.github.com/archives/Apagar-Linux-desde-Windows</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -243,9 +243,9 @@ script vbs que antes de ejecutar el comando mostrará un msgbox de confirmación
   
   <entry>
     <title type="html"><![CDATA[Mover sitios web entre servidores con ISPConfig]]></title>
-    <link href="http://ferochera.github.com/deries/archives/21-Mover-sitios-web-entre-servidores-con-ISPConfig.html"/>
+    <link href="http://ferochera.github.com/archives/21-Mover-sitios-web-entre-servidores-con-ISPConfig.html"/>
     <updated>2008-02-12T19:31:33+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Mover-sitios-web-entre-servidores-con-ISPConfig</id>
+    <id>http://ferochera.github.com/archives/Mover-sitios-web-entre-servidores-con-ISPConfig</id>
     <content type="html"><![CDATA[<p>Esta entrada es básicamente la traducción de la <a href="http://www.howtoforge.com/forums/showthread.php?t=2717" title="Forum Howtoforge: Moving ISPconfig">entrada del forum en Howtoforge.com</a> donde falko lo explica...</p>
 
 
@@ -343,9 +343,9 @@ postmap /etc/postfix/transport
   
   <entry>
     <title type="html"><![CDATA[No es un miniservidor, es un Taper-Server]]></title>
-    <link href="http://ferochera.github.com/deries/archives/19-No-es-un-miniservidor,-es-un-Taper-Server.html"/>
+    <link href="http://ferochera.github.com/archives/19-No-es-un-miniservidor,-es-un-Taper-Server.html"/>
     <updated>2008-01-24T13:52:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/No-es-un-miniservidor,-es-un-Taper-Server</id>
+    <id>http://ferochera.github.com/archives/No-es-un-miniservidor,-es-un-Taper-Server</id>
     <content type="html"><![CDATA[<p>Tras ver que la fuente de alimentación que venía con la caja para lector de dvd externa no era suficiente había que improvisar.</p>
 
 <p>Busqué otra caja, esta vez un taper de los chinos (menos de 3€), y junto con una vieja fuente AT y unos cuantos tornillos de M3, sus tuercas y arandelas ya tenemos un TAPER-SERVER. La verdad es que la mayor parte del espacio se lo lleva la placa de la fuente AT y el ventilador con lo que ha quedado bastante más grande de lo que yo pretendía pero no había remedio.</p><p>Para que os riais un rato os pongo unas fotos...</p>
@@ -371,9 +371,9 @@ postmap /etc/postfix/transport
   
   <entry>
     <title type="html"><![CDATA[Rendimiento del miniservidor.]]></title>
-    <link href="http://ferochera.github.com/deries/archives/16-Rendimiento-del-miniservidor..html"/>
+    <link href="http://ferochera.github.com/archives/16-Rendimiento-del-miniservidor..html"/>
     <updated>2007-11-18T20:42:23+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Rendimiento-del-miniservidor.</id>
+    <id>http://ferochera.github.com/archives/Rendimiento-del-miniservidor.</id>
     <content type="html"><![CDATA[<br />
 
 

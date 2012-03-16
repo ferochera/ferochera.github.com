@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Categoría: Cuaderno-laboratorio | Xarx.es]]></title>
-  <link href="http://ferochera.github.com/deries/categorias/cuaderno-laboratorio/atom.xml" rel="self"/>
-  <link href="http://ferochera.github.com/deries/"/>
-  <updated>2012-03-15T23:14:47+01:00</updated>
-  <id>http://ferochera.github.com/deries/</id>
+  <link href="http://ferochera.github.com/categorias/cuaderno-laboratorio/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/"/>
+  <updated>2012-03-16T18:44:31+01:00</updated>
+  <id>http://ferochera.github.com/</id>
   <author>
     <name><![CDATA[Fernando Ochera.]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Crear un pendrive multiboot a mano]]></title>
-    <link href="http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/"/>
+    <link href="http://ferochera.github.com/2012/03/13/crear-un-pendrive-multiboot-a-mano/"/>
     <updated>2012-03-13T15:31:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano</id>
+    <id>http://ferochera.github.com/2012/03/13/crear-un-pendrive-multiboot-a-mano</id>
     <content type="html"><![CDATA[<p>Aunque hay un montón de automatizaciones o semi-automatizaciones para crear pendrives con diferentes <em>livecd</em>'s decidí hacerlo a mano para aprender un poco más de <strong>syslinux/isolinux</strong> como gestor de arranque y porque, creo recordar, ninguno incluía <em>Hiren's Boot CD</em>.</p>
 
 <p>Los livecds/utilidades que incluí son:</p>
@@ -360,9 +360,9 @@ drwx------     8192 sep 26  2010 maps
   
   <entry>
     <title type="html"><![CDATA[¿Qué has hecho en mi equipo?]]></title>
-    <link href="http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo/"/>
+    <link href="http://ferochera.github.com/2012/03/13/que-has-hecho-en-mi-equipo/"/>
     <updated>2012-03-13T15:03:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo</id>
+    <id>http://ferochera.github.com/2012/03/13/que-has-hecho-en-mi-equipo</id>
     <content type="html"><![CDATA[<p>Hace ya un tiempo llegué a un artículo del 2007 llamado <a href="http://consumerist.com/2007/07/how-to-make-your-computer-catch-people-stealing-your-porn.html">"How To Make Your Computer Catch People Stealing Your Porn"</a>. Se trata de un test sobre la privacidad de nuestros datos cuando llevamos el ordenador al servicio técnico. Los autores habían preparado un equipo con algunas imágenes golosas (chicas ligeras de ropa) y pedían a diferentes servicios técnicos que hicieran una intervención simple. Generaban vídeos del proceso y así cogieron a algunos técnicos que no actuaban profesionalmente...</p>
 
 <p>Realmente me interesaba el método para conocer que se ha hecho en mi equipo. En este artículo se cuenta como usar un vnc para generar un vídeo.</p>

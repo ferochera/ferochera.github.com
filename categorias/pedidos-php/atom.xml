@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Categoría: Pedidos PHP | Xarx.es]]></title>
-  <link href="http://ferochera.github.com/deries/categorias/pedidos-php/atom.xml" rel="self"/>
-  <link href="http://ferochera.github.com/deries/"/>
-  <updated>2012-03-15T23:14:47+01:00</updated>
-  <id>http://ferochera.github.com/deries/</id>
+  <link href="http://ferochera.github.com/categorias/pedidos-php/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/"/>
+  <updated>2012-03-16T18:44:31+01:00</updated>
+  <id>http://ferochera.github.com/</id>
   <author>
     <name><![CDATA[Fernando Ochera.]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Lista de Tareas TaskFreak]]></title>
-    <link href="http://ferochera.github.com/deries/archives/20-Lista-de-Tareas-TaskFreak.html"/>
+    <link href="http://ferochera.github.com/archives/20-Lista-de-Tareas-TaskFreak.html"/>
     <updated>2008-02-07T17:32:50+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Lista-de-Tareas-TaskFreak</id>
+    <id>http://ferochera.github.com/archives/Lista-de-Tareas-TaskFreak</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -50,22 +50,22 @@ and context</li><li>absolutely free &amp; open source </li></ul></blockquote>
   
   <entry>
     <title type="html"><![CDATA[Nueva versión de Datagrid]]></title>
-    <link href="http://ferochera.github.com/deries/archives/17-Nueva-version-de-Datagrid.html"/>
+    <link href="http://ferochera.github.com/archives/17-Nueva-version-de-Datagrid.html"/>
     <updated>2008-01-24T14:18:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Nueva-version-de-Datagrid</id>
+    <id>http://ferochera.github.com/archives/Nueva-version-de-Datagrid</id>
     <content type="html"><![CDATA[<p>Ha sido publicada la versión 4.2.3 del Datagrid en la página del proyecto <a href="http://phpbuilder.blogspot.com">http://phpbuilder.blogspot.com</a></p>
 
 <p>En el post del Mr. Leumas Naypoka se puede ver los cambios respecto de la versión previa (changelog)</p>
 
-<p>En algún momento revisaré los diffs a ver si son aprovechables y publicaré las nuevas versiones. Almenos eso espero <img src="http://ferochera.github.com/deries/images/wink.png" alt=";-)" style="display: inline; vertical-align: bottom;" class="emoticon" /></p>
+<p>En algún momento revisaré los diffs a ver si son aprovechables y publicaré las nuevas versiones. Almenos eso espero <img src="http://ferochera.github.com/images/wink.png" alt=";-)" style="display: inline; vertical-align: bottom;" class="emoticon" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Diff respecto DataGrid 4.20 (II)]]></title>
-    <link href="http://ferochera.github.com/deries/archives/13-Diff-respecto-DataGrid-4.20-II.html"/>
+    <link href="http://ferochera.github.com/archives/13-Diff-respecto-DataGrid-4.20-II.html"/>
     <updated>2007-11-09T19:38:52+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Diff-respecto-DataGrid-4.20-II</id>
+    <id>http://ferochera.github.com/archives/Diff-respecto-DataGrid-4.20-II</id>
     <content type="html"><![CDATA[<p>Vuelvo a incluir los cambios respecto del datagrid &quot;oficial&quot;.</p>
 
 <p><strong>ChangeLog:</strong></p>
@@ -584,9 +584,9 @@ and context</li><li>absolutely free &amp; open source </li></ul></blockquote>
   
   <entry>
     <title type="html"><![CDATA[Diff respecto DataGrid 4.20]]></title>
-    <link href="http://ferochera.github.com/deries/archives/8-Diff-respecto-DataGrid-4.20.html"/>
+    <link href="http://ferochera.github.com/archives/8-Diff-respecto-DataGrid-4.20.html"/>
     <updated>2007-10-25T11:15:55+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Diff-respecto-DataGrid-4.20</id>
+    <id>http://ferochera.github.com/archives/Diff-respecto-DataGrid-4.20</id>
     <content type="html"><![CDATA[<p>De momento la clase datagrid me funciona adecuadamente. Por esto almaceno aquí accesible el diff respecto del original.</p>
 
 <p>Modificaciones respecto del original...</p>
@@ -883,9 +883,9 @@ and context</li><li>absolutely free &amp; open source </li></ul></blockquote>
   
   <entry>
     <title type="html"><![CDATA[Entorno de Pedidos]]></title>
-    <link href="http://ferochera.github.com/deries/archives/5-Entorno-de-Pedidos.html"/>
+    <link href="http://ferochera.github.com/archives/5-Entorno-de-Pedidos.html"/>
     <updated>2007-10-24T19:09:30+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Entorno-de-Pedidos</id>
+    <id>http://ferochera.github.com/archives/Entorno-de-Pedidos</id>
     <content type="html"><![CDATA[<div align="justify">Se trata de algo totalmente previsible y sustituible por cualquier software de gestión. Sin embargo el objetivo es aprender. Es poco probable que esto llegue a un estado de &quot;producción&quot;</div>
 
 

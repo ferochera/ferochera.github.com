@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Xarx.es]]></title>
-  <link href="http://ferochera.github.com/deries/atom.xml" rel="self"/>
-  <link href="http://ferochera.github.com/deries/"/>
-  <updated>2012-03-15T23:14:47+01:00</updated>
-  <id>http://ferochera.github.com/deries/</id>
+  <link href="http://ferochera.github.com/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/"/>
+  <updated>2012-03-16T18:44:31+01:00</updated>
+  <id>http://ferochera.github.com/</id>
   <author>
     <name><![CDATA[Fernando Ochera.]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Crear un pendrive multiboot a mano]]></title>
-    <link href="http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano/"/>
+    <link href="http://ferochera.github.com/2012/03/13/crear-un-pendrive-multiboot-a-mano/"/>
     <updated>2012-03-13T15:31:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/2012/03/13/crear-un-pendrive-multiboot-a-mano</id>
+    <id>http://ferochera.github.com/2012/03/13/crear-un-pendrive-multiboot-a-mano</id>
     <content type="html"><![CDATA[<p>Aunque hay un montón de automatizaciones o semi-automatizaciones para crear pendrives con diferentes <em>livecd</em>&#8217;s decidí hacerlo a mano para aprender un poco más de <strong>syslinux/isolinux</strong> como gestor de arranque y porque, creo recordar, ninguno incluía <em>Hiren&#8217;s Boot CD</em>.</p>
 
 <p>Los livecds/utilidades que incluí son:</p>
@@ -40,13 +40,13 @@
 
 <p>La base del proceso fue el artículo <a href="http://www.taringa.net/posts/info/10670342/USB-Multiboot-sin-formatear_-paso-a-paso-_01_11_11_.html">http://www.taringa.net/posts/info/10670342/USB-Multiboot-sin-formatear<em>-paso-a-paso-</em>01_11_11_.html</a>.</p>
 
-<p>De él obtuve el archivo <a href="http://ferochera.github.com/deries/downloads/MultibootLFM.7z">MultibootLFM</a> que me sirvió de base. En él se incluía opciones para arrancar el Hiren&#8217;s boot cd y también para lanzar la instalación de windows desde USB. Se trata de ir modificando la configuración de syslinux para adaptarla a las opciones que deseamos.</p>
+<p>De él obtuve el archivo <a href="http://ferochera.github.com/downloads/MultibootLFM.7z">MultibootLFM</a> que me sirvió de base. En él se incluía opciones para arrancar el Hiren&#8217;s boot cd y también para lanzar la instalación de windows desde USB. Se trata de ir modificando la configuración de syslinux para adaptarla a las opciones que deseamos.</p>
 
 <p>Lo que hice es adaptar las configuraciones de cada live en las que el arranque era a través de isolinux para lanzarlas desde la pantalla de entrada principal.</p>
 
 <p>La configuración principal de syslinux me quedó&#8230;</p>
 
-<figure class='code'><figcaption><span> (syslinux.cfg)</span> <a href='http://ferochera.github.com/deries/downloads/code/syslinux.cfg'>download</a></figcaption>
+<figure class='code'><figcaption><span> (syslinux.cfg)</span> <a href='http://ferochera.github.com/downloads/code/syslinux.cfg'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -426,7 +426,7 @@
 </span><span class='line'>-rw-r--r--     6414 nov  9 11:34 wifiway.cfg</span></code></pre></td></tr></table></div></figure>
 
 
-<p>y los archivos de configuración utilizados son bajables pinchando <a href="http://ferochera.github.com/deries/downloads/syslinux_cfgs.7z">en este enlace</a>.</p>
+<p>y los archivos de configuración utilizados son bajables pinchando <a href="http://ferochera.github.com/downloads/syslinux_cfgs.7z">en este enlace</a>.</p>
 
 <p>El resto del procedimiento consiste en mezclar los distintos archivos de cada liveCD. Como puede verse en los listados se ha copiado el contenido importante de los livecds pero algunos nombres de carpeta se han adaptado para que los contenidos no se machaquen.</p>
 ]]></content>
@@ -434,9 +434,9 @@
   
   <entry>
     <title type="html"><![CDATA[¿Qué has hecho en mi equipo?]]></title>
-    <link href="http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo/"/>
+    <link href="http://ferochera.github.com/2012/03/13/que-has-hecho-en-mi-equipo/"/>
     <updated>2012-03-13T15:03:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/2012/03/13/que-has-hecho-en-mi-equipo</id>
+    <id>http://ferochera.github.com/2012/03/13/que-has-hecho-en-mi-equipo</id>
     <content type="html"><![CDATA[<p>Hace ya un tiempo llegué a un artículo del 2007 llamado <a href="http://consumerist.com/2007/07/how-to-make-your-computer-catch-people-stealing-your-porn.html">&#8220;How To Make Your Computer Catch People Stealing Your Porn&#8221;</a>. Se trata de un test sobre la privacidad de nuestros datos cuando llevamos el ordenador al servicio técnico. Los autores habían preparado un equipo con algunas imágenes golosas (chicas ligeras de ropa) y pedían a diferentes servicios técnicos que hicieran una intervención simple. Generaban vídeos del proceso y así cogieron a algunos técnicos que no actuaban profesionalmente&#8230;</p>
 
 <p>Realmente me interesaba el método para conocer que se ha hecho en mi equipo. En este artículo se cuenta como usar un vnc para generar un vídeo.</p>
@@ -456,7 +456,7 @@
 
 <h2>Configuración de TightVNC</h2>
 
-<p><img class="center" src="http://ferochera.github.com/deries/images/tightvncsetup.jpg" title="TightVNC setup" alt="Configurando TightVNC"></p>
+<p><img class="center" src="http://ferochera.github.com/images/tightvncsetup.jpg" title="TightVNC setup" alt="Configurando TightVNC"></p>
 
 <p>Tras instalar TightVNC, se utiliza la aplicación de control para configurar el VNC incluyendo la contraseña y se debe habilitar las conexiones locales (de lookback). Una vez utilizada esa aplicación de control hay que desabilitarla del arranque. Esto es porque no nos interesa que aparezcan en la barra de tareas o de notificación para que no se vea que estamos grabando.</p>
 
@@ -508,9 +508,9 @@
   
   <entry>
     <title type="html"><![CDATA[Instalar Ubuntu remotamente usando grub]]></title>
-    <link href="http://ferochera.github.com/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub/"/>
+    <link href="http://ferochera.github.com/2012/03/10/instalar-ubuntu-remotamente-usando-grub/"/>
     <updated>2012-03-10T15:24:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/2012/03/10/instalar-ubuntu-remotamente-usando-grub</id>
+    <id>http://ferochera.github.com/2012/03/10/instalar-ubuntu-remotamente-usando-grub</id>
     <content type="html"><![CDATA[<p>Primero habrá que bajar el kernel y initrd adecuados para instalar desde imagen iso (vmlinuz_hdmedia, initrd_hdmedia) o desde red (vmlinuz_netboot, initrd_netboot), donde los &#8220;_hdmedia&#8221; o &#8220;_netboot&#8221; los añadí para diferenciarlas.</p>
 
 <p>Después añadiremos las siguientes entradas (una o las dos) en la configuración de grub. Es necesario adecuar la partición donde estén los kernels de arranque. Para hdmedia resultaba interesante poner la imagen <em>iso</em>(ubuntu alternate, creo recordar) de instalación en la raíz de una partición vfat.</p>
@@ -552,9 +552,9 @@
   
   <entry>
     <title type="html"><![CDATA[Migrando el blog de s9y a Octopress]]></title>
-    <link href="http://ferochera.github.com/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress/"/>
+    <link href="http://ferochera.github.com/2012/03/07/migrando-el-blog-de-s9y-a-octopress/"/>
     <updated>2012-03-07T23:36:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/2012/03/07/migrando-el-blog-de-s9y-a-octopress</id>
+    <id>http://ferochera.github.com/2012/03/07/migrando-el-blog-de-s9y-a-octopress</id>
     <content type="html"><![CDATA[<p>Después de constatar que realmente utilizar un sistema dinámico no me depara beneficios visibles y revisar otros sistemas de creación estática como <a href="http://nanoc.stoneship.org">nanoc</a> finalmente, y tras conocer <a href="http://octopress.org">octopres</a> a través del <a href="http://www3.uji.es/~vrubert">blog de David Rubert</a>, decidí mudar mi blog que estaba creado con <a href="http://www.s9y.org">Serendipity-sy9</a></p>
 
 <p>Las etapas de este proceso han sido 3:</p>
@@ -737,10 +737,50 @@ ABBR_DAYNAMES_TR = [
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[guifi.net a La Tertúlia del Portal]]></title>
+    <link href="http://ferochera.github.com/2011/11/21/guifi-dot-net-a-la-tertulia-del-portal/"/>
+    <updated>2011-11-21T17:36:00+01:00</updated>
+    <id>http://ferochera.github.com/2011/11/21/guifi-dot-net-a-la-tertulia-del-portal</id>
+    <content type="html"><![CDATA[<p><img class="right" src="http://ferochera.github.com/images/03-guifi-net.jpg" title="&#34;guifi.net a la Tertúlia del Portal&#34;" alt="&#34;guifi.net a la Tertúlia del Portal&#34;">
+La tertúlia del dilluns, 21 de novembre de 2011 ha estat <em>&#8220;<strong>guifi.net</strong>. Xarxa Oberta, Lliure i Neutral&#8221;</em> i com és habitual ha tingut lloc al saló del Llaurador de CaixAlmassora a les 22h.</p>
+
+<p>El tertulià vaig estar jo&#8230;</p>
+
+<p>Ací podeu trobar:</p>
+
+<ul>
+<li><p><a href="https://docs.google.com/document/d/13aVZ1ffggnTccIqxf25FoVQfsq0y2p9XAiHDWKgDUvg/edit">Resum de la tertúlia</a></p></li>
+<li><p>Els enllaços d&#8217;interés</p>
+
+<ul>
+<li><p><a href="http://guifi.net">guifi.net</a>, la web principal.</p></li>
+<li><p><a href="http://castello.guifi.net">castello.guifi.net</a>, la xarxa a la nostra província.</p></li>
+<li><p><a href="http://test.guifi.net">test.guifi.net</a>, la pàgina de proves per a jugar sense trencar res.</p></li>
+<li><p><a href="http://goo.gl/JGdz1">les diapos de la tertúlia</a></p></li>
+<li><p><a href="http://castello.guifi.net/mailman/listinfo/usuaris">llista de correu d&#8217;usuaris de Castelló</a>, subscriute per a mantindre&#8217;t informat.</p></li>
+</ul>
+</li>
+<li><p>El vídeo de la tertúlia (per problemes tècnics falten un parell de fragments)</p></li>
+</ul>
+
+
+<iframe width="400" height="300" frameborder="0" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" src="http://player.vimeo.com/video/36858760?title=0&amp;byline=0&amp;portrait=0" ></iframe>
+
+
+
+
+<p><a href="http://vimeo.com/36858760">Guifi.net. Fernando Ochera</a> - Vídeo de <a href="http://vimeo.com/user9971849">La Tertúlia del Portal a Vimeo</a>.</p>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Usar gmail-google apps desde una aplicación que no soporte SSL]]></title>
-    <link href="http://ferochera.github.com/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html"/>
+    <link href="http://ferochera.github.com/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html"/>
     <updated>2009-05-19T18:00:47+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL</id>
+    <id>http://ferochera.github.com/archives/Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -845,9 +885,9 @@ Stunnel can allow you to secure non-SSL aware daemons and protocols (like POP, I
   
   <entry>
     <title type="html"><![CDATA[Archivos híbridos pdf-odt]]></title>
-    <link href="http://ferochera.github.com/deries/archives/41-Archivos-hibridos-pdf-odt.html"/>
+    <link href="http://ferochera.github.com/archives/41-Archivos-hibridos-pdf-odt.html"/>
     <updated>2009-05-19T17:50:22+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Archivos-hibridos-pdf-odt</id>
+    <id>http://ferochera.github.com/archives/Archivos-hibridos-pdf-odt</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -882,9 +922,9 @@ Stunnel can allow you to secure non-SSL aware daemons and protocols (like POP, I
   
   <entry>
     <title type="html"><![CDATA[Crear imagen de firmware de Ubiquiti con quagga]]></title>
-    <link href="http://ferochera.github.com/deries/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga/"/>
+    <link href="http://ferochera.github.com/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga/"/>
     <updated>2009-05-15T00:20:00+02:00</updated>
-    <id>http://ferochera.github.com/deries/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga</id>
+    <id>http://ferochera.github.com/2009/05/15/crear-imagen-de-firmware-de-ubiquiti-con-quagga</id>
     <content type="html"><![CDATA[<p>El objetivo es crear un archivo bin con el firmware de ubiquiti para nano5 o wispstation5 modificado de modo que incluya quagga como implementación de enrutamiento dinámico (usando ospf). Dado que el toolchain no ha cambiado desde la versión de inveneo en vez de aplicar sus cambios y compilar lo que haremos es abrir el firmware de inveneo extraer los scripts, librerias y ejecutables y añadirselos a la última versión (actualmente la 3.3.2).</p>
 
 <p>Este procedimiento está basado en la información compartida en las webs <a href="http://dren.dk/ubi.html">http://dren.dk/ubi.html</a> y <a href="http://rotobator.es">http://rotobator.es</a> y a ellos corresponde lo esencial del mérito.</p>
@@ -1146,9 +1186,9 @@ cfg: 131072 bytes (free: 0)
 
 <p>Los firmwares finales son los que se presentan a continuación. Para usarlos se deberán descomprimir (el zip es para que me deje subir el adjunto) y aunque no debe ser necesario se puede quitar la última extensión para dejarlo como *.bin.</p>
 
-<p><a href="http://ferochera.github.com/deries/downloads/XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin.sincfgfix-rcmodif.zip">&#8220;XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin(.sincfgfix-rcmodif)&#8221;</a>: Versión sin el cfgfix y tras modificar el script rc. He comprobado que ahora arranca automáticamente quagga</p>
+<p><a href="http://ferochera.github.com/downloads/XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin.sincfgfix-rcmodif.zip">&#8220;XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin(.sincfgfix-rcmodif)&#8221;</a>: Versión sin el cfgfix y tras modificar el script rc. He comprobado que ahora arranca automáticamente quagga</p>
 
-<p><a href="http://ferochera.github.com/deries/downloads/XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin.cfgfix-rcmodif.zip">&#8220;XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin(.cfgfix-rcmodif)&#8221;</a>: Versión CON el cfgfix y tras modificar el script rc. Solo se puede actualizar a través de tftp con el procedimiento de recuperación. Esto supone tener acceso al botón de reset, cosa que no siempre es cierta sin desmontar.</p>
+<p><a href="http://ferochera.github.com/downloads/XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin.cfgfix-rcmodif.zip">&#8220;XS5.ar2313.v3.3.2.4257.090214.1458.quagga.bin(.cfgfix-rcmodif)&#8221;</a>: Versión CON el cfgfix y tras modificar el script rc. Solo se puede actualizar a través de tftp con el procedimiento de recuperación. Esto supone tener acceso al botón de reset, cosa que no siempre es cierta sin desmontar.</p>
 
 <p>En cualquier caso hará falta revisar que la configuración es la adecuada (ospf activado y con la configuración manual habilitada). También hará falta añadir los archivos de configuración adecuados (zebra.conf y ospfd.conf en /etc/persistent/) y asegurarse que todo se almacena ejecutando</p>
 
@@ -1164,9 +1204,9 @@ cfg: 131072 bytes (free: 0)
   
   <entry>
     <title type="html"><![CDATA[Ejecutar aplicaciones X como root en un display de usuario]]></title>
-    <link href="http://ferochera.github.com/deries/archives/38-Ejecutar-aplicaciones-X-como-root-en-un-display-de-usuario.html"/>
+    <link href="http://ferochera.github.com/archives/38-Ejecutar-aplicaciones-X-como-root-en-un-display-de-usuario.html"/>
     <updated>2009-04-30T19:52:30+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Ejecutar-aplicaciones-X-como-root-en-un-display-de-usuario</id>
+    <id>http://ferochera.github.com/archives/Ejecutar-aplicaciones-X-como-root-en-un-display-de-usuario</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -1188,9 +1228,9 @@ cfg: 131072 bytes (free: 0)
   
   <entry>
     <title type="html"><![CDATA[Cable de red: rígido vs flexible]]></title>
-    <link href="http://ferochera.github.com/deries/2009/02/26/cable-red-rigido-vs-flexible/"/>
+    <link href="http://ferochera.github.com/2009/02/26/cable-red-rigido-vs-flexible/"/>
     <updated>2009-02-26T23:33:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/2009/02/26/cable-red-rigido-vs-flexible</id>
+    <id>http://ferochera.github.com/2009/02/26/cable-red-rigido-vs-flexible</id>
     <content type="html"><![CDATA[<p>He extraido un par de comentarios que pueden ser útiles a la hora de elegir cable de red. La idea es ver que ventajas e inconvenientes tiene el uso de cable rígido y/o cable flexible.</p>
 
 <p>Aunque los fragmentos están en inglés al final he añadido unas conclusiones simples&#8230;</p>
@@ -1214,15 +1254,15 @@ cfg: 131072 bytes (free: 0)
 </ul>
 
 
-<p><img src="http://ferochera.github.com/deries/images/rj45amp.gif" alt="Esquema conectores rj45 dependiendo del tipo de cable" /></p>
+<p><img src="http://ferochera.github.com/images/rj45amp.gif" alt="Esquema conectores rj45 dependiendo del tipo de cable" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[guifi.net a Castelló: La llavor]]></title>
-    <link href="http://ferochera.github.com/deries/2009/02/05/guifi-net-a-castello-la-llavor/"/>
+    <link href="http://ferochera.github.com/2009/02/05/guifi-net-a-castello-la-llavor/"/>
     <updated>2009-02-05T23:33:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/2009/02/05/guifi-net-a-castello-la-llavor</id>
+    <id>http://ferochera.github.com/2009/02/05/guifi-net-a-castello-la-llavor</id>
     <content type="html"><![CDATA[<p>Els vídeos de la jornada dedicada a ruralnet i a guifi.net el dia 15 de desembre de 2008.</p>
 
 <ul>
@@ -1237,9 +1277,9 @@ cfg: 131072 bytes (free: 0)
   
   <entry>
     <title type="html"><![CDATA[Desinstalar nucleos antiguos]]></title>
-    <link href="http://ferochera.github.com/deries/archives/37-Desinstalar-nucleos-antiguos.html"/>
+    <link href="http://ferochera.github.com/archives/37-Desinstalar-nucleos-antiguos.html"/>
     <updated>2008-12-03T18:06:47+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Desinstalar-nucleos-antiguos</id>
+    <id>http://ferochera.github.com/archives/Desinstalar-nucleos-antiguos</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -1271,9 +1311,9 @@ cfg: 131072 bytes (free: 0)
   
   <entry>
     <title type="html"><![CDATA[Udev y Monit. Resolviendo problemas de wview.]]></title>
-    <link href="http://ferochera.github.com/deries/archives/36-Udev-y-Monit.-Resolviendo-problemas-de-wview..html"/>
+    <link href="http://ferochera.github.com/archives/36-Udev-y-Monit.-Resolviendo-problemas-de-wview..html"/>
     <updated>2008-11-21T16:59:00+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Udev-y-Monit.-Resolviendo-problemas-de-wview.</id>
+    <id>http://ferochera.github.com/archives/Udev-y-Monit.-Resolviendo-problemas-de-wview.</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -1301,9 +1341,9 @@ Con esto conseguimos que se ejecute el script wview.monit si en 20 minutos no se
   
   <entry>
     <title type="html"><![CDATA[Renombrar muchos archivos desde linea de comandos]]></title>
-    <link href="http://ferochera.github.com/deries/archives/35-Renombrar-muchos-archivos-desde-linea-de-comandos.html"/>
+    <link href="http://ferochera.github.com/archives/35-Renombrar-muchos-archivos-desde-linea-de-comandos.html"/>
     <updated>2008-10-31T13:35:31+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Renombrar-muchos-archivos-desde-linea-de-comandos</id>
+    <id>http://ferochera.github.com/archives/Renombrar-muchos-archivos-desde-linea-de-comandos</id>
     <content type="html"><![CDATA[<p>La sintaxis de rename:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1362,9 +1402,9 @@ Con esto conseguimos que se ejecute el script wview.monit si en 20 minutos no se
   
   <entry>
     <title type="html"><![CDATA[UBUNTU - DEBIAN: Evitar actualización de un paquete]]></title>
-    <link href="http://ferochera.github.com/deries/archives/34-UBUNTU-DEBIAN-Evitar-actualizacion-de-un-paquete.html"/>
+    <link href="http://ferochera.github.com/archives/34-UBUNTU-DEBIAN-Evitar-actualizacion-de-un-paquete.html"/>
     <updated>2008-10-30T13:38:40+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/UBUNTU-DEBIAN-Evitar-actualizacion-de-un-paquete</id>
+    <id>http://ferochera.github.com/archives/UBUNTU-DEBIAN-Evitar-actualizacion-de-un-paquete</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -1438,9 +1478,9 @@ Con esto conseguimos que se ejecute el script wview.monit si en 20 minutos no se
   
   <entry>
     <title type="html"><![CDATA[Concatenar pdf o ps con gs]]></title>
-    <link href="http://ferochera.github.com/deries/archives/33-Concatenar-pdf-o-ps-con-gs.html"/>
+    <link href="http://ferochera.github.com/archives/33-Concatenar-pdf-o-ps-con-gs.html"/>
     <updated>2008-10-28T12:41:33+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Concatenar-pdf-o-ps-con-gs</id>
+    <id>http://ferochera.github.com/archives/Concatenar-pdf-o-ps-con-gs</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -1469,9 +1509,9 @@ Con esto conseguimos que se ejecute el script wview.monit si en 20 minutos no se
   
   <entry>
     <title type="html"><![CDATA[BackTrack 3. Instalación en pendrive]]></title>
-    <link href="http://ferochera.github.com/deries/archives/32-BackTrack-3.-Instalacion-en-pendrive.html"/>
+    <link href="http://ferochera.github.com/archives/32-BackTrack-3.-Instalacion-en-pendrive.html"/>
     <updated>2008-10-15T08:51:55+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/BackTrack-3.-Instalacion-en-pendrive</id>
+    <id>http://ferochera.github.com/archives/BackTrack-3.-Instalacion-en-pendrive</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -1506,9 +1546,9 @@ Con esto conseguimos que se ejecute el script wview.monit si en 20 minutos no se
   
   <entry>
     <title type="html"><![CDATA[Restaurar imagen de WinXp en otro hardware.]]></title>
-    <link href="http://ferochera.github.com/deries/archives/31-Restaurar-imagen-de-WinXp-en-otro-hardware..html"/>
+    <link href="http://ferochera.github.com/archives/31-Restaurar-imagen-de-WinXp-en-otro-hardware..html"/>
     <updated>2008-10-03T11:06:54+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Restaurar-imagen-de-WinXp-en-otro-hardware.</id>
+    <id>http://ferochera.github.com/archives/Restaurar-imagen-de-WinXp-en-otro-hardware.</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -1605,9 +1645,9 @@ Con esto conseguimos que se ejecute el script wview.monit si en 20 minutos no se
   
   <entry>
     <title type="html"><![CDATA[Clonezilla - SysRescueCD]]></title>
-    <link href="http://ferochera.github.com/deries/archives/30-Clonezilla-SysRescueCD.html"/>
+    <link href="http://ferochera.github.com/archives/30-Clonezilla-SysRescueCD.html"/>
     <updated>2008-09-23T12:50:07+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Clonezilla-SysRescueCD</id>
+    <id>http://ferochera.github.com/archives/Clonezilla-SysRescueCD</id>
     <content type="html"><![CDATA[<div align="left"><p>Tanto Clonezilla (que incluye ntfsclone) como SysRescCD son dos compilaciones de utilidades muy interesantes y desde este <a href="http://clonezilla-sysresccd.hellug.gr/" title="clonezilla-sysresccd"><b>sitio griego</b></a> podemos tenerlas juntas en el mismo cd. El siguiente texto está extraido de esta web&#8230;<u><b></b></u></p><blockquote><p><u><b>What is it all about?</b></u></p><p><b>Clonezilla-SysRescCD</b> is a Linux multi boot backup/restore and rescue CD, combining <a target="_blank" href="http://www.clonezilla.org/">Clonezilla Live</a> and <a target="_blank" href="http://www.sysresccd.org/Main_Page">System Rescue CD</a> in one CD.<br />  It is released under the <b>GNU General Public License (GPL)</b>.</p><p><a name="enhanced"></a><u><b>Enhanced features</b></u></p><p>Enhancements to <b>Clonezilla Live</b></p><ul><li><a href="http://clonezilla-sysresccd.hellug.gr/restore.html#auto" class="void">Automated restore DVDs</a><br />
 can be easily created, so that anybody can perform a system restore<br />
 operation (even people with minimum technical knowledge). All the<br />
@@ -1622,9 +1662,9 @@ necessary files for the creation of the DVD are included in <b>Clonezilla-SysRes
   
   <entry>
     <title type="html"><![CDATA[Apagar Linux desde Windows]]></title>
-    <link href="http://ferochera.github.com/deries/archives/29-Apagar-Linux-desde-Windows.html"/>
+    <link href="http://ferochera.github.com/archives/29-Apagar-Linux-desde-Windows.html"/>
     <updated>2008-09-03T11:57:10+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Apagar-Linux-desde-Windows</id>
+    <id>http://ferochera.github.com/archives/Apagar-Linux-desde-Windows</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -1671,19 +1711,19 @@ necessary files for the creation of the DVD are included in <b>Clonezilla-SysRes
 
 <p>2-. Creamos las claves. Para ello hacemos uso de PuTTYGen. En él seleccionamos una clave de 1024 bits del tipo SSH-2 DSA. Tras esto pulsamos el botón de generarla (&#8220;Generate&#8221;).</p>
 
-<p><img class="center" src="http://ferochera.github.com/deries/images/puttygen01.jpg" title="PuTTYGen" alt="Generando las claves con PuTTYGen"></p>
+<p><img class="center" src="http://ferochera.github.com/images/puttygen01.jpg" title="PuTTYGen" alt="Generando las claves con PuTTYGen"></p>
 
 <p>Mientras se crea debemos mover el puntero del ratón sobre la zona vacía del programa para aumentar la aleatoriedad de la clave. Tras esto tendremos el par de claves, publica y privada, creadas. Debemos copiar la clave pública al portapapeles desde la ventana donde nos aparece ya preparada para incluirla en el archivo de &#8220;authorized_keys&#8221; del usuario.</p>
 
-<p><img class="center" src="http://ferochera.github.com/deries/images/puttygen03.jpg" title="Clave pública" alt="Clave pública para copiar y pegar"></p>
+<p><img class="center" src="http://ferochera.github.com/images/puttygen03.jpg" title="Clave pública" alt="Clave pública para copiar y pegar"></p>
 
 <p>Una vez hecho esto guardaremos las claves pública y la privada en ficheros, uno para cada una, de modo que plink pueda usar la clave privada (y el cliente la pública a través de su authorized_keys). Para que no nos pida el password de acceso a la clave privada debemos dejar el campo vacío al guardarla.</p>
 
-<p><img class="center" src="http://ferochera.github.com/deries/images/puttygen04.jpg" title="Passwords" alt="(No) Asignar contraseñas a las claves con PuTTYGen"></p>
+<p><img class="center" src="http://ferochera.github.com/images/puttygen04.jpg" title="Passwords" alt="(No) Asignar contraseñas a las claves con PuTTYGen"></p>
 
 <p>Guardamos las dos claves en un lugar acesible en el equipo windows utilizando los botones &#8220;Save public key&#8221; y &#8220;Save private key&#8221;. Para la privada se sugiere la extensión ppk</p>
 
-<p><img class="center" src="http://ferochera.github.com/deries/images/puttygen05.jpg" title="PuTTYGen" alt="Almacenar las claves en archivo"></p>
+<p><img class="center" src="http://ferochera.github.com/images/puttygen05.jpg" title="PuTTYGen" alt="Almacenar las claves en archivo"></p>
 
 <p>3-. Incluir la clave pública generada en el authorized_keys del usuario apagador. Para ello podemos usar PuTTY desde el equipo windows. Vamos a editar /home/apagador/.ssh/authorized_keys. Debemos incluir lo que hemos copiado en el apartado 2, tras la creación de la clave. Incluimos como opción que el comando a ejecutar es shutdown y opcionalmente la ip del equipo windows. En la misma linea pegamos la clave pública (&#8220;ssh-dss AAAAB3&#8230;&#8221;)</p>
 
@@ -1706,7 +1746,7 @@ necessary files for the creation of the DVD are included in <b>Clonezilla-SysRes
 <p>ya debería funcionar (quizá faltara solo las rutas absolutas a plink y claveprivada.ppk). Pero para completar el tema vamos a utilizar un
 script vbs que antes de ejecutar el comando mostrará un msgbox de confirmación:</p>
 
-<figure class='code'><figcaption><span>Script de Apagado Remoto (apagarEquipoLinux.vbs)</span> <a href='http://ferochera.github.com/deries/downloads/code/apagarEquipoLinux.vbs'>download</a></figcaption>
+<figure class='code'><figcaption><span>Script de Apagado Remoto (apagarEquipoLinux.vbs)</span> <a href='http://ferochera.github.com/downloads/code/apagarEquipoLinux.vbs'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -1809,45 +1849,6 @@ script vbs que antes de ejecutar el comando mostrará un msgbox de confirmación
 <p>Es probable que existan soluciones mejores. Pero a mi no se me ocurren.</p>
 
 <p>Saludos</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cron en NSLU2 con UNSLUNG]]></title>
-    <link href="http://ferochera.github.com/deries/archives/28-Cron-en-NSLU2-con-UNSLUNG.html"/>
-    <updated>2008-06-09T18:36:07+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Cron-en-NSLU2-con-UNSLUNG</id>
-    <content type="html"><![CDATA[<p>Inicialmente existe un servicio de temporización derivado de la funcionalidad inicial de Linksys. El ejecutable está en <i>/usr/sbin/crond.</i></p>
-
-
-<p>En los foros dedicados al tema (ver www.nslu2-linux.org) se recomienda instalar un segundo cron para otros funcionamientos.</p>
-
-
-<p>Dado que me interesaba tener actualizado una dirección de dyndns instalé este segundo. Queda situado dentro de opt (<i>/opt/sbin/cron</i>)<br /> </p>
-
-
-<p>Dada esta situación y con los 2 en marcha si utilizamos crontab modificamos el primero. Para utilizar el nuevo debemos incluir un nuevo archivo en /opt/etc/cron.d/ con la configuración. Es importante incluir el usuario que ha de ejecutar el comando temporizado&#8230; en el ejemplo se trata de root.</p>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bash-3.2# cat dyndnsupd
-</span><span class='line'># Set the interval of the next IP check using a crontab entry.
-</span><span class='line'># Once every 15 minutes is good for a home server.
-</span><span class='line'>*/15 * * * * root /opt/bin/dyndnsupdate.sh &&gt;/dev/null</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<p>Enlaces interantes:</p>
-
-
-<ul><li><a href="http://www.nslu2-linux.org/" title="NSLU2-LINUX">NSLU2-LINUX</a><i></i></li></ul>
-
 ]]></content>
   </entry>
   

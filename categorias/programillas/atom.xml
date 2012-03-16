@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Categoría: Programillas | Xarx.es]]></title>
-  <link href="http://ferochera.github.com/deries/categorias/programillas/atom.xml" rel="self"/>
-  <link href="http://ferochera.github.com/deries/"/>
-  <updated>2012-03-15T23:14:47+01:00</updated>
-  <id>http://ferochera.github.com/deries/</id>
+  <link href="http://ferochera.github.com/categorias/programillas/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/"/>
+  <updated>2012-03-16T18:44:31+01:00</updated>
+  <id>http://ferochera.github.com/</id>
   <author>
     <name><![CDATA[Fernando Ochera.]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Lista de Tareas TaskFreak]]></title>
-    <link href="http://ferochera.github.com/deries/archives/20-Lista-de-Tareas-TaskFreak.html"/>
+    <link href="http://ferochera.github.com/archives/20-Lista-de-Tareas-TaskFreak.html"/>
     <updated>2008-02-07T17:32:50+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Lista-de-Tareas-TaskFreak</id>
+    <id>http://ferochera.github.com/archives/Lista-de-Tareas-TaskFreak</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -50,9 +50,9 @@ and context</li><li>absolutely free &amp; open source </li></ul></blockquote>
   
   <entry>
     <title type="html"><![CDATA[Rotar fotos según EXIF]]></title>
-    <link href="http://ferochera.github.com/deries/archives/15-Rotar-fotos-segun-EXIF.html"/>
+    <link href="http://ferochera.github.com/archives/15-Rotar-fotos-segun-EXIF.html"/>
     <updated>2007-11-17T16:04:18+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Rotar-fotos-segun-EXIF</id>
+    <id>http://ferochera.github.com/archives/Rotar-fotos-segun-EXIF</id>
     <content type="html"><![CDATA[<br />
 
 
@@ -117,9 +117,9 @@ Icon=kfm
   
   <entry>
     <title type="html"><![CDATA[Otras ideas para jugar con PHP]]></title>
-    <link href="http://ferochera.github.com/deries/archives/11-Otras-ideas-para-jugar-con-PHP.html"/>
+    <link href="http://ferochera.github.com/archives/11-Otras-ideas-para-jugar-con-PHP.html"/>
     <updated>2007-10-30T11:31:25+01:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Otras-ideas-para-jugar-con-PHP</id>
+    <id>http://ferochera.github.com/archives/Otras-ideas-para-jugar-con-PHP</id>
     <content type="html"><![CDATA[<p>El actual manejo de la bd de isbn del ministerio de cultura es un poco 'cansino'. Propongo hacer una especie de envoltorio que recoja los datos de una determinada búsqueda en una tabla temporal de mysql para mostrarlo en forma de tabla con todos los datos intereasantes en vez de tener que pinchar 1 a 1.<p>Es posible que esto no llegue a nada pero ya veremos...</p></p>
 ]]></content>
   </entry>

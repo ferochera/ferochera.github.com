@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Categoría: CMS | Xarx.es]]></title>
-  <link href="http://ferochera.github.com/deries/categorias/cms/atom.xml" rel="self"/>
-  <link href="http://ferochera.github.com/deries/"/>
-  <updated>2012-03-15T23:14:47+01:00</updated>
-  <id>http://ferochera.github.com/deries/</id>
+  <link href="http://ferochera.github.com/categorias/cms/atom.xml" rel="self"/>
+  <link href="http://ferochera.github.com/"/>
+  <updated>2012-03-16T18:44:31+01:00</updated>
+  <id>http://ferochera.github.com/</id>
   <author>
     <name><![CDATA[Fernando Ochera.]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Subdominios y s9y]]></title>
-    <link href="http://ferochera.github.com/deries/archives/9-Subdominios-y-s9y.html"/>
+    <link href="http://ferochera.github.com/archives/9-Subdominios-y-s9y.html"/>
     <updated>2007-10-25T20:10:32+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Subdominios-y-s9y</id>
+    <id>http://ferochera.github.com/archives/Subdominios-y-s9y</id>
     <content type="html"><![CDATA[<h2>s9y === serendipity</h2>
 
 <p>(ver <a href="www.s9y.org">s9y.org</a> para más detalles)</p>
@@ -40,9 +40,9 @@
   
   <entry>
     <title type="html"><![CDATA[Varios CMS]]></title>
-    <link href="http://ferochera.github.com/deries/archives/7-Varios-CMS.html"/>
+    <link href="http://ferochera.github.com/archives/7-Varios-CMS.html"/>
     <updated>2007-10-24T20:19:04+02:00</updated>
-    <id>http://ferochera.github.com/deries/archives/Varios-CMS</id>
+    <id>http://ferochera.github.com/archives/Varios-CMS</id>
     <content type="html"><![CDATA[<p>En esta categoría pondré mis reflexiones sobre los distintos CMS que pruebe...<p>De momento en el Mini-Servidor pienso probar Joomla (la rama 1 ya la he probado), en concreto la versión 1.5, con distintos módulos: joomfish, para poder tener una web multilingüe (català/español), jevents, para el calendario de eventos, jbook, para reseñas bibliográficas y poco más.</p><p>Además tenemos este, déries, que está basado en serendipity, y diretes, que me servirá para experimentar con drupal.</p><p>Si además trato de arrancarlo, Carlos, i.e. reviso como acelerarlo también lo contaría aquí.</p><p>De momento y para abrir boca un par de referencias sobre optimización:</p><p>Las charlas de php: <a href="http://talks.php.net" target="_blank" title="Charlas sobre php y más...">talks.php.net</a></p><p>Las charlas de
 Ilia Alshanetsky: <a href="http://www.illia.ws/talks.php" target="_blank" title="Charlas de Illia">www.illia.ws/talks</a>, al que también debo agradecer que me hiciera conocer serendipity. Cuando pasé por su web buscando la información sobre php también buscaba un blog de diseño claro y 'simple'.</p></p>
 ]]></content>

@@ -9,7 +9,7 @@
   <meta name="author" content="Fernando Ochera.">
 
   
-  <meta name="description" content="1-. listar los nucleos que tenemos instalados: sudo dpkg --get-selections | grep linux-image 2-. eliminar los que no queramos conservar con apt-get &hellip;">
+  <meta name="description" content="Els vídeos de la jornada dedicada a ruralnet i a guifi.net el dia 15 de desembre de 2008. Jornada sobre Free Wi-fi. RURALNET, por Jorge Hortelano &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ferochera.github.com/deries/page/2">
+  <link rel="canonical" href="http://ferochera.github.com/page/2">
   <link href="/deries/favicon.ico" rel="icon">
   <link href="/deries/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/deries/javascripts/modernizr-2.0.js"></script>
@@ -49,7 +49,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:ferochera.github.com/deries" />
+    <input type="hidden" name="q" value="site:ferochera.github.com" />
     <!--<input class="search" type="text" name="q" results="0" placeholder="Buscar"/>-->
     <input class="search" type="text" name="q" results="0" placeholder="Buscar"/>
   </fieldset>
@@ -67,6 +67,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/deries/2009/02/05/guifi-net-a-castello-la-llavor/">guifi.net a Castelló: La Llavor</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-05T23:33:00+01:00" pubdate data-updated="true">Jueves, 05 de Febrero de 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Els vídeos de la jornada dedicada a ruralnet i a guifi.net el dia 15 de desembre de 2008.</p>
+
+<ul>
+<li> <a href="http://www.svideo.uji.es/peli.php?codi=310&amp;lg=">Jornada sobre Free Wi-fi. RURALNET, por Jorge Hortelano</a></li>
+<li> <a href="http://www.svideo.uji.es/peli.php?codi=309&amp;lg=">Jornada sobre Free Wi-fi. GUIFI.NET, por Lluís Dalmau</a></li>
+</ul>
+
+
+<p>Aquesta reunió va ser l&#8217;inici de la xarxa guifi.net a Castelló. A partir d&#8217;aquest moment es va començar a montar els primers nodes.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -725,72 +769,6 @@ necessary files for the creation of the DVD are included in <b>Clonezilla-SysRes
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/deries/archives/28-Cron-en-NSLU2-con-UNSLUNG.html">Cron en NSLU2 Con UNSLUNG</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-06-09T18:36:07+02:00" pubdate data-updated="true">Lunes, 09 de Junio de 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Inicialmente existe un servicio de temporización derivado de la funcionalidad inicial de Linksys. El ejecutable está en <i>/usr/sbin/crond.</i></p>
-
-
-<p>En los foros dedicados al tema (ver www.nslu2-linux.org) se recomienda instalar un segundo cron para otros funcionamientos.</p>
-
-
-<p>Dado que me interesaba tener actualizado una dirección de dyndns instalé este segundo. Queda situado dentro de opt (<i>/opt/sbin/cron</i>)<br /> </p>
-
-
-<p>Dada esta situación y con los 2 en marcha si utilizamos crontab modificamos el primero. Para utilizar el nuevo debemos incluir un nuevo archivo en /opt/etc/cron.d/ con la configuración. Es importante incluir el usuario que ha de ejecutar el comando temporizado&#8230; en el ejemplo se trata de root.</p>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bash-3.2# cat dyndnsupd
-</span><span class='line'># Set the interval of the next IP check using a crontab entry.
-</span><span class='line'># Once every 15 minutes is good for a home server.
-</span><span class='line'>*/15 * * * * root /opt/bin/dyndnsupdate.sh &&gt;/dev/null</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<p>Enlaces interantes:</p>
-
-
-<ul><li><a href="http://www.nslu2-linux.org/" title="NSLU2-LINUX">NSLU2-LINUX</a><i></i></li></ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/deries/page/3/">&larr; <!--Older-->Anteriores</a>
@@ -824,14 +802,14 @@ necessary files for the creation of the DVD are included in <b>Clonezilla-SysRes
       </li>
     
       <li class="post">
-        <a href="/deries/archives/42-Usar-gmail-google-apps-desde-una-aplicacion-que-no-soporte-SSL.html">Usar gmail-google apps desde una aplicación que no soporte SSL</a>
+        <a href="/deries/2011/11/21/guifi-dot-net-a-la-tertulia-del-portal/">guifi.net a La Tertúlia del Portal</a>
       </li>
     
   </ul>
 </section>
 <section>
   <h1>Nube de Etiquetas</h1>
-    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 119.0909090909091%'>General(7)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 108.18181818181819%'>Guifi.net(3)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
+    <span id="tag-cloud"> <a href='/deries/categorias/cms' style='font-size: 105.45454545454545%'>Cms(2)</a>  <a href='/deries/categorias/cridalog' style='font-size: 102.72727272727273%'>Cridalog(1)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 105.45454545454545%'>Cuaderno-laboratorio(2)</a>  <a href='/deries/categorias/cuaderno-laboratorio' style='font-size: 160.0%'>Cuaderno-laboratorio(22)</a>  <a href='/deries/categorias/general' style='font-size: 121.81818181818181%'>General(8)</a>  <a href='/deries/categorias/guifi-net' style='font-size: 110.9090909090909%'>Guifi.net(4)</a>  <a href='/deries/categorias/mini-servidor' style='font-size: 124.54545454545455%'>Mini-servidor(9)</a>  <a href='/deries/categorias/pedidos-php' style='font-size: 113.63636363636364%'>Pedidos php(5)</a>  <a href='/deries/categorias/programillas' style='font-size: 108.18181818181819%'>Programillas(3)</a> </span>
 </section>
 <section>
   <h1>Enlaces</h1>
@@ -845,6 +823,7 @@ necessary files for the creation of the DVD are included in <b>Clonezilla-SysRes
     </li>
     <li><a href="http://castello.guifi.net" title="guifi.net en Castelló"><img src="/deries/images/guifi.png" /></a></li>
     <li><a href="http://github.com/ferochera" title="Mis proyectos en github"><img src="/deries/images/github.png" /></a></li>
+   <li><a href="http://tertuliadelportal.es" title="La Tertúlia del Portal"><img src="/deries/images/TertuliaPortal.png" /></a></li>
   </ul>
 </section>
 
